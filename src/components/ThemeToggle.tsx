@@ -1,43 +1,75 @@
-import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+
+type ThemeOption = "light" | "dark";
+
+const options: { value: ThemeOption; label: string; icon: React.ReactNode }[] = [
+  {
+    value: "light",
+    label: "Light",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-4 h-4">
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+    ),
+  },
+  {
+    value: "dark",
+    label: "Dark",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-4 h-4">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    ),
+  },
+];
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const activeIndex = options.findIndex((o) => o.value === theme);
 
-  const options = [
-    { value: "light" as const, icon: Sun, label: "Light" },
-    { value: "dark" as const, icon: Moon, label: "Dark" },
-  ];
+  const handleChange = (value: ThemeOption) => {
+    if (value === theme) return;
+    setPrevIndex(activeIndex);
+    if (value !== theme) toggleTheme();
+  };
+
+  // Compute highlight position
+  const getHighlightStyle = (): React.CSSProperties => {
+    const width = `${100 / options.length}%`;
+    const left = `${(activeIndex / options.length) * 100}%`;
+    return { width, left };
+  };
 
   return (
-    <div className="liquid-glass-toggle flex items-center rounded-full p-1 gap-0.5">
-      {options.map((opt) => {
-        const active = theme === opt.value;
-        return (
-          <button
-            key={opt.value}
-            onClick={() => { if (!active) toggleTheme(); }}
-            className="relative px-3 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 z-10 flex items-center gap-1.5"
-            style={{
-              color: active
-                ? "hsl(var(--primary-foreground))"
-                : "hsl(var(--muted-foreground))",
-            }}
-          >
-            {active && (
-              <motion.div
-                layoutId="theme-indicator"
-                className="absolute inset-0 rounded-full liquid-glass-indicator"
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              />
-            )}
-            <opt.icon size={12} className="relative z-10" />
-            <span className="relative z-10">{opt.label}</span>
-          </button>
-        );
-      })}
+    <div
+      ref={containerRef}
+      className="liquid-glass-switcher"
+      data-active={activeIndex + 1}
+      data-prev={prevIndex !== null ? prevIndex + 1 : undefined}
+    >
+      <span className="liquid-glass-switcher__label">Theme</span>
+      {options.map((option) => (
+        <label key={option.value} className="liquid-glass-switcher__option">
+          <input
+            type="radio"
+            name="theme-toggle"
+            value={option.value}
+            checked={theme === option.value}
+            onChange={() => handleChange(option.value)}
+            className="sr-only"
+          />
+          <span className="liquid-glass-switcher__icon">{option.icon}</span>
+          <span className="liquid-glass-switcher__text">{option.label}</span>
+        </label>
+      ))}
+      {/* Highlight slider */}
+      <div className="liquid-glass-switcher__highlight" style={getHighlightStyle()}>
+        <div className="liquid-glass-switcher__highlight-inner" />
+      </div>
     </div>
   );
 };

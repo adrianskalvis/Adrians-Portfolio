@@ -25,24 +25,23 @@ const AboutSection = () => {
 
   return (
     <section id="about" className="section-padding">
-      {/* Subtle divider */}
-      <div className="max-w-6xl mx-auto mb-16">
-        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      {/* Grey divider line with spacing */}
+      <div className="max-w-6xl mx-auto mb-20">
+        <div className="h-px bg-border" />
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <AnimatedSection>
-          <p className="text-sm font-medium tracking-widest uppercase text-primary mb-3">
-            {t("about.label")}
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-12">
-            {t("about.heading")}
-          </h2>
-        </AnimatedSection>
+        {/* Row 1: Title left, main text right */}
+        <div className="grid md:grid-cols-[1fr_1.5fr] gap-10 lg:gap-20 mb-8">
+          <AnimatedSection>
+            <p className="text-sm font-medium tracking-widest uppercase text-primary mb-3">
+              {t("about.label")}
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+              {t("about.heading")}
+            </h2>
+          </AnimatedSection>
 
-        {/* 50/50 split layout */}
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 mb-16">
-          {/* Left: Text content */}
           <AnimatedSection delay={0.1}>
             <div className="space-y-4">
               {descriptionParts.map((part, i) => (
@@ -50,7 +49,18 @@ const AboutSection = () => {
                   {part}
                 </p>
               ))}
-              <ul className="space-y-2 pt-2">
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* Row 2: Empty left, experience list + cards right */}
+        <div className="grid md:grid-cols-[1fr_1.5fr] gap-10 lg:gap-20">
+          {/* Empty left column for balance */}
+          <div className="hidden md:block" />
+
+          <div>
+            <AnimatedSection delay={0.15}>
+              <ul className="space-y-2 mb-12">
                 {experiences.map((exp, i) => (
                   <motion.li
                     key={i}
@@ -65,28 +75,27 @@ const AboutSection = () => {
                   </motion.li>
                 ))}
               </ul>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
 
-          {/* Right: Highlight cards */}
-          <div className="flex flex-col gap-4">
-            {highlights.map((item, i) => (
-              <AnimatedSection key={i} delay={0.15 + i * 0.1}>
-                <div className="card-sky p-5 flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
-                    <item.icon size={20} className="text-primary" />
+            <div className="flex flex-col gap-4">
+              {highlights.map((item, i) => (
+                <AnimatedSection key={i} delay={0.2 + i * 0.1}>
+                  <div className="card-sky p-5 flex items-start gap-4 group">
+                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                      <item.icon size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-semibold text-foreground mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-display font-semibold text-foreground mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              ))}
+            </div>
           </div>
         </div>
       </div>
