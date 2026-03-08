@@ -185,32 +185,46 @@
     transition: background 0.4s ease, box-shadow 0.4s ease;
   }
 
-  /* Individual dock icon wrapper */
+  /* Individual dock icon — perfect glass circle */
+  .dock-icon-circle {
+    position: relative;
+    z-index: 1;
+    background: hsl(var(--card) / 0.35);
+    backdrop-filter: blur(14px) saturate(1.5);
+    -webkit-backdrop-filter: blur(14px) saturate(1.5);
+    border: 1px solid hsl(var(--border) / 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    transition: all 0.25s ease;
+  }
+
   .dock-icon-item {
     position: relative;
   }
   .dock-icon-item::before {
     content: '';
     position: absolute;
-    inset: 4px;
-    border-radius: 12px;
-    background: hsl(var(--card) / 0.3);
-    backdrop-filter: blur(12px) saturate(1.4);
-    -webkit-backdrop-filter: blur(12px) saturate(1.4);
-    border: 1px solid hsl(var(--border) / 0.15);
+    inset: 2px;
+    border-radius: 50%;
+    background: hsl(var(--card) / 0.4);
+    backdrop-filter: blur(16px) saturate(1.6);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    border: 1px solid hsl(var(--border) / 0.18);
+    box-shadow: 0 2px 12px hsl(var(--primary) / 0.06), inset 0 1px 0 hsl(0 0% 100% / 0.12);
     opacity: 0;
     transition: opacity 0.25s ease, transform 0.25s ease;
-    transform: scale(0.9);
+    transform: scale(0.85);
     z-index: 0;
   }
   .dock-icon-item:hover::before {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1.05);
   }
-
-  .dock-icon-inner {
-    position: relative;
-    z-index: 1;
+  .dock-icon-item:hover .dock-icon-circle {
+    color: hsl(var(--primary));
   }
 
   .glass-label {
