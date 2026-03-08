@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -20,7 +22,6 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center sky-gradient overflow-hidden"
     >
-      {/* Floating glass orbs with parallax */}
       <motion.div
         style={{ y: y3 }}
         className="absolute top-16 right-[10%] w-72 h-72 rounded-full glass-orb animate-float"
@@ -43,7 +44,7 @@ const HeroSection = () => {
           transition={{ duration: 0.5 }}
           className="text-sm font-medium tracking-widest uppercase text-primary mb-4"
         >
-          Software Engineer
+          {t("hero.subtitle")}
         </motion.p>
 
         <motion.h1
@@ -52,7 +53,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-display text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
         >
-          Alex <span className="text-gradient-sky">Johnson</span>
+          {t("hero.heading.first")}{" "}
+          <span className="text-gradient-sky">{t("hero.heading.last")}</span>
         </motion.h1>
 
         <motion.p
@@ -61,8 +63,7 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
         >
-          Crafting clean, performant software with a passion for elegant solutions
-          and modern web technologies.
+          {t("hero.description")}
         </motion.p>
 
         <motion.div
@@ -79,7 +80,7 @@ const HeroSection = () => {
             }}
             className="glass-button-primary inline-flex items-center gap-2 px-7 py-3 rounded-full font-medium text-sm"
           >
-            View Projects
+            {t("hero.viewProjects")}
           </a>
           <a
             href="#contact"
@@ -89,7 +90,7 @@ const HeroSection = () => {
             }}
             className="glass-button inline-flex items-center gap-2 px-7 py-3 rounded-full font-medium text-sm"
           >
-            Get in Touch
+            {t("hero.getInTouch")}
           </a>
         </motion.div>
       </motion.div>

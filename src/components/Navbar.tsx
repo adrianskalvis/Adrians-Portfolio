@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
-import { Home, User, FolderOpen, Wrench, Mail, Menu, X } from "lucide-react";
+import { Home, User, FolderOpen, Wrench, Mail, Menu, X, Github } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dock, DockItem, DockIcon, DockLabel } from "@/components/ui/dock";
-
-const navItems = [
-  { label: "Home", href: "#hero", icon: Home },
-  { label: "About", href: "#about", icon: User },
-  { label: "Projects", href: "#projects", icon: FolderOpen },
-  { label: "Skills", href: "#skills", icon: Wrench },
-  { label: "Contact", href: "#contact", icon: Mail },
-];
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navItems = [
+    { label: t("nav.home"), href: "#hero", icon: Home },
+    { label: t("nav.about"), href: "#about", icon: User },
+    { label: t("nav.projects"), href: "#projects", icon: FolderOpen },
+    { label: t("nav.skills"), href: "#skills", icon: Wrench },
+    { label: t("nav.contact"), href: "#contact", icon: Mail },
+    { label: "GitHub", href: "https://github.com/adrianskalvis", icon: Github, external: true },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -21,8 +26,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNav = (href: string) => {
+  const handleNav = (href: string, external?: boolean) => {
     setMobileOpen(false);
+    if (external) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
     const el = document.querySelector(href);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -31,12 +40,14 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Top-right controls */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
+
       {/* Desktop Dock - fixed bottom center */}
-      <div
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block transition-opacity duration-500 ${
-          scrolled ? "opacity-100" : "opacity-100"
-        }`}
-      >
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <Dock
           magnification={70}
           distance={120}
@@ -46,7 +57,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <DockItem
               key={item.href}
-              onClick={() => handleNav(item.href)}
+              onClick={() => handleNav(item.href, (item as any).external)}
               className="cursor-pointer"
             >
               <DockLabel className="glass-label">{item.label}</DockLabel>
@@ -60,7 +71,7 @@ const Navbar = () => {
 
       {/* Mobile nav bar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 md:hidden transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 md:hidden transition-all duration-300 ${
           scrolled
             ? "glass-surface border-b border-border/40 shadow-sm"
             : "bg-transparent"
@@ -95,7 +106,7 @@ const Navbar = () => {
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <button
-                      onClick={() => handleNav(item.href)}
+                      onClick={() => handleNav(item.href, (item as any).external)}
                       className="flex items-center gap-3 text-sm font-medium text-muted-foreground hover:text-primary transition-colors w-full text-left"
                     >
                       <item.icon size={16} />
