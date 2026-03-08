@@ -6,24 +6,39 @@ const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
 
+  const options = [
+    { value: "light" as const, icon: Sun, label: "Light" },
+    { value: "dark" as const, icon: Moon, label: "Dark" },
+  ];
+
   return (
-    <button
-      onClick={toggleTheme}
-      className="glass-toggle-container relative flex items-center rounded-full p-1 w-14 h-8 cursor-pointer"
-      aria-label="Toggle theme"
-    >
-      <motion.div
-        className="absolute w-6 h-6 rounded-full bg-primary flex items-center justify-center"
-        animate={{ x: isDark ? 24 : 2 }}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      >
-        {isDark ? (
-          <Moon size={12} className="text-primary-foreground" />
-        ) : (
-          <Sun size={12} className="text-primary-foreground" />
-        )}
-      </motion.div>
-    </button>
+    <div className="liquid-glass-toggle flex items-center rounded-full p-1 gap-0.5">
+      {options.map((opt) => {
+        const active = theme === opt.value;
+        return (
+          <button
+            key={opt.value}
+            onClick={() => { if (!active) toggleTheme(); }}
+            className="relative px-3 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 z-10 flex items-center gap-1.5"
+            style={{
+              color: active
+                ? "hsl(var(--primary-foreground))"
+                : "hsl(var(--muted-foreground))",
+            }}
+          >
+            {active && (
+              <motion.div
+                layoutId="theme-indicator"
+                className="absolute inset-0 rounded-full liquid-glass-indicator"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+            )}
+            <opt.icon size={12} className="relative z-10" />
+            <span className="relative z-10">{opt.label}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 };
 
