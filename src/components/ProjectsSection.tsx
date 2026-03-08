@@ -37,8 +37,8 @@ const ProjectsSection = () => (
       <div className="grid md:grid-cols-2 gap-6">
         {projects.map((project, i) => (
           <AnimatedSection key={project.title} delay={i * 0.08}>
-            <div className="card-sky p-6 h-full flex flex-col">
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+            <div className="card-sky p-6 h-full flex flex-col group">
+              <h3 className="font-display text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                 {project.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
@@ -48,17 +48,17 @@ const ProjectsSection = () => (
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium px-2.5 py-1 rounded-full bg-accent text-accent-foreground"
+                    className="text-xs font-medium px-2.5 py-1 rounded-full bg-accent/60 text-accent-foreground backdrop-blur-sm"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
               <div className="flex items-center gap-3">
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   <Github size={18} />
                 </a>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   <ExternalLink size={18} />
                 </a>
               </div>
