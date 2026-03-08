@@ -61,7 +61,7 @@ const Navbar = () => {
               className="cursor-pointer dock-icon-item"
             >
               <DockLabel className="glass-label">{item.label}</DockLabel>
-              <DockIcon className="dock-icon-inner text-foreground/70 hover:text-primary transition-colors">
+              <DockIcon className="dock-icon-circle">
                 <item.icon className="w-full h-full" strokeWidth={1.5} />
               </DockIcon>
             </DockItem>

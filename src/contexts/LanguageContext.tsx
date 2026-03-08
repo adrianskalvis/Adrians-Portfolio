@@ -17,7 +17,7 @@ const translations: Translations = {
   // Hero
   "hero.subtitle": { en: "Software Engineer", lv: "Programmēšanas tehniķis" },
   "hero.heading.first": { en: "Adrians", lv: "Adrians" },
-  "hero.heading.last": { en: "Skalvis", lv: "Skalvis" },
+  "hero.heading.last": { en: "Kalvis", lv: "Kalvis" },
   "hero.description": {
     en: "Crafting clean, performant software with a passion for elegant solutions and modern web technologies.",
     lv: "Veidu tīru, ātrdarbīgu programmatūru ar aizraušanos par elegantiem risinājumiem un modernām tīmekļa tehnoloģijām.",
