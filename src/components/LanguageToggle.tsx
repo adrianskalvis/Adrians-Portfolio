@@ -10,7 +10,7 @@ const LanguageToggle = () => {
   ];
 
   return (
-    <div className="glass-toggle-container flex items-center rounded-full p-1 gap-0.5">
+    <div className="liquid-glass-toggle flex items-center rounded-full p-1 gap-0.5">
       {options.map((opt) => (
         <button
           key={opt.value}
@@ -26,7 +26,7 @@ const LanguageToggle = () => {
           {lang === opt.value && (
             <motion.div
               layoutId="lang-indicator"
-              className="absolute inset-0 rounded-full bg-primary"
+              className="absolute inset-0 rounded-full liquid-glass-indicator"
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
             />
           )}

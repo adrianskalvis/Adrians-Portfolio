@@ -22,6 +22,7 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center sky-gradient overflow-hidden"
     >
+      {/* Bubble orbs — kept exactly the same */}
       <motion.div
         style={{ y: y3 }}
         className="absolute top-16 right-[10%] w-72 h-72 rounded-full glass-orb animate-float"

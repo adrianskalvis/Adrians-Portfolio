@@ -46,22 +46,22 @@ const Navbar = () => {
         <ThemeToggle />
       </div>
 
-      {/* Desktop Dock - fixed bottom center */}
+      {/* Desktop Dock */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <Dock
           magnification={70}
           distance={120}
           panelHeight={56}
-          className="glass-dock border border-border/40 px-3 gap-3"
+          className="liquid-glass-dock border border-border/30 px-4 gap-2 rounded-2xl"
         >
           {navItems.map((item) => (
             <DockItem
               key={item.href}
               onClick={() => handleNav(item.href, (item as any).external)}
-              className="cursor-pointer"
+              className="cursor-pointer dock-icon-item"
             >
               <DockLabel className="glass-label">{item.label}</DockLabel>
-              <DockIcon className="text-foreground/70 hover:text-primary transition-colors">
+              <DockIcon className="dock-icon-inner text-foreground/70 hover:text-primary transition-colors">
                 <item.icon className="w-full h-full" strokeWidth={1.5} />
               </DockIcon>
             </DockItem>

@@ -16,8 +16,8 @@ const translations: Translations = {
 
   // Hero
   "hero.subtitle": { en: "Software Engineer", lv: "Programmēšanas tehniķis" },
-  "hero.heading.first": { en: "Alex", lv: "Alex" },
-  "hero.heading.last": { en: "Johnson", lv: "Johnson" },
+  "hero.heading.first": { en: "Adrians", lv: "Adrians" },
+  "hero.heading.last": { en: "Skalvis", lv: "Skalvis" },
   "hero.description": {
     en: "Crafting clean, performant software with a passion for elegant solutions and modern web technologies.",
     lv: "Veidu tīru, ātrdarbīgu programmatūru ar aizraušanos par elegantiem risinājumiem un modernām tīmekļa tehnoloģijām.",
@@ -32,9 +32,15 @@ const translations: Translations = {
     lv: "Aizrautīgs par lielisku programmatūru",
   },
   "about.description": {
-    en: "I'm a software engineer and programming technician with experience in full-stack development, system design, and delivering high-quality applications. I enjoy working across the stack — from crafting pixel-perfect interfaces to designing robust backend architectures.",
-    lv: "Esmu programmēšanas tehniķis ar pieredzi pilna steka izstrādē, sistēmu projektēšanā un augstas kvalitātes lietojumprogrammu piegādē. Man patīk strādāt visā stekā — no pikseļu precīzu saskarņu izveides līdz stabilu aizmugursistēmu arhitektūru projektēšanai.",
+    en: "I'm Adrians, with 2 years of experience based in Cēsis. Currently building new knowledge at Vidzeme Technology and Design Technical School, where I'm acquiring a Programming Technician qualification.\n\nI'm driven by curiosity, and my mission is to create products with unlimited potential that fascinate user experience and create business impact.\n\nBefore focusing on programming, in my free time I've gained experience in various fields:",
+    lv: "Es esmu Adrians, ar 2 gadu pieredzi Cēsīs. Pašlaik veidoju jaunas zināšanas Vidzemes tehnoloģiju un Dizaina tehnikumā, kur apgūstu Programmēšanas Tehniķa kvalifikāciju.\n\nMani virza zinātkāre, un mana misija ir radīt produktus bez ierobežota potenciāla, kas fascinē lietotāja pieredzi un rada ietekmi uz uzņēmējdarbību.\n\nPirms pievēršanās programmēšanai, brīvajā laikā esmu ieguvis pieredzi dažādās jomās:",
   },
+  "about.experience.tinkercad": { en: "Tinkercad", lv: "Tinkercad" },
+  "about.experience.sketchup": { en: "SketchUp 3D Modeling", lv: "SketchUp 3D modelēšana" },
+  "about.experience.3dprint": { en: "3D Printing", lv: "3D drukāšana" },
+  "about.experience.premiere": { en: "Premiere Pro", lv: "Premiere Pro" },
+  "about.experience.capcut": { en: "CapCut Pro Video Editing", lv: "CapCut Pro video apstrāde" },
+  "about.experience.picsart": { en: "Picsart Graphic Design", lv: "Picsart grafiskais dizains" },
   "about.cleanCode": { en: "Clean Code", lv: "Tīrs kods" },
   "about.cleanCodeDesc": {
     en: "Writing maintainable, well-tested software that scales.",
@@ -54,6 +60,13 @@ const translations: Translations = {
   // Projects
   "projects.label": { en: "Projects", lv: "Projekti" },
   "projects.heading": { en: "Selected work", lv: "Izvēlētie darbi" },
+  "projects.featured": { en: "Featured Project", lv: "Galvenais projekts" },
+  "projects.miniGame": { en: "Mini Game", lv: "Mini Spēle" },
+  "projects.miniGameDesc": {
+    en: "Mini game which acts as an introduction to programming. Built as an interactive learning experience.",
+    lv: "Mini spēle, kas darbojas kā ievads programmēšanā. Veidota kā interaktīva mācīšanās pieredze.",
+  },
+  "projects.viewOnGithub": { en: "View on GitHub", lv: "Skatīt GitHub" },
   "projects.cloudSync": { en: "CloudSync Dashboard", lv: "CloudSync panelis" },
   "projects.cloudSyncDesc": {
     en: "A real-time monitoring dashboard for cloud infrastructure with live metrics, alerts, and team collaboration features.",
