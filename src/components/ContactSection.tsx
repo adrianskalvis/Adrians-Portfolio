@@ -18,13 +18,13 @@ const ContactSection = () => (
       <AnimatedSection delay={0.15}>
         <a
           href="mailto:alex@example.com"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:brightness-110 transition-all duration-200 hover:shadow-lg mb-10"
+          className="glass-button-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium text-sm mb-10"
         >
           <Send size={16} />
           Say Hello
         </a>
 
-        <div className="flex items-center justify-center gap-6 mt-2">
+        <div className="flex items-center justify-center gap-4 mt-2">
           {[
             { icon: Mail, href: "mailto:alex@example.com", label: "Email" },
             { icon: Github, href: "https://github.com", label: "GitHub" },
@@ -36,7 +36,7 @@ const ContactSection = () => (
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-200"
+              className="w-10 h-10 rounded-full glass-button flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200"
             >
               <link.icon size={18} />
             </a>
