@@ -1,22 +1,34 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useCallback } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const CustomCursor = () => {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [visible, setVisible] = useState(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const mousePos = useRef({ x: -100, y: -100 });
+  const visible = useRef(false);
+  const rafId = useRef<number>(0);
+
+  const render = useCallback(() => {
+    const el = cursorRef.current;
+    if (el) {
+      el.style.transform = `translate3d(${mousePos.current.x - 16}px, ${mousePos.current.y - 16}px, 0)`;
+      el.style.opacity = visible.current ? "1" : "0";
+    }
+    rafId.current = requestAnimationFrame(render);
+  }, []);
+
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      setVisible(true);
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+      visible.current = true;
     };
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
+    const onLeave = () => { visible.current = false; };
+    const onEnter = () => { visible.current = true; };
 
-    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
 
@@ -25,13 +37,16 @@ const CustomCursor = () => {
       (el as HTMLElement).style.cursor = "none";
     });
 
+    rafId.current = requestAnimationFrame(render);
+
     return () => {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      cancelAnimationFrame(rafId.current);
       document.body.style.cursor = "";
     };
-  }, []);
+  }, [render]);
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -44,14 +59,10 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       className="pointer-events-none fixed top-0 left-0 z-[9999]"
-      animate={{
-        x: pos.x - 16,
-        y: pos.y - 16,
-        opacity: visible ? 1 : 0,
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
+      style={{ willChange: "transform", opacity: 0 }}
     >
       <div
         className="w-8 h-8 rounded-full"
@@ -63,7 +74,7 @@ const CustomCursor = () => {
           backdropFilter: "blur(2px)",
         }}
       />
-    </motion.div>
+    </div>
   );
 };
 
