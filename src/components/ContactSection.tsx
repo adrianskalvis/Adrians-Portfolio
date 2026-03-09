@@ -1,5 +1,5 @@
 import AnimatedSection from "./AnimatedSection";
-import { Mail, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Github, Send } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ContactSection = () => {
@@ -23,7 +23,7 @@ const ContactSection = () => {
         <AnimatedSection delay={0.15}>
           <a
             href="mailto:alex@example.com"
-            className="glass-button-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium text-sm mb-10"
+            className="liquid-glass-btn-primary inline-flex items-center gap-2 mb-10"
           >
             <Send size={16} />
             {t("contact.sayHello")}
@@ -33,7 +33,6 @@ const ContactSection = () => {
             {[
               { icon: Mail, href: "mailto:alex@example.com", label: "Email" },
               { icon: Github, href: "https://github.com/adrianskalvis", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
             ].map((link) => (
               <a
                 key={link.label}
@@ -41,7 +40,7 @@ const ContactSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="w-10 h-10 rounded-full glass-button flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200"
+                className="w-11 h-11 rounded-full liquid-glass-btn-icon flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 <link.icon size={18} />
               </a>
