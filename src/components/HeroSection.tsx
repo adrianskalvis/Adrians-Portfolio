@@ -22,7 +22,7 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center sky-gradient overflow-hidden"
     >
-      {/* Bubble orbs — kept exactly the same */}
+      {/* Bubble orbs */}
       <motion.div
         style={{ y: y3 }}
         className="absolute top-16 right-[10%] w-72 h-72 rounded-full glass-orb animate-float"
@@ -79,7 +79,7 @@ const HeroSection = () => {
               e.preventDefault();
               document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="glass-button-primary inline-flex items-center gap-2 px-7 py-3 rounded-full font-medium text-sm"
+            className="liquid-glass-btn-primary"
           >
             {t("hero.viewProjects")}
           </a>
@@ -89,7 +89,7 @@ const HeroSection = () => {
               e.preventDefault();
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="glass-button inline-flex items-center gap-2 px-7 py-3 rounded-full font-medium text-sm"
+            className="liquid-glass-btn"
           >
             {t("hero.getInTouch")}
           </a>

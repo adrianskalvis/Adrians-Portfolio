@@ -47,12 +47,12 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Dock */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden md:block">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <Dock
-          magnification={70}
-          distance={120}
-          panelHeight={56}
-          className="liquid-glass-dock border border-border/30 px-4 gap-2 rounded-2xl"
+          magnification={80}
+          distance={140}
+          panelHeight={68}
+          className="liquid-glass-dock border border-border/30 px-6 gap-3 rounded-2xl"
         >
           {navItems.map((item) => (
             <DockItem
