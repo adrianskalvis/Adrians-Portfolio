@@ -205,8 +205,8 @@
     display: block;
     width: 62px;
     height: 56px;
-    object-fit: contain;
-    object-position: center;
+    flex: 0 0 auto;
+    background: url("/ak-signature-horizontal.png") center / contain no-repeat;
     transform: none !important;
 }
 
@@ -228,6 +228,7 @@
     .nav-signature {
         width: 56px;
         height: 51px;
+        transform: rotate(90deg) !important;
     }
 
     .mobile-menu {

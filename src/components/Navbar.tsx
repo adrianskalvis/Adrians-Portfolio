@@ -168,10 +168,10 @@ const Navbar = () => {
                             }
                         }}
                     >
-                        <img
-                            src="/ak_signature.png?v=2"
-                            alt="AK Signature"
+                        <span
                             className="nav-signature"
+                            role="img"
+                            aria-label="AK Signature"
                         />
                     </motion.a>
 
