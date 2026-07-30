@@ -207,7 +207,7 @@
     height: 56px;
     flex: 0 0 auto;
     background: url("/ak-signature-horizontal.png") center / contain no-repeat;
-    transform: none !important;
+    transform: rotate(-90deg) !important;
 }
 
 @media (max-width: 767px) {
@@ -228,7 +228,6 @@
     .nav-signature {
         width: 56px;
         height: 51px;
-        transform: rotate(-90deg) !important;
     }
 
     .mobile-menu {
