@@ -21,7 +21,7 @@ const translations: Translations = {
   "nav.location": { en: "Latvia", lv: "Latvija", ru: "Латвия" },
 
   // Hero
-  "hero.madeIn": { en: "Located in Latvia", lv: "Atrodos Latvijā", ru: "Нахожусь в Латвии" },
+  "hero.madeIn": { en: "From Latvia", lv: "No Latvijas", ru: "Из Латвии" },
   "hero.greeting": { en: "I'm Adrian,", lv: "Es esmu Adrians,", ru: "Я Адриан," },
   "hero.typewriter": {
     en: ["Programming Technician", "Web Developer", "Junior Full-Stack Developer"],

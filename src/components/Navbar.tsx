@@ -108,9 +108,15 @@ const Navbar = () => {
         }
 
         if (href === "#contact") {
-            window.scrollTo({
-                top: document.documentElement.scrollHeight,
-                behavior: "auto"
+            const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                ? "auto"
+                : "smooth";
+
+            window.requestAnimationFrame(() => {
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior,
+                });
             });
             return;
         }

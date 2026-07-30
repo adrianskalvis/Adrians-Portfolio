@@ -523,39 +523,55 @@
 }
 
 .hero-action {
+    --hero-glass: #bbbbbc;
+    --hero-light: #ffffff;
+    --hero-dark: #000000;
+    --hero-reflex-dark: 1;
+    --hero-reflex-light: 1;
     display: inline-flex;
     align-items: center;
     gap: 7px;
     padding: 8px 15px;
-    border: 1px solid hsl(var(--border) / 0.32);
+    border: none;
     border-radius: 999px;
     color: hsl(var(--foreground));
-    background: hsl(var(--card) / 0.34);
-    backdrop-filter: blur(14px) saturate(150%);
-    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    background-color: color-mix(in srgb, var(--hero-glass) 12%, transparent);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
     box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.38),
-        0 8px 22px hsl(var(--primary) / 0.07);
+        inset 0 0 0 1px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 10%), transparent),
+        inset 1.8px 3px 0 -2px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 90%), transparent),
+        inset -2px -2px 0 -2px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 80%), transparent),
+        inset -3px -8px 1px -6px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 60%), transparent),
+        inset -0.3px -1px 4px 0 color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 12%), transparent),
+        inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 20%), transparent),
+        inset 0 3px 4px -2px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 20%), transparent),
+        inset 2px -6.5px 1px -4px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 10%), transparent),
+        0 1px 5px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 10%), transparent),
+        0 6px 16px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 8%), transparent);
     font-size: 0.78rem;
     font-weight: 500;
     line-height: 1;
     transition:
-        border-color 180ms ease,
         color 180ms ease,
         background-color 180ms ease,
+        box-shadow 180ms ease,
         transform 180ms ease;
 }
 
+.dark .hero-action {
+    --hero-reflex-dark: 2;
+    --hero-reflex-light: 0.3;
+}
+
 .hero-action--primary {
-    border-color: hsl(var(--primary) / 0.42);
     color: hsl(var(--accent-foreground));
-    background: hsl(var(--primary) / 0.14);
+    background-color: color-mix(in srgb, var(--hero-glass) 17%, transparent);
 }
 
 .hero-action:hover {
-    border-color: hsl(var(--primary) / 0.55);
     color: hsl(var(--accent-foreground));
-    background: hsl(var(--primary) / 0.13);
+    background-color: color-mix(in srgb, var(--hero-glass) 22%, transparent);
     transform: translateY(-1px);
 }
 

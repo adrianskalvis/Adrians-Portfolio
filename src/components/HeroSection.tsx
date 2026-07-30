@@ -64,6 +64,14 @@ const HeroSection = () => {
     const target = e.currentTarget.getAttribute("href");
     if (!target) return;
 
+    if (target === "#contact") {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+      });
+      return;
+    }
+
     document.querySelector(target)?.scrollIntoView({
       behavior: shouldReduceMotion ? "auto" : "smooth",
     });
