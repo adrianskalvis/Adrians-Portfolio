@@ -76,7 +76,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl"
         >
-          <h1 className="mb-6 text-[clamp(3.25rem,15vw,4rem)] md:text-[64px]">
+          <h1 className="mb-6 text-[clamp(3rem,13.5vw,3.6rem)] leading-[1.04] md:text-[64px] md:leading-[1.1]">
             <span className="block">{t("hero.greeting")}</span>
             <span className="block mt-2">
               <Typewriter phrases={typewriterPhrases} />
