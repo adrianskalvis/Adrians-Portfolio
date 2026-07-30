@@ -57,6 +57,17 @@ const Navbar = () => {
         languageDragValueRef.current = lang;
     }, [lang]);
 
+    useEffect(() => {
+        if (!mobileOpen) return;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [mobileOpen]);
+
     const selectLanguageFromPointer = (element: HTMLDivElement, clientX: number) => {
         const rect = element.getBoundingClientRect();
         const ratio = Math.max(0, Math.min(0.999, (clientX - rect.left) / rect.width));
@@ -134,15 +145,17 @@ const Navbar = () => {
 
             {/* Top Header */}
             <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                className={`site-navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                     mobileOpen ? "bg-background" : scrolled ? "glass-surface border-b border-border/40 shadow-sm" : "bg-transparent"
                 }`}
             >
-                <div className="w-full px-5 md:px-12 flex items-center justify-between h-[72px]">
+                <div className="site-navbar__bar w-full px-5 md:px-12 flex items-center justify-between h-[72px]">
                     <motion.a
                         href="#hero"
                         onClick={(e) => { e.preventDefault(); handleNav("#hero"); }}
-                        className="flex items-center menu-logo-hover"
+                        className={`site-logo flex items-center menu-logo-hover ${
+                            mobileOpen ? "site-logo--menu-open" : ""
+                        }`}
                         initial={false}
                         animate={{ y: 0 }}
                         transition={{
@@ -156,9 +169,9 @@ const Navbar = () => {
                         }}
                     >
                         <img
-                            src="/ak_signature.png"
+                            src="/ak_signature.png?v=2"
                             alt="AK Signature"
-                            className="h-14 w-auto object-contain"
+                            className="nav-signature"
                         />
                     </motion.a>
 
@@ -195,16 +208,16 @@ const Navbar = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-background z-[-1] flex flex-col pt-24 px-6 md:px-12 overflow-y-auto"
+                            className="mobile-menu fixed inset-0 bg-background z-0 flex flex-col pt-24 px-6 md:px-12 overflow-y-auto"
                         >
-                            <div className="flex-grow flex flex-col justify-center max-w-7xl mx-auto w-full">
-                                <div className="flex flex-col md:flex-row justify-between md:items-center gap-12">
-                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-6">
+                            <div className="mobile-menu__inner flex-grow flex flex-col justify-center max-w-7xl mx-auto w-full">
+                                <div className="mobile-menu__layout flex flex-col md:flex-row justify-between md:items-center gap-12">
+                                    <ul className="mobile-menu__items grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-6">
                                         {navItems.map((item) => (
                                             <li key={item.href}>
                                                 <button
                                                     onClick={() => handleNav(item.href, item.external)}
-                                                    className="flex items-center gap-4 text-3xl font-medium text-foreground hover:text-primary transition-colors py-2 menu-item-hover"
+                                                    className="mobile-menu__item flex items-center gap-4 text-3xl font-medium text-foreground hover:text-primary transition-colors py-2 menu-item-hover"
                                                 >
                                                     <item.icon size={28} />
                                                     {item.label}
@@ -273,14 +286,14 @@ const Navbar = () => {
                                                 </button>
                                             ))}
                                         </div>
-                                        <p className="text-sm text-muted-foreground">
+                                        <p className="menu-language-label text-sm text-muted-foreground">
                                             {languageOptions.find((option) => option.value === lang)?.label}
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="pb-6 mt-auto text-foreground">
+                            <div className="mobile-menu__location pb-6 mt-auto text-foreground">
                                 <p className="font-thin text-xl uppercase tracking-widest">
                                     {String(t("nav.location"))}
                                 </p>

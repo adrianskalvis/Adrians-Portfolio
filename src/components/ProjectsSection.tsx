@@ -1,8 +1,9 @@
 import AnimatedSection from "./AnimatedSection";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, MoveHorizontal, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   useCallback,
+  useEffect,
   useRef,
   useState,
   type PointerEvent as ReactPointerEvent,
@@ -19,6 +20,7 @@ const ProjectsSection = () => {
     moved: false,
   });
   const suppressClickRef = useRef(false);
+  const scrollRafRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -58,12 +60,29 @@ const ProjectsSection = () => {
   );
 
   const handleScroll = () => {
-    const track = trackRef.current;
-    if (!track || track.clientWidth === 0) return;
+    if (scrollRafRef.current !== null) return;
 
-    const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
-    setActiveIndex(Math.max(0, Math.min(projects.length - 1, nextIndex)));
+    scrollRafRef.current = window.requestAnimationFrame(() => {
+      scrollRafRef.current = null;
+      const track = trackRef.current;
+      if (!track || track.clientWidth === 0) return;
+
+      const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
+      const boundedIndex = Math.max(0, Math.min(projects.length - 1, nextIndex));
+      setActiveIndex((currentIndex) =>
+        currentIndex === boundedIndex ? currentIndex : boundedIndex,
+      );
+    });
   };
+
+  useEffect(
+    () => () => {
+      if (scrollRafRef.current !== null) {
+        window.cancelAnimationFrame(scrollRafRef.current);
+      }
+    },
+    [],
+  );
 
   const finishDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (dragRef.current.pointerId !== event.pointerId) return;
@@ -88,7 +107,7 @@ const ProjectsSection = () => {
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) {
+    if (!event.isPrimary || event.pointerType !== "mouse" || event.button !== 0) {
       return;
     }
 
@@ -125,11 +144,11 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="section-padding bg-background relative z-10">
+    <section id="projects" className="projects-section section-padding bg-background relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="section-divider !mt-0 !mb-12" />
 
-        <div className="grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
+        <div className="projects-layout grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
           <AnimatedSection>
             <h2 className="text-4xl text-foreground">
               {t("projects.label")}
@@ -194,37 +213,43 @@ const ProjectsSection = () => {
                           draggable={false}
                           loading={index === 0 ? "eager" : "lazy"}
                         />
+                        {index === 0 && (
+                          <span className="project-carousel__swipe-cue" aria-hidden="true">
+                            <MoveHorizontal />
+                            {String(t("projects.swipeHint"))}
+                          </span>
+                        )}
                       </a>
 
                       <div className="project-carousel__content">
-                        <div className="flex items-center gap-2 text-primary text-sm uppercase tracking-widest mb-4">
+                        <div className="project-carousel__eyebrow flex items-center gap-2 text-primary text-sm uppercase tracking-widest mb-4">
                           {project.featured && <Star size={16} className="fill-primary" />}
                           {project.featured
                             ? String(t("projects.featured"))
                             : String(t("projects.project"))}
                         </div>
-                        <h3 className="text-3xl text-foreground mb-6">
+                        <h3 className="project-carousel__title text-3xl text-foreground mb-6">
                           {project.title}
                         </h3>
-                        <p className="text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                        <p className="project-carousel__description text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
                           {project.description}
                         </p>
-                        <div className="flex flex-wrap gap-3 mb-10">
+                        <div className="project-carousel__tags flex flex-wrap gap-3 mb-10">
                           {project.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-sm font-medium px-4 py-1.5 rounded-full bg-accent/50 text-accent-foreground backdrop-blur-sm"
+                              className="project-carousel__tag text-sm font-medium px-4 py-1.5 rounded-full bg-accent/50 text-accent-foreground backdrop-blur-sm"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
-                        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                        <div className="project-carousel__links flex flex-wrap items-center gap-x-8 gap-y-4">
                           <a
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-link text-xl"
+                            className="project-carousel__link text-link text-xl"
                             tabIndex={activeIndex === index ? 0 : -1}
                           >
                             {project.liveLabel}
@@ -234,7 +259,7 @@ const ProjectsSection = () => {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-link text-xl"
+                            className="project-carousel__link text-link text-xl"
                             tabIndex={activeIndex === index ? 0 : -1}
                           >
                             {String(t("projects.viewOnGithub"))}

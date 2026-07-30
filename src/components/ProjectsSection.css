@@ -10,7 +10,8 @@
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    touch-action: pan-y;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
     cursor: grab;
     border-radius: 24px;
     outline: none;
@@ -32,6 +33,7 @@
 }
 
 .project-carousel__slide {
+    position: relative;
     flex: 0 0 100%;
     min-width: 0;
     scroll-snap-align: start;
@@ -39,6 +41,7 @@
 }
 
 .project-carousel__image {
+    position: relative;
     display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -49,6 +52,10 @@
     box-shadow:
             inset 0 1px 0 rgb(255 255 255 / 0.24),
             0 18px 48px hsl(var(--primary) / 0.08);
+}
+
+.project-carousel__swipe-cue {
+    display: none;
 }
 
 .project-carousel__content {
@@ -145,18 +152,131 @@
 }
 
 @media (max-width: 640px) {
+    .projects-section {
+        padding-top: 48px;
+        padding-bottom: 52px;
+    }
+
+    .projects-layout {
+        gap: 30px;
+    }
+
+    .project-carousel__track {
+        scroll-behavior: auto;
+        border-radius: 20px;
+    }
+
+    .project-carousel__slide {
+        scroll-snap-stop: normal;
+    }
+
+    .project-carousel__image {
+        border-radius: 20px;
+    }
+
+    .project-carousel__swipe-cue {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 11px;
+        border: 1px solid rgb(255 255 255 / 0.26);
+        border-radius: 999px;
+        color: white;
+        background: rgb(16 23 34 / 0.48);
+        backdrop-filter: blur(12px) saturate(150%);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        box-shadow:
+                inset 0 1px 0 rgb(255 255 255 / 0.24),
+                0 8px 20px rgb(0 0 0 / 0.16);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        animation: project-swipe-hint 2.2s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .project-carousel__swipe-cue svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .project-carousel__content {
+        padding-top: 20px;
+    }
+
+    .project-carousel__eyebrow {
+        margin-bottom: 8px;
+        font-size: 0.72rem;
+    }
+
+    .project-carousel__title {
+        margin-bottom: 12px;
+        font-size: 1.8rem;
+    }
+
+    .project-carousel__description {
+        margin-bottom: 18px;
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .project-carousel__tags {
+        gap: 7px;
+        margin-bottom: 22px;
+    }
+
+    .project-carousel__tag {
+        padding: 5px 11px;
+        font-size: 0.72rem;
+    }
+
+    .project-carousel__links {
+        gap: 10px 22px;
+    }
+
+    .project-carousel__link {
+        font-size: 1rem;
+    }
+
     .project-carousel__controls {
         align-items: flex-start;
         flex-direction: column;
+        gap: 12px;
+        margin-top: 22px;
     }
 
     .project-carousel__navigation {
         align-self: flex-end;
+    }
+
+    .project-carousel__hint {
+        font-size: 0.72rem;
+        opacity: 0.86;
+    }
+}
+
+@keyframes project-swipe-hint {
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 0.72;
+    }
+
+    50% {
+        transform: translateX(-4px);
+        opacity: 1;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .project-carousel__track {
         scroll-behavior: auto;
+    }
+
+    .project-carousel__swipe-cue {
+        animation: none;
     }
 }

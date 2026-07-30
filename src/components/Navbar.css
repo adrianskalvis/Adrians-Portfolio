@@ -188,6 +188,137 @@
     outline-offset: 2px;
 }
 
+.site-logo {
+    width: 62px;
+    opacity: 1;
+    transition:
+            opacity 180ms ease,
+            transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-navbar__bar {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-signature {
+    display: block;
+    width: 62px;
+    height: 56px;
+    object-fit: contain;
+    object-position: center;
+    transform: none !important;
+}
+
+@media (max-width: 767px) {
+    .site-navbar__bar {
+        height: 68px !important;
+    }
+
+    .site-logo {
+        width: 56px;
+    }
+
+    .site-logo--menu-open {
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    .nav-signature {
+        width: 56px;
+        height: 51px;
+    }
+
+    .mobile-menu {
+        overscroll-behavior: contain;
+        padding: calc(76px + env(safe-area-inset-top)) 24px max(16px, env(safe-area-inset-bottom));
+    }
+
+    .mobile-menu__inner {
+        justify-content: flex-start;
+        padding-top: clamp(6px, 2.5vh, 18px);
+    }
+
+    .mobile-menu__layout {
+        gap: clamp(18px, 3.5vh, 28px);
+    }
+
+    .mobile-menu__items {
+        row-gap: clamp(2px, 1vh, 8px);
+    }
+
+    .mobile-menu__item {
+        width: 100%;
+        gap: 14px;
+        padding: 6px 0;
+        font-size: clamp(1.55rem, 7.2vw, 2rem);
+        line-height: 1.2;
+        text-align: left;
+    }
+
+    .mobile-menu__item svg {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+    }
+
+    .menu-language-card {
+        width: 100%;
+        max-width: none;
+        gap: 10px;
+        padding: 14px;
+        border-radius: 20px;
+    }
+
+    .menu-language-switcher {
+        padding: 4px;
+    }
+
+    .menu-language-option {
+        min-height: 38px;
+    }
+
+    .menu-language-label {
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+
+    .mobile-menu__location {
+        margin-top: 16px;
+        padding: 8px 0 10px;
+    }
+
+    .mobile-menu__location p {
+        font-size: 0.92rem;
+        letter-spacing: 0.18em;
+    }
+}
+
+@media (max-width: 380px), (max-height: 720px) {
+    .mobile-menu__layout {
+        gap: 14px;
+    }
+
+    .mobile-menu__items {
+        row-gap: 0;
+    }
+
+    .mobile-menu__item {
+        padding: 4px 0;
+        font-size: 1.45rem;
+    }
+
+    .menu-language-card {
+        gap: 7px;
+        padding: 11px;
+    }
+
+    .menu-language-label {
+        display: none;
+    }
+}
+
 /* ---- Logo hover ---- */
 .menu-logo-hover {
     transition: transform 0.4s ease-in-out;

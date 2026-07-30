@@ -81,7 +81,7 @@
         --secondary-foreground: 0 0% 92%;
 
         --muted: 220 14% 18%;
-        --muted-foreground: 0 0% 53%;
+        --muted-foreground: 210 12% 72%;
 
         --accent: 220 14% 20%;
         --accent-foreground: 205 92% 80%;
@@ -633,7 +633,18 @@
     }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (max-width: 767px) {
+    .glass-orb-liquid {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .about-reveal {
+        will-change: transform, opacity;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
     html,
     body,
     body * {

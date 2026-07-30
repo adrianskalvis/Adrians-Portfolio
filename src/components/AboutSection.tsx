@@ -2,10 +2,12 @@ import AnimatedSection from "./AnimatedSection";
 import HardwareCarousel from "./HardwareCarousel";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const AboutSection = () => {
   const { t } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   const descriptionParts = t("about.description").split("\n\n");
 
@@ -32,23 +34,33 @@ const AboutSection = () => {
           </AnimatedSection>
 
           <div className="max-w-[600px]">
-            <div className="space-y-14 md:space-y-20">
+            <div className="space-y-10 md:space-y-20">
               {descriptionParts.map((part, i) => (
                 <motion.p
                   key={i}
                   initial={
                     shouldReduceMotion
                       ? false
-                      : { opacity: 0.2, y: 30, scale: 0.95, filter: "blur(5px)" }
+                      : isMobile
+                        ? { opacity: 0.42, y: 14, scale: 1, filter: "blur(0px)" }
+                        : { opacity: 0.2, y: 30, scale: 0.95, filter: "blur(5px)" }
                   }
                   whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                  viewport={{ once: false, amount: 0.62, margin: "-6% 0px -42% 0px" }}
+                  viewport={{
+                    once: isMobile,
+                    amount: isMobile ? 0.14 : 0.62,
+                    margin: isMobile ? "0px 0px -8% 0px" : "-6% 0px -42% 0px",
+                  }}
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { duration: 0.78, delay: i * 0.03, ease: [0.16, 1, 0.3, 1] }
+                      : {
+                          duration: isMobile ? 0.48 : 0.78,
+                          delay: isMobile ? 0 : i * 0.03,
+                          ease: [0.16, 1, 0.3, 1],
+                        }
                   }
-                  className="about-reveal text-xl text-muted-foreground leading-relaxed"
+                  className="about-reveal text-lg md:text-xl text-muted-foreground leading-relaxed"
                 >
                   {part}
                 </motion.p>

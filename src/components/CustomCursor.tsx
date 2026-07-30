@@ -15,7 +15,9 @@ const CustomCursor = () => {
   const rafId = useRef<number>(0);
 
   useEffect(() => {
-    const pointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const pointerQuery = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (min-width: 768px)",
+    );
     const updatePointerType = () => {
       setHasPrecisePointer(pointerQuery.matches);
     };

@@ -134,6 +134,11 @@ const translations: Translations = {
     lv: "Velc vai izmanto bultiņas",
     ru: "Листайте, перетаскивайте или используйте стрелки",
   },
+  "projects.swipeHint": {
+    en: "Swipe",
+    lv: "Velc",
+    ru: "Листайте",
+  },
   "projects.previous": { en: "Previous project", lv: "Iepriekšējais projekts", ru: "Предыдущий проект" },
   "projects.next": { en: "Next project", lv: "Nākamais projekts", ru: "Следующий проект" },
 
