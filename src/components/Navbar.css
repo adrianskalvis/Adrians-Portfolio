@@ -1,0 +1,233 @@
+/* =============================================
+   NAVBAR
+   ============================================= */
+
+/* ---- Hamburger Bubble ---- */
+.container__nav__menu {
+    --menu-glass: #bbbbbc;
+    --menu-light: #ffffff;
+    --menu-dark: #000000;
+    --menu-reflex-dark: 1;
+    --menu-reflex-light: 1;
+    cursor: pointer;
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    border-radius: 999px !important;
+    outline: none;
+    color: hsl(var(--foreground));
+    background-color: color-mix(in srgb, var(--menu-glass) 12%, transparent);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    box-shadow:
+            inset 0 0 0 1px color-mix(in srgb, var(--menu-light) calc(var(--menu-reflex-light) * 10%), transparent),
+            inset 1.8px 3px 0 -2px color-mix(in srgb, var(--menu-light) calc(var(--menu-reflex-light) * 90%), transparent),
+            inset -2px -2px 0 -2px color-mix(in srgb, var(--menu-light) calc(var(--menu-reflex-light) * 80%), transparent),
+            inset -3px -8px 1px -6px color-mix(in srgb, var(--menu-light) calc(var(--menu-reflex-light) * 60%), transparent),
+            inset -0.3px -1px 4px 0 color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 12%), transparent),
+            inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 20%), transparent),
+            inset 0 3px 4px -2px color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 20%), transparent),
+            inset 2px -6.5px 1px -4px color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 10%), transparent),
+            0 1px 5px 0 color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 10%), transparent),
+            0 6px 16px 0 color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 8%), transparent);
+    transition:
+            transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+            background 220ms ease,
+            box-shadow 220ms ease,
+            border-color 220ms ease;
+}
+
+.dark .container__nav__menu {
+    --menu-reflex-dark: 2;
+    --menu-reflex-light: 0.3;
+}
+
+.container__nav__menu::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 2px;
+    border-radius: inherit;
+    background: linear-gradient(145deg, rgb(255 255 255 / 0.2), transparent 55%);
+    pointer-events: none;
+}
+
+.container__nav__menu:hover {
+    transform: translateY(-1px) scale(1.045);
+    background-color: color-mix(in srgb, var(--menu-glass) 18%, transparent);
+}
+
+.container__nav__menu.container__nav__menu--change {
+    background-color: color-mix(in srgb, var(--menu-glass) 24%, transparent);
+}
+
+.container__nav__menu:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
+}
+
+.container__nav__menu:active {
+    transform: scale(0.96);
+}
+
+.container__nav__menu__icon {
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+}
+
+.container__nav__menu__icon svg {
+    display: block;
+    width: 21px;
+    height: 21px;
+    stroke-width: 1.75;
+}
+
+@media (max-width: 520px) {
+    .container__nav__menu {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+.menu-language-card {
+    display: flex;
+    width: min(100%, 290px);
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px;
+    border: 1px solid hsl(var(--border) / 0.28);
+    border-radius: 24px;
+    background: color-mix(in srgb, hsl(var(--background)) 42%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.25),
+            0 16px 40px rgb(0 0 0 / 0.07);
+}
+
+.menu-language-switcher {
+    --language-glass: #bbbbbc;
+    --language-light: #ffffff;
+    --language-dark: #000000;
+    --language-reflex-dark: 1;
+    --language-reflex-light: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 5px;
+    border: none;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--language-glass) 12%, transparent);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    box-shadow:
+            inset 0 0 0 1px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 10%), transparent),
+            inset 1.8px 3px 0 -2px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 90%), transparent),
+            inset -2px -2px 0 -2px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 80%), transparent),
+            inset -3px -8px 1px -6px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 60%), transparent),
+            inset -0.3px -1px 4px 0 color-mix(in srgb, var(--language-dark) calc(var(--language-reflex-dark) * 12%), transparent),
+            0 6px 16px color-mix(in srgb, var(--language-dark) calc(var(--language-reflex-dark) * 8%), transparent);
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.menu-language-switcher:active {
+    cursor: ew-resize;
+}
+
+.dark .menu-language-switcher {
+    --language-reflex-dark: 2;
+    --language-reflex-light: 0.3;
+}
+
+.menu-language-option {
+    min-height: 42px;
+    border-radius: 999px;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    transition:
+            color 180ms ease,
+            background-color 180ms ease,
+            box-shadow 180ms ease,
+            transform 180ms ease;
+}
+
+.menu-language-option:hover {
+    color: hsl(var(--foreground));
+    transform: translateY(-1px);
+}
+
+.menu-language-option--active {
+    color: hsl(var(--foreground));
+    background-color: color-mix(in srgb, var(--language-glass) 36%, transparent);
+    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+    box-shadow:
+            inset 0 0 0 1px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 10%), transparent),
+            inset 2px 1px 0 -1px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 90%), transparent),
+            inset -1.5px -1px 0 -1px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 80%), transparent),
+            inset -2px -6px 1px -5px color-mix(in srgb, var(--language-light) calc(var(--language-reflex-light) * 60%), transparent),
+            inset -1px 2px 3px -1px color-mix(in srgb, var(--language-dark) calc(var(--language-reflex-dark) * 20%), transparent),
+            inset 0 -4px 1px -2px color-mix(in srgb, var(--language-dark) calc(var(--language-reflex-dark) * 10%), transparent),
+            0 3px 6px color-mix(in srgb, var(--language-dark) calc(var(--language-reflex-dark) * 8%), transparent);
+}
+
+.menu-language-option:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+}
+
+/* ---- Logo hover ---- */
+.menu-logo-hover {
+    transition: transform 0.4s ease-in-out;
+}
+.menu-logo-hover:hover {
+    transform: translateY(-2px);
+}
+
+/* ---- Mobile menu item hover ---- */
+.menu-item-hover {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-item-hover:hover {
+    transform: translateY(-4px);
+}
+
+/* ---- View projects link ---- */
+.view-projects-link {
+    color: hsl(var(--primary));
+    transition: all 0.3s ease;
+}
+.view-projects-link:hover {
+    color: hsl(var(--primary)) !important;
+}
+.view-projects-link .arrow {
+    color: hsl(var(--primary));
+    transition: all 0.3s ease;
+}
+.view-projects-link:hover .arrow {
+    color: hsl(var(--sky-dark));
+}
+.dark .view-projects-link {
+    color: hsl(var(--primary));
+}
+.dark .view-projects-link:hover {
+    color: hsl(var(--primary)) !important;
+}
+.dark .view-projects-link .arrow {
+    color: hsl(var(--primary));
+}
+.dark .view-projects-link:hover .arrow {
+    color: hsl(var(--sky-dark));
+}

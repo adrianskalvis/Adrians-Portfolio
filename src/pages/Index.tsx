@@ -11,12 +11,16 @@ const Index = () => (
   <>
     <CustomCursor />
     <Navbar />
-    <HeroSection />
-    <AboutSection />
-    <ProjectsSection />
-    <SkillsSection />
-    <ContactSection />
-    <Footer />
+    <div className="relative z-10 bg-background">
+      <HeroSection />
+      <AboutSection />
+      <ProjectsSection />
+      <SkillsSection />
+    </div>
+    <div className="sticky bottom-0 z-0">
+      <ContactSection />
+      <Footer />
+    </div>
   </>
 );
 

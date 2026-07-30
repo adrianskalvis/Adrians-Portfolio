@@ -8,7 +8,7 @@ import {
   useTransform,
   type SpringOptions,
   AnimatePresence,
-} from 'motion/react';
+} from 'framer-motion';
 import {
   Children,
   cloneElement,
@@ -80,59 +80,34 @@ function useDock() {
 function Dock({
   children,
   className,
-  spring = { mass: 0.1, stiffness: 150, damping: 12 },
+  spring = { mass: 0.1, stiffness: 100, damping: 15 },
   magnification = DEFAULT_MAGNIFICATION,
   distance = DEFAULT_DISTANCE,
   panelHeight = DEFAULT_PANEL_HEIGHT,
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
-  const isHovered = useMotionValue(0);
-
-  const maxHeight = useMemo(() => {
-    return Math.max(DOCK_HEIGHT, magnification + magnification / 2 + 4);
-  }, [magnification]);
-
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
-  const height = useSpring(heightRow, spring);
 
   return (
     <motion.div
-      style={{
-        height: height,
-        scrollbarWidth: 'none',
-      }}
-      className='mx-2 flex max-w-full items-end overflow-x-auto'
+      className={cn(
+        'mx-auto flex w-fit gap-4 rounded-3xl bg-white/5 p-4 backdrop-blur-xl border border-white/10 shadow-2xl items-end cursor-none',
+        className
+      )}
+      onMouseMove={({ pageX }) => mouseX.set(pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      role='toolbar'
+      aria-label='Application dock'
     >
-      <motion.div
-        onMouseMove={({ pageX }) => {
-          isHovered.set(1);
-          mouseX.set(pageX);
-        }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
-        className={cn(
-          'mx-auto flex w-fit gap-4 rounded-2xl bg-gray-50 px-4 dark:bg-neutral-900',
-          className
-        )}
-        style={{ height: panelHeight }}
-        role='toolbar'
-        aria-label='Application dock'
-      >
-        <DockProvider value={{ mouseX, spring, distance, magnification }}>
-          {children}
-        </DockProvider>
-      </motion.div>
+      <DockProvider value={{ mouseX, spring, distance, magnification }}>
+        {children}
+      </DockProvider>
     </motion.div>
   );
 }
 
 function DockItem({ children, className, onClick }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
-
   const { distance, magnification, mouseX, spring } = useDock();
-
   const isHovered = useMotionValue(0);
 
   const mouseDistance = useTransform(mouseX, (val) => {
@@ -140,24 +115,31 @@ function DockItem({ children, className, onClick }: DockItemProps) {
     return val - domRect.x - domRect.width / 2;
   });
 
-  const widthTransform = useTransform(
+  const sizeTransform = useTransform(
     mouseDistance,
     [-distance, 0, distance],
-    [40, magnification, 40]
+    [50, magnification, 50]
   );
 
-  const width = useSpring(widthTransform, spring);
+  const yTransform = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [0, -25, 0]
+  );
+
+  const size = useSpring(sizeTransform, spring);
+  const y = useSpring(yTransform, spring);
 
   return (
     <motion.div
       ref={ref}
-      style={{ width }}
+      style={{ width: size, height: size, y }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
       className={cn(
-        'relative inline-flex items-center justify-center',
+        'relative inline-flex items-center justify-center rounded-full',
         className
       )}
       tabIndex={0}
@@ -166,7 +148,7 @@ function DockItem({ children, className, onClick }: DockItemProps) {
       onClick={onClick}
     >
       {Children.map(children, (child) =>
-        cloneElement(child as React.ReactElement, { width, isHovered })
+        cloneElement(child as React.ReactElement, { width: size, isHovered })
       )}
     </motion.div>
   );
@@ -212,11 +194,11 @@ function DockIcon({ children, className, ...rest }: DockIconProps) {
   const restProps = rest as Record<string, unknown>;
   const width = restProps['width'] as MotionValue<number>;
 
-  const widthTransform = useTransform(width, (val) => val / 2);
+  const iconSizeTransform = useTransform(width, (val) => val * 0.5);
 
   return (
     <motion.div
-      style={{ width: widthTransform }}
+      style={{ width: iconSizeTransform, height: iconSizeTransform }}
       className={cn('flex items-center justify-center', className)}
     >
       {children}
