@@ -228,7 +228,7 @@
     .nav-signature {
         width: 56px;
         height: 51px;
-        transform: rotate(90deg) !important;
+        transform: rotate(-90deg) !important;
     }
 
     .mobile-menu {
