@@ -185,18 +185,9 @@ const Navbar = () => {
                             aria-expanded={mobileOpen}
                             aria-controls="main-menu"
                         >
-                            <AnimatePresence initial={false} mode="wait">
-                                <motion.span
-                                    key={mobileOpen ? "close" : "menu"}
-                                    className="container__nav__menu__icon"
-                                    initial={{ opacity: 0, rotate: mobileOpen ? -45 : 45, scale: 0.78 }}
-                                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                                    exit={{ opacity: 0, rotate: mobileOpen ? 45 : -45, scale: 0.78 }}
-                                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                                >
-                                    {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-                                </motion.span>
-                            </AnimatePresence>
+                            <span className="container__nav__menu__icon">
+                                {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+                            </span>
                         </button>
                     </div>
                 </div>

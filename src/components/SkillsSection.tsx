@@ -7,25 +7,40 @@ const SkillsSection = () => {
 
   const skillGroups = [
     {
-      category: t("skills.label"),
+      category: t("skills.frontend"),
       skills: [
-        "C++",
-        "CSS",
-        "Docker",
-        "Git",
-        "HTML",
-        "JavaScript",
-        "Laravel",
-        "MySQL",
-        "Next.js",
-        "PHP",
-        "Python",
         "React",
-        "SCSS",
-        "SQLite",
-        "Tailwind CSS",
+        "Next.js",
         "TypeScript",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "SCSS",
+        "Tailwind CSS",
         "Vite",
+      ],
+    },
+    {
+      category: t("skills.backend"),
+      skills: [
+        "PHP",
+        "Laravel",
+        "Python",
+        "C++",
+      ],
+    },
+    {
+      category: t("skills.databases"),
+      skills: [
+        "MySQL",
+        "SQLite",
+      ],
+    },
+    {
+      category: t("skills.tools"),
+      skills: [
+        "Git",
+        "Docker",
       ],
     },
   ];
@@ -44,11 +59,14 @@ const SkillsSection = () => {
         </h2>
       </AnimatedSection>
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-1 gap-6">
+      <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
         {skillGroups.map((group, i) => (
-          <AnimatedSection key={i} delay={i * 0.1}>
-            <div className="card-sky p-6 h-full">
-              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <AnimatedSection key={String(group.category)} delay={i * 0.06}>
+            <div className="card-sky p-5 md:p-6 h-full">
+              <h3 className="font-body text-sm font-medium uppercase tracking-widest text-primary mb-5">
+                {group.category}
+              </h3>
+              <ul className="grid grid-cols-2 gap-x-5 gap-y-3">
                 {group.skills.map((skill) => (
                   <li
                     key={skill}

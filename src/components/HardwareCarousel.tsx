@@ -7,14 +7,20 @@ const hardwareSlides = [
   {
     src: "/pcb-3d-design.jpg",
     titleKey: "about.hardwareSlide3d",
+    width: 680,
+    height: 496,
   },
   {
     src: "/pcb-routing-design.jpg",
     titleKey: "about.hardwareSlideRouting",
+    width: 828,
+    height: 496,
   },
   {
     src: "/robotics-controller-reference.jpg",
     titleKey: "about.hardwareSlideReference",
+    width: 1520,
+    height: 500,
     contain: true,
   },
 ];
@@ -90,6 +96,9 @@ const HardwareCarousel = () => {
                     slide.contain ? "hardware-carousel__image--contain" : ""
                   }`}
                   loading="lazy"
+                  decoding="async"
+                  width={slide.width}
+                  height={slide.height}
                   draggable={false}
                 />
                 <div className="hardware-carousel__caption">
@@ -142,7 +151,15 @@ const HardwareCarousel = () => {
               aria-label={`Show ${title}`}
               aria-current={activeIndex === index ? "true" : undefined}
             >
-              <img src={slide.src} alt="" loading="lazy" draggable={false} />
+              <img
+                src={slide.src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                width={slide.width}
+                height={slide.height}
+                draggable={false}
+              />
             </button>
           );
         })}

@@ -1,14 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect, useState } from "react";
 import ScrollCue from "./ScrollCue";
 
-const Typewriter = ({ phrases }: { phrases: string[] }) => {
+const Typewriter = ({
+  phrases,
+  shouldReduceMotion,
+}: {
+  phrases: string[];
+  shouldReduceMotion: boolean;
+}) => {
   const [index, setIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState(
+    typeof window === "undefined" ? phrases[0] : "",
+  );
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    setIndex(0);
+    setDisplayText("");
+    setIsDeleting(false);
+  }, [phrases]);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
     const currentPhrase = phrases[index];
     const typingSpeed = isDeleting ? 50 : 150;
 
@@ -28,22 +45,28 @@ const Typewriter = ({ phrases }: { phrases: string[] }) => {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, index, phrases]);
+  }, [displayText, isDeleting, index, phrases, shouldReduceMotion]);
 
   return (
     <span className="text-primary min-h-[1.2em] inline-block">
-      {displayText}
-      <span className="animate-pulse ml-1">|</span>
+      {shouldReduceMotion ? phrases[0] : displayText}
+      {!shouldReduceMotion && <span className="animate-pulse ml-1">|</span>}
     </span>
   );
 };
 
 const HeroSection = () => {
   const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
-  const handleScrollToAbout = (e: React.MouseEvent) => {
+  const handleSectionScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+    const target = e.currentTarget.getAttribute("href");
+    if (!target) return;
+
+    document.querySelector(target)?.scrollIntoView({
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
   };
 
   const typewriterPhrases = t("hero.typewriter") as string[];
@@ -71,17 +94,48 @@ const HeroSection = () => {
 
       <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+          }
           className="max-w-4xl"
         >
-          <h1 className="mb-6 text-[clamp(3rem,13.5vw,3.6rem)] leading-[1.04] md:text-[64px] md:leading-[1.1]">
+          <h1
+            className="mb-6 text-[clamp(3rem,13.5vw,3.6rem)] leading-[1.04] md:text-[64px] md:leading-[1.1]"
+            aria-label={`${String(t("hero.greeting"))} ${typewriterPhrases[0]}`}
+          >
             <span className="block">{t("hero.greeting")}</span>
-            <span className="block mt-2">
-              <Typewriter phrases={typewriterPhrases} />
+            <span className="block mt-2" aria-hidden="true">
+              <Typewriter
+                phrases={typewriterPhrases}
+                shouldReduceMotion={shouldReduceMotion}
+              />
             </span>
           </h1>
+          <p className="hero-value max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+            {t("hero.value")}
+          </p>
+          <div className="hero-actions mt-6 flex flex-wrap gap-3">
+            <a
+              href="#projects"
+              onClick={handleSectionScroll}
+              className="hero-action hero-action--primary"
+            >
+              {t("hero.viewProjects")}
+              <ArrowDownRight size={16} aria-hidden="true" />
+            </a>
+            <a
+              href="#contact"
+              onClick={handleSectionScroll}
+              className="hero-action"
+            >
+              {t("hero.getInTouch")}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
         </motion.div>
       </div>
 
@@ -93,7 +147,7 @@ const HeroSection = () => {
           </p>
           <a
             href="#about"
-            onClick={handleScrollToAbout}
+            onClick={handleSectionScroll}
             className="group flex items-center gap-2 text-lg view-projects-link"
           >
             {t("hero.scrollPrompt")}

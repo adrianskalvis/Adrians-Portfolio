@@ -16,7 +16,7 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const pointerQuery = window.matchMedia(
-      "(hover: hover) and (pointer: fine) and (min-width: 768px)",
+      "(hover: hover) and (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference)",
     );
     const updatePointerType = () => {
       setHasPrecisePointer(pointerQuery.matches);
@@ -86,7 +86,7 @@ const CustomCursor = () => {
     <div
       ref={cursorRef}
       data-custom-cursor
-      className="pointer-events-none fixed top-0 left-0 z-[1000]"
+      className="pointer-events-none fixed top-0 left-0 z-40"
       style={{ willChange: "transform", opacity: 0 }}
     >
       <div

@@ -24,9 +24,14 @@ const translations: Translations = {
   "hero.madeIn": { en: "Located in Latvia", lv: "Atrodos Latvijā", ru: "Нахожусь в Латвии" },
   "hero.greeting": { en: "I'm Adrian,", lv: "Es esmu Adrians,", ru: "Я Адриан," },
   "hero.typewriter": {
-    en: ["Web Developer", "Programming Technician", "Creative Problem Solver"],
-    lv: ["Tīmekļa izstrādātājs", "Programmēšanas tehniķis", "Radošs problēmu risinātājs"],
-    ru: ["Веб-разработчик", "Техник-программист", "Творческий специалист"],
+    en: ["Programming Technician", "Web Developer", "Junior Full-Stack Developer"],
+    lv: ["Programmēšanas tehniķis", "Tīmekļa izstrādātājs", "Jaunākais pilna cikla izstrādātājs"],
+    ru: ["Техник-программист", "Веб-разработчик", "Младший full-stack разработчик"],
+  },
+  "hero.value": {
+    en: "I build clear, responsive web applications across frontend and backend.",
+    lv: "Veidoju skaidras un responsīvas tīmekļa lietotnes gan priekšgalā, gan aizmugursistēmā.",
+    ru: "Создаю понятные и адаптивные веб-приложения — от интерфейса до серверной части.",
   },
   "hero.viewProjects": { en: "View Projects", lv: "Skatīt projektus", ru: "Смотреть проекты" },
   "hero.scrollPrompt": { en: "Scroll to explore", lv: "Ritini, lai apskatītu", ru: "Листайте дальше" },
@@ -106,9 +111,9 @@ const translations: Translations = {
   "projects.featured": { en: "Featured Project", lv: "Galvenais projekts", ru: "Главный проект" },
   "projects.miniGame": { en: "Mini Game", lv: "Mini Spēle", ru: "Мини-игра" },
   "projects.miniGameDesc": {
-    en: "An interactive introduction to programming created for school outreach. I presented the game and programming examples to students in Līgatne, Gulbene and Madona, learning how to explain technical ideas to people with no prior experience.",
-    lv: "Interaktīvs ievads programmēšanā, kas izveidots skolas popularizēšanai. Spēli un programmēšanas piemērus demonstrēju skolēniem Līgatnē, Gulbenē un Madonā, gūstot pieredzi tehnisku ideju izskaidrošanā cilvēkiem bez priekšzināšanām.",
-    ru: "Интерактивное введение в программирование, созданное для школьных презентаций. Я демонстрировал игру и примеры программирования ученикам в Лигатне, Гулбене и Мадоне, получая опыт объяснения технических идей людям без подготовки.",
+    en: "An interactive introduction to programming created for school outreach and designed for students with no prior experience.",
+    lv: "Interaktīvs ievads programmēšanā skolas popularizēšanai, kas veidots skolēniem bez priekšzināšanām.",
+    ru: "Интерактивное введение в программирование для школьных презентаций, рассчитанное на учеников без подготовки.",
   },
   "projects.viewGame": { en: "View Game", lv: "Skatīt spēli", ru: "Открыть игру" },
   "projects.vtdtCareer": {
@@ -117,9 +122,9 @@ const translations: Translations = {
     ru: "Карьерный помощник VTDT",
   },
   "projects.vtdtCareerDesc": {
-    en: "A decision-tree career recommender for VTDT. It asks a focused series of questions, follows the user's answer path, and recommends the best-fitting study profession from the school's available programs.",
-    lv: "Uz lēmumu koku balstīts karjeras rekomendāciju rīks VTDT. Tas uzdod mērķētus jautājumus, seko lietotāja atbilžu ceļam un iesaka piemērotāko profesiju no skolā pieejamajām programmām.",
-    ru: "Карьерный рекомендатель VTDT на основе дерева решений. Он задаёт последовательность вопросов, следует по пути ответов и предлагает наиболее подходящую профессию из программ школы.",
+    en: "A decision-tree career recommender that guides prospective students toward a fitting VTDT study program based on their answers.",
+    lv: "Uz lēmumu koku balstīts karjeras rīks, kas pēc atbildēm palīdz topošajiem audzēkņiem atrast piemērotu VTDT mācību programmu.",
+    ru: "Карьерный помощник на основе дерева решений, который по ответам подбирает будущим студентам подходящую программу VTDT.",
   },
   "projects.project": { en: "Project", lv: "Projekts", ru: "Проект" },
   "projects.viewProject": { en: "View Project", lv: "Skatīt projektu", ru: "Открыть проект" },
@@ -141,6 +146,45 @@ const translations: Translations = {
   },
   "projects.previous": { en: "Previous project", lv: "Iepriekšējais projekts", ru: "Предыдущий проект" },
   "projects.next": { en: "Next project", lv: "Nākamais projekts", ru: "Следующий проект" },
+  "projects.role": { en: "Role", lv: "Loma", ru: "Роль" },
+  "projects.challenge": { en: "Challenge", lv: "Uzdevums", ru: "Задача" },
+  "projects.approach": { en: "Approach", lv: "Pieeja", ru: "Подход" },
+  "projects.outcome": { en: "Outcome", lv: "Rezultāts", ru: "Результат" },
+  "projects.independentDeveloper": {
+    en: "Independent developer",
+    lv: "Patstāvīgs izstrādātājs",
+    ru: "Самостоятельный разработчик",
+  },
+  "projects.miniGameChallenge": {
+    en: "Make programming approachable for students with no prior experience.",
+    lv: "Padarīt programmēšanu saprotamu skolēniem bez priekšzināšanām.",
+    ru: "Сделать программирование доступным ученикам без предварительного опыта.",
+  },
+  "projects.miniGameApproach": {
+    en: "An interactive game supported by practical programming examples.",
+    lv: "Interaktīva spēle kopā ar praktiskiem programmēšanas piemēriem.",
+    ru: "Интерактивная игра с практическими примерами программирования.",
+  },
+  "projects.miniGameOutcome": {
+    en: "Presented during school outreach in Līgatne, Gulbene and Madona.",
+    lv: "Prezentēta skolas popularizēšanas pasākumos Līgatnē, Gulbenē un Madonā.",
+    ru: "Представлена на школьных выездных мероприятиях в Лигатне, Гулбене и Мадоне.",
+  },
+  "projects.vtdtChallenge": {
+    en: "Help prospective students navigate VTDT's available study programs.",
+    lv: "Palīdzēt topošajiem audzēkņiem orientēties VTDT mācību programmās.",
+    ru: "Помочь будущим студентам сориентироваться в учебных программах VTDT.",
+  },
+  "projects.vtdtApproach": {
+    en: "A focused question path powered by a decision-tree script.",
+    lv: "Mērķēts jautājumu ceļš, ko vada lēmumu koka skripts.",
+    ru: "Последовательность точных вопросов на основе дерева решений.",
+  },
+  "projects.vtdtOutcome": {
+    en: "Produces a tailored recommendation from the school's programs.",
+    lv: "Sniedz individuāli pielāgotu ieteikumu no skolas programmām.",
+    ru: "Формирует персональную рекомендацию из программ школы.",
+  },
 
   // Skills
   "skills.label": { en: "Skills", lv: "Prasmes", ru: "Навыки" },
@@ -150,18 +194,19 @@ const translations: Translations = {
     ru: "Технологии, с которыми я работаю",
   },
   "skills.scrollHint": { en: "Scroll to contact", lv: "Ritini uz kontaktiem", ru: "Листайте к контактам" },
-  "skills.languages": { en: "Languages", lv: "Valodas" },
-  "skills.frontend": { en: "Frontend", lv: "Priekšgals" },
-  "skills.backend": { en: "Backend", lv: "Aizmugursistēma" },
-  "skills.tools": { en: "Tools & DevOps", lv: "Rīki un DevOps" },
+  "skills.languages": { en: "Languages", lv: "Valodas", ru: "Языки" },
+  "skills.frontend": { en: "Frontend", lv: "Priekšgals", ru: "Фронтенд" },
+  "skills.backend": { en: "Backend & Programming", lv: "Aizmugursistēmas un programmēšana", ru: "Бэкенд и программирование" },
+  "skills.databases": { en: "Databases", lv: "Datubāzes", ru: "Базы данных" },
+  "skills.tools": { en: "Tools & DevOps", lv: "Rīki un DevOps", ru: "Инструменты и DevOps" },
 
   // Contact
   "contact.label": { en: "Contact", lv: "Kontakti", ru: "Контакты" },
   "contact.heading": { en: "Let's build something great", lv: "Uzbūvēsim kaut ko lielisku", ru: "Давайте создадим что-то отличное" },
   "contact.description": {
-    en: "Have a project in mind or need help bringing an idea to life?\nI'm open to new opportunities, collaborations, and challenging projects.\n\nFeel free to reach out.",
-    lv: "Vai Jums ir padomā projekts vai nepieciešama palīdzība idejas īstenošanai?\nEsmu atvērts jaunām iespējām, sadarbībai un izaicinājumiem pilniem projektiem.\n\nDroši sazinieties.",
-    ru: "Есть идея проекта или нужна помощь в её реализации?\nЯ открыт для новых возможностей, сотрудничества и интересных задач.\n\nБуду рад вашему сообщению.",
+    en: "I'm looking for junior development opportunities where I can contribute, learn and grow.\nI'm also open to selected freelance projects and collaborations.\n\nFeel free to reach out.",
+    lv: "Meklēju jaunākā izstrādātāja iespējas, kurās varu dot ieguldījumu, mācīties un augt.\nEsmu atvērts arī atsevišķiem ārštata projektiem un sadarbībai.\n\nDroši sazinieties.",
+    ru: "Ищу возможности для младшего разработчика, где смогу приносить пользу, учиться и расти.\nТакже открыт для отдельных фриланс-проектов и сотрудничества.\n\nБуду рад вашему сообщению.",
   },
   "contact.sayHello": { en: "Say Hello", lv: "Sveicināties", ru: "Написать" },
 
@@ -193,6 +238,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window === "undefined") return "en";
+
     const savedLanguage = localStorage.getItem("portfolio-language");
     return savedLanguage === "lv" || savedLanguage === "ru" ? savedLanguage : "en";
   });

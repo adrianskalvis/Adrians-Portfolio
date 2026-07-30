@@ -3,30 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adrian Kalvis | Web Developer</title>
+    <title>Adrian Kalvis — Programming Technician &amp; Web Developer</title>
     <meta
       name="description"
-      content="Portfolio of Adrian Kalvis, a Latvian web developer and programming technician focused on clear, useful digital experiences."
+      content="Portfolio of Adrian Kalvis, a programming technician and web developer from Latvia building clear, responsive web applications."
     />
     <meta name="author" content="Adrian Kalvis" />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#f8fbfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14161b" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://akalvis.com/" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
 
-    <meta property="og:title" content="Adrian Kalvis | Web Developer" />
+    <meta property="og:title" content="Adrian Kalvis — Programming Technician &amp; Web Developer" />
     <meta
       property="og:description"
-      content="Portfolio of Adrian Kalvis, a Latvian web developer and programming technician."
+      content="A programming technician and web developer from Latvia building clear, responsive web applications."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://akalvis.com/" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Adrian Kalvis Portfolio" />
+    <meta property="og:image" content="https://akalvis.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Adrian Kalvis — Programming Technician and Web Developer" />
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Adrian Kalvis | Web Developer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adrian Kalvis — Programming Technician &amp; Web Developer" />
     <meta
       name="twitter:description"
-      content="Portfolio of Adrian Kalvis, a Latvian web developer and programming technician."
+      content="A programming technician and web developer from Latvia building clear, responsive web applications."
     />
+    <meta name="twitter:image" content="https://akalvis.com/og-image.png" />
+    <meta name="twitter:image:alt" content="Adrian Kalvis — Programming Technician and Web Developer" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Adrian Kalvis",
+        "url": "https://akalvis.com/",
+        "image": "https://akalvis.com/adrian-portrait-560.jpg",
+        "email": "mailto:adrianskalvis@gmail.com",
+        "jobTitle": ["Programming Technician", "Web Developer"],
+        "homeLocation": {
+          "@type": "Country",
+          "name": "Latvia"
+        },
+        "sameAs": ["https://github.com/adrianskalvis"],
+        "knowsAbout": [
+          "Web Development",
+          "React",
+          "TypeScript",
+          "JavaScript",
+          "PHP",
+          "Laravel",
+          "Python",
+          "SQL"
+        ]
+      }
+    </script>
   </head>
 
   <body>
@@ -36,8 +80,16 @@
       </p>
     </div>
     <noscript>
-      <p style="margin: 3rem; color: #26313a; font: 16px/1.5 system-ui, sans-serif">
-        This portfolio needs JavaScript enabled to display its interactive content.
+      <style>
+        #root [style*="opacity:0"],
+        #root [style*="opacity: 0"] {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+        }
+      </style>
+      <p style="margin: 1rem 3rem; color: #26313a; font: 14px/1.5 system-ui, sans-serif">
+        JavaScript is only required for interactive controls such as themes, translations and carousels.
       </p>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

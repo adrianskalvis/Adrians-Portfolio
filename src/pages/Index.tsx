@@ -11,12 +11,12 @@ const Index = () => (
   <>
     <CustomCursor />
     <Navbar />
-    <div className="relative z-10 bg-background">
+    <main className="relative z-10 bg-background">
       <HeroSection />
       <AboutSection />
       <ProjectsSection />
       <SkillsSection />
-    </div>
+    </main>
     <div className="sticky bottom-0 z-0">
       <ContactSection />
       <Footer />

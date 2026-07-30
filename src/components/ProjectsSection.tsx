@@ -28,12 +28,30 @@ const ProjectsSection = () => {
     {
       title: String(t("projects.miniGame")),
       description: String(t("projects.miniGameDesc")),
-      image: "/mini-game-preview.png",
+      image: "/mini-game-preview-840.jpg",
       liveUrl: "https://adrianskalvis.github.io/minigame/",
       githubUrl: "https://github.com/adrianskalvis/minigame",
       tags: ["JavaScript", "HTML5", "CSS3", "Sprite Art"],
       featured: true,
       liveLabel: String(t("projects.viewGame")),
+      details: [
+        {
+          label: String(t("projects.role")),
+          value: String(t("projects.independentDeveloper")),
+        },
+        {
+          label: String(t("projects.challenge")),
+          value: String(t("projects.miniGameChallenge")),
+        },
+        {
+          label: String(t("projects.approach")),
+          value: String(t("projects.miniGameApproach")),
+        },
+        {
+          label: String(t("projects.outcome")),
+          value: String(t("projects.miniGameOutcome")),
+        },
+      ],
     },
     {
       title: String(t("projects.vtdtCareer")),
@@ -44,6 +62,24 @@ const ProjectsSection = () => {
       tags: ["JavaScript", "HTML5", "CSS3", "Decision Tree"],
       featured: false,
       liveLabel: String(t("projects.viewProject")),
+      details: [
+        {
+          label: String(t("projects.role")),
+          value: String(t("projects.independentDeveloper")),
+        },
+        {
+          label: String(t("projects.challenge")),
+          value: String(t("projects.vtdtChallenge")),
+        },
+        {
+          label: String(t("projects.approach")),
+          value: String(t("projects.vtdtApproach")),
+        },
+        {
+          label: String(t("projects.outcome")),
+          value: String(t("projects.vtdtOutcome")),
+        },
+      ],
     },
   ];
 
@@ -211,7 +247,10 @@ const ProjectsSection = () => {
                           alt={project.title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                           draggable={false}
-                          loading={index === 0 ? "eager" : "lazy"}
+                          loading="lazy"
+                          decoding="async"
+                          width={project.image === "/mini-game-preview-840.jpg" ? 840 : 1280}
+                          height={project.image === "/mini-game-preview-840.jpg" ? 494 : 720}
                         />
                         {index === 0 && (
                           <span className="project-carousel__swipe-cue" aria-hidden="true">
@@ -234,6 +273,14 @@ const ProjectsSection = () => {
                         <p className="project-carousel__description text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
                           {project.description}
                         </p>
+                        <dl className="project-carousel__proof">
+                          {project.details.map((detail) => (
+                            <div key={detail.label} className="project-carousel__proof-item">
+                              <dt>{detail.label}</dt>
+                              <dd>{detail.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
                         <div className="project-carousel__tags flex flex-wrap gap-3 mb-10">
                           {project.tags.map((tag) => (
                             <span

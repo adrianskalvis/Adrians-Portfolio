@@ -24,10 +24,13 @@ const AboutSection = () => {
               </h2>
               <div className="mt-8 aspect-square w-full max-w-[280px] mx-auto md:mx-0 overflow-hidden rounded-2xl border border-border/30">
                 <img
-                  src="/adrian-portrait.png"
+                  src="/adrian-portrait-560.jpg"
                   alt={t("about.portraitAlt") as string}
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
+                  decoding="async"
+                  width="560"
+                  height="560"
                 />
               </div>
             </div>
