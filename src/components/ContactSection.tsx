@@ -35,7 +35,7 @@ const ContactSection = () => {
                   <span className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-current ml-1" />
                 </a>
                 <a
-                  href="mailto:adrianskalvis@gmail.com"
+                  href="mailto:adrians.kalvis2008@gmail.com"
                   className="text-link text-xl"
                 >
                   Email
