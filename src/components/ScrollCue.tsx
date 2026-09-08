@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import "./ScrollCue.css";
 
 interface ScrollCueProps {
   className?: string;

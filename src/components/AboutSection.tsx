@@ -3,6 +3,7 @@ import HardwareCarousel from "./HardwareCarousel";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import "./AboutSection.css";
 
 const AboutSection = () => {
   const { t } = useLanguage();

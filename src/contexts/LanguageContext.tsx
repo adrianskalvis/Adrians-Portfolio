@@ -29,9 +29,9 @@ const translations: Translations = {
     ru: ["Техник-программист", "Веб-разработчик", "Младший full-stack разработчик"],
   },
   "hero.value": {
-    en: "I build clear, responsive web applications across frontend and backend.",
-    lv: "Veidoju skaidras un responsīvas tīmekļa lietotnes gan priekšgalā, gan aizmugursistēmā.",
-    ru: "Создаю понятные и адаптивные веб-приложения — от интерфейса до серверной части.",
+    en: "I like working fast, experimenting with CSS and turning ideas into websites that look good and load quickly.",
+    lv: "Man patīk strādāt ātri, eksperimentēt ar CSS un pārvērst idejas tīmekļa vietnēs, kas labi izskatās un ātri ielādējas.",
+    ru: "Мне нравится работать быстро, экспериментировать с CSS и превращать идеи в сайты, которые хорошо выглядят и быстро загружаются.",
   },
   "hero.viewProjects": { en: "View Projects", lv: "Skatīt projektus", ru: "Смотреть проекты" },
   "hero.scrollPrompt": { en: "Scroll to explore", lv: "Ritini, lai apskatītu", ru: "Листайте дальше" },
@@ -45,9 +45,9 @@ const translations: Translations = {
     ru: "Увлечён созданием качественного программного обеспечения",
   },
   "about.description": {
-    en: "I'm Adrian, a developer from Latvia with 3 years of programming experience. I'm currently pursuing a Programming Technician qualification at Vidzeme Technology and Design Vocational School (VTDT), with a strong focus on web development.\n\nI enjoy turning ideas into useful, well-considered digital experiences. I'm naturally curious, enjoy learning independently, and care about making work that is clear, functional and easy to use.\n\nI've been interested in robotics from a young age, and that curiosity still shapes how I explore technology today. Away from programming, I enjoy hands-on creative work through CAD and PCB design, electronics, CNC machining and 3D printing, alongside video editing and graphic design. These interests give me different ways to think about design, detail and problem-solving.",
-    lv: "Esmu Adrians, izstrādātājs no Latvijas ar 3 gadu programmēšanas pieredzi. Pašlaik Vidzemes Tehnoloģiju un dizaina tehnikumā (VTDT) apgūstu programmēšanas tehniķa kvalifikāciju, īpaši pievēršoties tīmekļa izstrādei.\n\nMan patīk pārvērst idejas noderīgos un pārdomātos digitālos risinājumos. Mani virza zinātkāre, patstāvīga mācīšanās un vēlme radīt skaidru, funkcionālu un ērti lietojamu rezultātu.\n\nJau kopš bērnības mani ir interesējusi robotika, un šī zinātkāre joprojām nosaka to, kā izzinu tehnoloģijas. Ārpus programmēšanas man patīk praktiski radoši darbi, tostarp CAD un PCB projektēšana, elektronika, CNC frēzēšana un 3D drukāšana, kā arī video montāža un grafiskais dizains. Šīs intereses palīdz man uz dizainu, detaļām un problēmu risināšanu paskatīties no cita skatpunkta.",
-    ru: "Я Адриан, разработчик из Латвии с трёхлетним опытом программирования. Сейчас я получаю квалификацию техника-программиста в Видземской школе технологий и дизайна (VTDT), уделяя особое внимание веб-разработке.\n\nМне нравится превращать идеи в полезные и продуманные цифровые продукты. Я любознателен, умею учиться самостоятельно и стремлюсь создавать понятные, функциональные и удобные решения.\n\nРобототехника интересует меня с детства, и это любопытство до сих пор влияет на то, как я изучаю технологии. В свободное от программирования время я занимаюсь практическими творческими проектами: CAD- и PCB-проектированием, электроникой, обработкой на ЧПУ и 3D-печатью, а также видеомонтажом и графическим дизайном. Эти увлечения помогают мне по-разному смотреть на дизайн, детали и решение задач.",
+    en: "I'm Adrian, a developer from Latvia with 3 years of programming experience. I'm currently pursuing a Programming Technician qualification at Vidzeme Technology and Design Vocational School (VTDT).\n\nI rarely run out of ideas. What I enjoy most is choosing one, opening my editor and making it real. Frontend is my favourite part, especially CSS, animation and the small visual details that give a page its character. I like working quickly, and I want the websites I build to feel quick too.\n\nI've been interested in robotics from a young age, and that curiosity still shapes how I explore technology today. Away from programming, I enjoy creative work through CAD and PCB design, electronics, CNC machining and 3D printing, alongside video editing and graphic design. These interests give me different ways to think about design, detail and problem-solving.",
+    lv: "Esmu Adrians, izstrādātājs no Latvijas ar 3 gadu programmēšanas pieredzi. Pašlaik Vidzemes Tehnoloģiju un dizaina tehnikumā (VTDT) apgūstu programmēšanas tehniķa kvalifikāciju.\n\nMan ideju gandrīz nekad netrūkst. Visvairāk man patīk izvēlēties kādu no tām, atvērt koda redaktoru un pārvērst to par kaut ko īstu. Mana mīļākā daļa ir lapas redzamās puses veidošana, īpaši CSS, animācijas un mazās vizuālās detaļas, kas lapai piešķir raksturu. Man patīk strādāt ātri, un vēlos, lai arī manas veidotās tīmekļa vietnes darbotos ātri.\n\nJau kopš bērnības mani ir interesējusi robotika, un šī zinātkāre joprojām nosaka to, kā izzinu tehnoloģijas. Ārpus programmēšanas man patīk radoši darbi, tostarp CAD un PCB projektēšana, elektronika, CNC frēzēšana un 3D drukāšana, kā arī video montāža un grafiskais dizains. Šīs intereses palīdz man uz dizainu, detaļām un problēmu risināšanu paskatīties no cita skatpunkta.",
+    ru: "Я Адриан, разработчик из Латвии с трёхлетним опытом программирования. Сейчас я получаю квалификацию техника-программиста в Видземской школе технологий и дизайна (VTDT).\n\nИдеи у меня почти никогда не заканчиваются. Больше всего мне нравится выбрать одну из них, открыть редактор кода и сделать её реальной. Моя любимая часть — фронтенд, особенно CSS, анимации и небольшие визуальные детали, которые придают странице характер. Мне нравится работать быстро, и я хочу, чтобы созданные мной сайты тоже работали быстро.\n\nРобототехника интересует меня с детства, и это любопытство до сих пор влияет на то, как я изучаю технологии. В свободное от программирования время я занимаюсь творческими проектами: CAD- и PCB-проектированием, электроникой, обработкой на ЧПУ и 3D-печатью, а также видеомонтажом и графическим дизайном. Эти увлечения помогают мне по-разному смотреть на дизайн, детали и решение задач.",
   },
   "about.portraitAlt": {
     en: "Portrait of Adrian Kalvis",
@@ -85,9 +85,9 @@ const translations: Translations = {
     ru: "Справочная плата управления",
   },
   "about.hardwareCollageCaption": {
-    en: "PCB design exploration: routing and 3D board views, alongside a controller-board reference studied while learning about robotics hardware.",
-    lv: "PCB dizaina izpēte: celiņu izkārtojuma un plates 3D skati kopā ar kontrolplates atsauces attēlu, ko pētīju, apgūstot robotikas aparatūru.",
-    ru: "Изучение проектирования печатных плат: трассировка и 3D-виды платы, а также справочная плата управления, изученная при знакомстве с аппаратной частью робототехники.",
+    en: "A closer look at my PCB work: the routing, a 3D board view and a controller board I used as a reference while learning about robotics hardware.",
+    lv: "Tuvāks ieskats manā PCB darbā: celiņu izkārtojums, plates 3D skats un kontrolplate, ko izmantoju kā atsauci, apgūstot robotikas aparatūru.",
+    ru: "Моя работа с PCB: трассировка, 3D-вид платы и плата контроллера, которую я использовал как пример при изучении робототехники.",
   },
   "about.cleanCode": { en: "Clean Code", lv: "Tīrs kods" },
   "about.cleanCodeDesc": {
@@ -111,9 +111,9 @@ const translations: Translations = {
   "projects.featured": { en: "Featured Project", lv: "Galvenais projekts", ru: "Главный проект" },
   "projects.miniGame": { en: "Mini Game", lv: "Mini Spēle", ru: "Мини-игра" },
   "projects.miniGameDesc": {
-    en: "An interactive introduction to programming created for school outreach and designed for students with no prior experience.",
-    lv: "Interaktīvs ievads programmēšanā skolas popularizēšanai, kas veidots skolēniem bez priekšzināšanām.",
-    ru: "Интерактивное введение в программирование для школьных презентаций, рассчитанное на учеников без подготовки.",
+    en: "I made this small browser game for school visits, giving students their first look at programming through something they could play.",
+    lv: "Šo nelielo pārlūkprogrammas spēli izveidoju skolas izbraukuma pasākumiem, lai skolēni ar programmēšanu pirmoreiz iepazītos spēlējot.",
+    ru: "Я сделал эту небольшую браузерную игру для школьных выездов, чтобы ученики впервые познакомились с программированием через игру.",
   },
   "projects.viewGame": { en: "View Game", lv: "Skatīt spēli", ru: "Открыть игру" },
   "projects.vtdtCareer": {
@@ -122,9 +122,9 @@ const translations: Translations = {
     ru: "Карьерный помощник VTDT",
   },
   "projects.vtdtCareerDesc": {
-    en: "A decision-tree career recommender that guides prospective students toward a fitting VTDT study program based on their answers.",
-    lv: "Uz lēmumu koku balstīts karjeras rīks, kas pēc atbildēm palīdz topošajiem audzēkņiem atrast piemērotu VTDT mācību programmu.",
-    ru: "Карьерный помощник на основе дерева решений, который по ответам подбирает будущим студентам подходящую программу VTDT.",
+    en: "I built this quiz to help future VTDT students choose a study programme. A decision tree follows their answers and shows the closest match.",
+    lv: "Šo testu izveidoju, lai topošajiem VTDT audzēkņiem palīdzētu izvēlēties mācību programmu. Lēmumu koks seko atbildēm un beigās parāda piemērotāko variantu.",
+    ru: "Я сделал этот тест, чтобы будущим ученикам VTDT было проще выбрать учебную программу. Дерево решений учитывает ответы и показывает наиболее подходящий вариант.",
   },
   "projects.project": { en: "Project", lv: "Projekts", ru: "Проект" },
   "projects.viewProject": { en: "View Project", lv: "Skatīt projektu", ru: "Открыть проект" },
@@ -156,34 +156,34 @@ const translations: Translations = {
     ru: "Самостоятельный разработчик",
   },
   "projects.miniGameChallenge": {
-    en: "Make programming approachable for students with no prior experience.",
-    lv: "Padarīt programmēšanu saprotamu skolēniem bez priekšzināšanām.",
-    ru: "Сделать программирование доступным ученикам без предварительного опыта.",
+    en: "Most of the students had never programmed before.",
+    lv: "Lielākā daļa skolēnu iepriekš nebija programmējuši.",
+    ru: "Большинство учеников раньше никогда не программировали.",
   },
   "projects.miniGameApproach": {
-    en: "An interactive game supported by practical programming examples.",
-    lv: "Interaktīva spēle kopā ar praktiskiem programmēšanas piemēriem.",
-    ru: "Интерактивная игра с практическими примерами программирования.",
+    en: "I paired a simple game with programming examples I could explain in person.",
+    lv: "Vienkāršu spēli papildināju ar programmēšanas piemēriem, kurus varēju izskaidrot klātienē.",
+    ru: "Я объединил простую игру с примерами кода, которые мог объяснить ученикам лично.",
   },
   "projects.miniGameOutcome": {
-    en: "Presented during school outreach in Līgatne, Gulbene and Madona.",
-    lv: "Prezentēta skolas popularizēšanas pasākumos Līgatnē, Gulbenē un Madonā.",
-    ru: "Представлена на школьных выездных мероприятиях в Лигатне, Гулбене и Мадоне.",
+    en: "I presented it to students in Līgatne, Gulbene and Madona.",
+    lv: "To prezentēju skolēniem Līgatnē, Gulbenē un Madonā.",
+    ru: "Я представил игру ученикам в Лигатне, Гулбене и Мадоне.",
   },
   "projects.vtdtChallenge": {
-    en: "Help prospective students navigate VTDT's available study programs.",
-    lv: "Palīdzēt topošajiem audzēkņiem orientēties VTDT mācību programmās.",
-    ru: "Помочь будущим студентам сориентироваться в учебных программах VTDT.",
+    en: "VTDT offers several programmes, and choosing between them can be difficult.",
+    lv: "VTDT piedāvā vairākas programmas, un izvēlēties starp tām var būt grūti.",
+    ru: "VTDT предлагает несколько программ, и выбрать между ними бывает непросто.",
   },
   "projects.vtdtApproach": {
-    en: "A focused question path powered by a decision-tree script.",
-    lv: "Mērķēts jautājumu ceļš, ko vada lēmumu koka skripts.",
-    ru: "Последовательность точных вопросов на основе дерева решений.",
+    en: "I wrote a decision-tree script that narrows the options with each answer.",
+    lv: "Uzrakstīju lēmumu koka skriptu, kas ar katru atbildi sašaurina izvēli.",
+    ru: "Я написал скрипт с деревом решений, который с каждым ответом сужает выбор.",
   },
   "projects.vtdtOutcome": {
-    en: "Produces a tailored recommendation from the school's programs.",
-    lv: "Sniedz individuāli pielāgotu ieteikumu no skolas programmām.",
-    ru: "Формирует персональную рекомендацию из программ школы.",
+    en: "At the end, the student gets the programme that best matches their answers.",
+    lv: "Beigās audzēknis saņem programmu, kas vislabāk atbilst viņa atbildēm.",
+    ru: "В конце ученик получает программу, которая лучше всего подходит его ответам.",
   },
 
   // Skills
@@ -202,11 +202,15 @@ const translations: Translations = {
 
   // Contact
   "contact.label": { en: "Contact", lv: "Kontakti", ru: "Контакты" },
-  "contact.heading": { en: "Let's build something great", lv: "Uzbūvēsim kaut ko lielisku", ru: "Давайте создадим что-то отличное" },
+  "contact.heading": {
+    en: "Have a role or project in mind?",
+    lv: "Ir darbs vai projekts, kurā varu palīdzēt?",
+    ru: "Есть работа или проект, где я могу помочь?",
+  },
   "contact.description": {
-    en: "I'm looking for junior development opportunities where I can contribute, learn and grow.\nI'm also open to selected freelance projects and collaborations.\n\nFeel free to reach out.",
-    lv: "Meklēju jaunākā izstrādātāja iespējas, kurās varu dot ieguldījumu, mācīties un augt.\nEsmu atvērts arī atsevišķiem ārštata projektiem un sadarbībai.\n\nDroši sazinieties.",
-    ru: "Ищу возможности для младшего разработчика, где смогу приносить пользу, учиться и расти.\nТакже открыт для отдельных фриланс-проектов и сотрудничества.\n\nБуду рад вашему сообщению.",
+    en: "I'm looking for a junior developer role where I can learn from an experienced team and be useful from day one.\nI'm also open to smaller freelance projects.\n\nIf I sound like a fit for your team or project, send me a message.",
+    lv: "Meklēju jaunākā izstrādātāja darbu, kur varu mācīties no pieredzējušas komandas un būt noderīgs jau no pirmās dienas.\nEsmu atvērts arī mazākiem ārštata projektiem.\n\nJa domājat, ka es varētu iederēties Jūsu komandā vai projektā, uzrakstiet man.",
+    ru: "Я ищу позицию junior-разработчика, где смогу учиться у опытной команды и приносить пользу с первого дня.\nТакже открыт для небольших фриланс-проектов.\n\nЕсли я подхожу вашей команде или проекту, напишите мне.",
   },
   "contact.sayHello": { en: "Say Hello", lv: "Sveicināties", ru: "Написать" },
 

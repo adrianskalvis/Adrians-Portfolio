@@ -6,7 +6,7 @@
     <title>Adrian Kalvis — Programming Technician &amp; Web Developer</title>
     <meta
       name="description"
-      content="Portfolio of Adrian Kalvis, a programming technician and web developer from Latvia building clear, responsive web applications."
+      content="Portfolio of Adrian Kalvis, a Programming Technician and web developer from Latvia who enjoys CSS, frontend design and building fast websites."
     />
     <meta name="author" content="Adrian Kalvis" />
     <meta name="robots" content="index, follow" />
@@ -24,7 +24,7 @@
     <meta property="og:title" content="Adrian Kalvis — Programming Technician &amp; Web Developer" />
     <meta
       property="og:description"
-      content="A programming technician and web developer from Latvia building clear, responsive web applications."
+      content="A Programming Technician and web developer from Latvia who enjoys CSS, frontend design and building fast websites."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://akalvis.com/" />
@@ -40,7 +40,7 @@
     <meta name="twitter:title" content="Adrian Kalvis — Programming Technician &amp; Web Developer" />
     <meta
       name="twitter:description"
-      content="A programming technician and web developer from Latvia building clear, responsive web applications."
+      content="A Programming Technician and web developer from Latvia who enjoys CSS, frontend design and building fast websites."
     />
     <meta name="twitter:image" content="https://akalvis.com/og-image.png" />
     <meta name="twitter:image:alt" content="Adrian Kalvis — Programming Technician and Web Developer" />
@@ -48,26 +48,52 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Adrian Kalvis",
-        "url": "https://akalvis.com/",
-        "image": "https://akalvis.com/adrian-portrait-560.jpg",
-        "email": "mailto:adrians.kalvis2008@gmail.com",
-        "jobTitle": ["Programming Technician", "Web Developer"],
-        "homeLocation": {
-          "@type": "Country",
-          "name": "Latvia"
-        },
-        "sameAs": ["https://github.com/adrianskalvis"],
-        "knowsAbout": [
-          "Web Development",
-          "React",
-          "TypeScript",
-          "JavaScript",
-          "PHP",
-          "Laravel",
-          "Python",
-          "SQL"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://akalvis.com/#website",
+            "url": "https://akalvis.com/",
+            "name": "Adrian Kalvis",
+            "alternateName": ["Adrians Kalvis", "akalvis.com"],
+            "inLanguage": "en"
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://akalvis.com/#profile-page",
+            "url": "https://akalvis.com/",
+            "name": "Adrian Kalvis — Programming Technician & Web Developer",
+            "isPartOf": { "@id": "https://akalvis.com/#website" },
+            "mainEntity": { "@id": "https://akalvis.com/#adrian-kalvis" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://akalvis.com/#adrian-kalvis",
+            "name": "Adrian Kalvis",
+            "alternateName": "Adrians Kalvis",
+            "url": "https://akalvis.com/",
+            "image": "https://akalvis.com/adrian-portrait-560.jpg",
+            "email": "mailto:adrians.kalvis2008@gmail.com",
+            "jobTitle": ["Programming Technician", "Web Developer"],
+            "homeLocation": {
+              "@type": "Country",
+              "name": "Latvia"
+            },
+            "sameAs": ["https://github.com/adrianskalvis"],
+            "knowsAbout": [
+              "Web Development",
+              "React",
+              "TypeScript",
+              "JavaScript",
+              "CSS",
+              "Frontend Design",
+              "Web Performance",
+              "PHP",
+              "Laravel",
+              "Python",
+              "SQL"
+            ]
+          }
         ]
       }
     </script>

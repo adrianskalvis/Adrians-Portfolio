@@ -1,0 +1,68 @@
+.scroll-cue {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 28px;
+  color: currentColor;
+}
+
+.scroll-cue__arrow {
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  animation: scroll-cue-cascade 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.scroll-cue__arrow--one {
+  top: -2px;
+  animation-delay: 0ms;
+}
+
+.scroll-cue__arrow--two {
+  top: 4px;
+  animation-delay: 140ms;
+}
+
+.scroll-cue__arrow--three {
+  top: 10px;
+  animation-delay: 280ms;
+}
+
+@keyframes scroll-cue-cascade {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: translateY(-2px) scale(0.92);
+  }
+
+  38% {
+    opacity: 0.9;
+    transform: translateY(1px) scale(1);
+  }
+
+  68% {
+    opacity: 0.22;
+    transform: translateY(4px) scale(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue__arrow {
+    animation: none;
+  }
+
+  .scroll-cue__arrow--one {
+    opacity: 0.2;
+  }
+
+  .scroll-cue__arrow--two {
+    opacity: 0.45;
+  }
+
+  .scroll-cue__arrow--three {
+    opacity: 0.9;
+  }
+}

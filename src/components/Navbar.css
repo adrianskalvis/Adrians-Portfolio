@@ -10,11 +10,14 @@
     --menu-reflex-dark: 1;
     --menu-reflex-light: 1;
     cursor: pointer;
+    float: right;
     position: relative;
     isolation: isolate;
-    display: grid;
+    display: flex;
     flex: 0 0 auto;
-    place-items: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 50px;
     height: 50px;
     padding: 0;
@@ -37,11 +40,7 @@
             inset 2px -6.5px 1px -4px color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 10%), transparent),
             0 1px 5px 0 color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 10%), transparent),
             0 6px 16px 0 color-mix(in srgb, var(--menu-dark) calc(var(--menu-reflex-dark) * 8%), transparent);
-    transition:
-            transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-            background 220ms ease,
-            box-shadow 220ms ease,
-            border-color 220ms ease;
+    transition: transform 0.4s ease-in-out, background-color 0.4s ease-in-out;
 }
 
 .dark .container__nav__menu {
@@ -66,6 +65,18 @@
 
 .container__nav__menu.container__nav__menu--change {
     background-color: color-mix(in srgb, var(--menu-glass) 24%, transparent);
+}
+
+.container__nav__menu:not(.container__nav__menu--change):hover {
+    transform: translateY(-2px);
+}
+
+.container__nav__menu.container__nav__menu--change:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark .container__nav__menu.container__nav__menu--change:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .container__nav__menu:focus-visible {
@@ -199,6 +210,13 @@
 .site-navbar__bar {
     position: relative;
     z-index: 1;
+}
+
+.glass-surface {
+    background: hsl(var(--card) / 0.4);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    transition: background 0.4s ease;
 }
 
 .nav-signature {
@@ -335,30 +353,54 @@
     transform: translateY(-4px);
 }
 
-/* ---- View projects link ---- */
-.view-projects-link {
+/* ---- Desktop dock ---- */
+.liquid-glass-dock {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.2),
+            inset 0 0.5px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .liquid-glass-dock {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.dock-icon-circle {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    transition: all 0.2s ease;
+}
+
+.dock-icon-circle:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.dark .dock-icon-circle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+.dock-icon-item {
+    position: relative;
+}
+
+.dock-icon-item:hover .dock-icon-circle {
     color: hsl(var(--primary));
-    transition: all 0.3s ease;
 }
-.view-projects-link:hover {
-    color: hsl(var(--primary)) !important;
-}
-.view-projects-link .arrow {
-    color: hsl(var(--primary));
-    transition: all 0.3s ease;
-}
-.view-projects-link:hover .arrow {
-    color: hsl(var(--sky-dark));
-}
-.dark .view-projects-link {
-    color: hsl(var(--primary));
-}
-.dark .view-projects-link:hover {
-    color: hsl(var(--primary)) !important;
-}
-.dark .view-projects-link .arrow {
-    color: hsl(var(--primary));
-}
-.dark .view-projects-link:hover .arrow {
-    color: hsl(var(--sky-dark));
+
+.glass-label {
+    border-color: hsl(var(--border) / 0.5);
+    background: hsl(var(--card) / 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: background 0.4s ease;
 }

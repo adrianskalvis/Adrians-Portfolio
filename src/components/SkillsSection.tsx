@@ -1,6 +1,7 @@
 import AnimatedSection from "./AnimatedSection";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollCue from "./ScrollCue";
+import "./SkillsSection.css";
 
 const SkillsSection = () => {
   const { t } = useLanguage();

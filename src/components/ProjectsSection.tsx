@@ -1,28 +1,45 @@
 import AnimatedSection from "./AnimatedSection";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MoveHorizontal, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type PointerEvent as ReactPointerEvent,
-} from "react";
+import { motion, useReducedMotion, type PanInfo } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
 import "./ProjectsSection.css";
+
+const projectCardVariants = {
+  active: {
+    opacity: 1,
+    x: "0%",
+    rotate: 0,
+    rotateY: 0,
+    scale: 1,
+    zIndex: 2,
+  },
+  preview: {
+    opacity: 0.48,
+    x: "9%",
+    rotate: 3.2,
+    rotateY: -4,
+    scale: 0.965,
+    zIndex: 1,
+  },
+  hidden: {
+    opacity: 0,
+    x: "14%",
+    rotate: 6,
+    rotateY: -8,
+    scale: 0.93,
+    zIndex: 0,
+  },
+};
 
 const ProjectsSection = () => {
   const { t } = useLanguage();
-  const trackRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef({
-    pointerId: -1,
-    startX: 0,
-    startScrollLeft: 0,
-    moved: false,
-  });
+  const shouldReduceMotion = useReducedMotion();
+  const deckRef = useRef<HTMLDivElement>(null);
   const suppressClickRef = useRef(false);
-  const scrollRafRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const projects = [
     {
@@ -84,100 +101,39 @@ const ProjectsSection = () => {
   ];
 
   const showProject = useCallback(
-    (index: number, behavior: ScrollBehavior = "smooth") => {
-      const track = trackRef.current;
-      if (!track) return;
-
-      const nextIndex = Math.max(0, Math.min(projects.length - 1, index));
-      track.scrollTo({ left: nextIndex * track.clientWidth, behavior });
+    (index: number, focusDeck = false) => {
+      const nextIndex = (index + projects.length) % projects.length;
+      setHasInteracted(true);
       setActiveIndex(nextIndex);
+      const focusedElement = document.activeElement;
+      if (
+        focusDeck &&
+        focusedElement instanceof HTMLElement &&
+        focusedElement !== deckRef.current &&
+        deckRef.current?.contains(focusedElement)
+      ) {
+        deckRef.current?.focus({ preventScroll: true });
+      }
     },
     [projects.length],
   );
 
-  const handleScroll = () => {
-    if (scrollRafRef.current !== null) return;
-
-    scrollRafRef.current = window.requestAnimationFrame(() => {
-      scrollRafRef.current = null;
-      const track = trackRef.current;
-      if (!track || track.clientWidth === 0) return;
-
-      const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
-      const boundedIndex = Math.max(0, Math.min(projects.length - 1, nextIndex));
-      setActiveIndex((currentIndex) =>
-        currentIndex === boundedIndex ? currentIndex : boundedIndex,
-      );
-    });
-  };
-
-  useEffect(
-    () => () => {
-      if (scrollRafRef.current !== null) {
-        window.cancelAnimationFrame(scrollRafRef.current);
-      }
-    },
-    [],
-  );
-
-  const finishDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragRef.current.pointerId !== event.pointerId) return;
-
-    const track = trackRef.current;
-    const didMove = dragRef.current.moved;
-    dragRef.current.pointerId = -1;
+  const finishDrag = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     setIsDragging(false);
 
-    if (track?.hasPointerCapture(event.pointerId)) {
-      track.releasePointerCapture(event.pointerId);
+    if (info.offset.x <= -55 || info.velocity.x <= -500) {
+      showProject(activeIndex + 1, true);
+    } else if (info.offset.x >= 55 || info.velocity.x >= 500) {
+      showProject(activeIndex - 1, true);
     }
 
-    if (track && didMove) {
-      const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
-      suppressClickRef.current = true;
-      showProject(nextIndex);
-      window.setTimeout(() => {
-        suppressClickRef.current = false;
-      }, 0);
-    }
+    window.setTimeout(() => {
+      suppressClickRef.current = false;
+    }, 120);
   };
 
-  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!event.isPrimary || event.pointerType !== "mouse" || event.button !== 0) {
-      return;
-    }
-
-    const track = trackRef.current;
-    if (!track) return;
-
-    dragRef.current = {
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startScrollLeft: track.scrollLeft,
-      moved: false,
-    };
-    setIsDragging(true);
-  };
-
-  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragRef.current.pointerId !== event.pointerId) return;
-
-    const track = trackRef.current;
-    if (!track) return;
-
-    const delta = event.clientX - dragRef.current.startX;
-    if (Math.abs(delta) > 5) {
-      dragRef.current.moved = true;
-      if (!track.hasPointerCapture(event.pointerId)) {
-        track.setPointerCapture(event.pointerId);
-      }
-    }
-
-    if (dragRef.current.moved) {
-      track.scrollLeft = dragRef.current.startScrollLeft - delta;
-      event.preventDefault();
-    }
-  };
+  const nextIndex = (activeIndex + 1) % projects.length;
+  const activeProject = projects[activeIndex];
 
   return (
     <section id="projects" className="projects-section section-padding bg-background relative z-10">
@@ -194,29 +150,82 @@ const ProjectsSection = () => {
           <div className="min-w-0">
             <AnimatedSection delay={0.1}>
               <div className="project-carousel">
+                <div className="project-carousel__switcher">
+                  <div className="project-carousel__switcher-topline">
+                    <div>
+                      <span className="project-carousel__switcher-label">
+                        {String(t("projects.heading"))}
+                      </span>
+                      <span className="project-carousel__hint">
+                        {String(t("projects.carouselHint"))}
+                      </span>
+                    </div>
+
+                    <div className="project-carousel__navigation">
+                      <button
+                        type="button"
+                        className="project-carousel__arrow"
+                        onClick={() => showProject(activeIndex - 1)}
+                        aria-label={String(t("projects.previous"))}
+                      >
+                        <ArrowLeft size={18} aria-hidden="true" />
+                      </button>
+
+                      <span
+                        className="project-carousel__count"
+                        aria-live="polite"
+                        aria-atomic="true"
+                      >
+                        {activeIndex + 1} / {projects.length}
+                        <span className="sr-only">: {activeProject.title}</span>
+                      </span>
+
+                      <button
+                        type="button"
+                        className="project-carousel__arrow"
+                        onClick={() => showProject(activeIndex + 1)}
+                        aria-label={String(t("projects.next"))}
+                      >
+                        <ArrowRight size={18} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className="project-carousel__choices"
+                    role="group"
+                    aria-label={String(t("projects.carouselLabel"))}
+                  >
+                    {projects.map((project, index) => (
+                      <button
+                        key={project.title}
+                        type="button"
+                        className={`project-carousel__choice ${
+                          activeIndex === index ? "project-carousel__choice--active" : ""
+                        }`}
+                        aria-pressed={activeIndex === index}
+                        onClick={() => showProject(index)}
+                      >
+                        <span className="project-carousel__choice-number">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span>{project.title}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div
-                  ref={trackRef}
-                  className={`project-carousel__track ${
-                    isDragging ? "project-carousel__track--dragging" : ""
-                  }`}
+                  ref={deckRef}
+                  className="project-carousel__deck"
                   data-cursor-glass
                   role="region"
                   aria-roledescription="carousel"
                   aria-label={String(t("projects.carouselLabel"))}
                   tabIndex={0}
-                  onScroll={handleScroll}
-                  onPointerDown={handlePointerDown}
-                  onPointerMove={handlePointerMove}
-                  onPointerUp={finishDrag}
-                  onPointerCancel={finishDrag}
-                  onClickCapture={(event) => {
-                    if (suppressClickRef.current) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      suppressClickRef.current = false;
-                    }
-                  }}
                   onKeyDown={(event) => {
+                    if (event.target !== event.currentTarget) return;
+
                     if (event.key === "ArrowLeft") {
                       event.preventDefault();
                       showProject(activeIndex - 1);
@@ -227,138 +236,142 @@ const ProjectsSection = () => {
                     }
                   }}
                 >
-                  {projects.map((project, index) => (
-                    <article
-                      key={project.title}
-                      className="project-carousel__slide group"
-                      aria-label={`${index + 1} / ${projects.length}: ${project.title}`}
-                      aria-hidden={activeIndex !== index}
-                    >
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-carousel__image"
-                        draggable={false}
-                        tabIndex={activeIndex === index ? 0 : -1}
+                  {projects.map((project, index) => {
+                    const isActive = activeIndex === index;
+                    const position = isActive
+                      ? "active"
+                      : index === nextIndex
+                        ? "preview"
+                        : "hidden";
+
+                    return (
+                      <motion.article
+                        key={project.title}
+                        className={`project-carousel__slide project-carousel__slide--${position} ${
+                          isDragging && isActive ? "project-carousel__slide--dragging" : ""
+                        } ${isActive ? "group" : ""}`}
+                        initial={false}
+                        animate={position}
+                        variants={projectCardVariants}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 260, damping: 28, mass: 0.82 }
+                        }
+                        drag={isActive ? "x" : false}
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.24}
+                        dragMomentum={false}
+                        dragSnapToOrigin
+                        whileDrag={shouldReduceMotion ? undefined : { scale: 0.985 }}
+                        onDragStart={() => {
+                          suppressClickRef.current = true;
+                          setIsDragging(true);
+                        }}
+                        onDragEnd={finishDrag}
+                        onClickCapture={(event) => {
+                          if (suppressClickRef.current) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                          }
+                        }}
+                        aria-label={`${index + 1} / ${projects.length}: ${project.title}`}
+                        aria-hidden={!isActive}
+                        role="group"
+                        aria-roledescription="slide"
                       >
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-carousel__image"
                           draggable={false}
-                          loading="lazy"
-                          decoding="async"
-                          width={project.image === "/mini-game-preview-840.jpg" ? 840 : 1280}
-                          height={project.image === "/mini-game-preview-840.jpg" ? 494 : 720}
-                        />
-                        {index === 0 && (
-                          <span className="project-carousel__swipe-cue" aria-hidden="true">
-                            <MoveHorizontal />
-                            {String(t("projects.swipeHint"))}
-                          </span>
-                        )}
-                      </a>
-
-                      <div className="project-carousel__content">
-                        <div className="project-carousel__eyebrow flex items-center gap-2 text-primary text-sm uppercase tracking-widest mb-4">
-                          {project.featured && <Star size={16} className="fill-primary" />}
-                          {project.featured
-                            ? String(t("projects.featured"))
-                            : String(t("projects.project"))}
-                        </div>
-                        <h3 className="project-carousel__title text-3xl text-foreground mb-6">
-                          {project.title}
-                        </h3>
-                        <p className="project-carousel__description text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                          {project.description}
-                        </p>
-                        <dl className="project-carousel__proof">
-                          {project.details.map((detail) => (
-                            <div key={detail.label} className="project-carousel__proof-item">
-                              <dt>{detail.label}</dt>
-                              <dd>{detail.value}</dd>
-                            </div>
-                          ))}
-                        </dl>
-                        <div className="project-carousel__tags flex flex-wrap gap-3 mb-10">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="project-carousel__tag text-sm font-medium px-4 py-1.5 rounded-full bg-accent/50 text-accent-foreground backdrop-blur-sm"
-                            >
-                              {tag}
+                          tabIndex={activeIndex === index ? 0 : -1}
+                        >
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                            draggable={false}
+                            loading="lazy"
+                            decoding="async"
+                            width={project.image === "/mini-game-preview-840.jpg" ? 840 : 1280}
+                            height={project.image === "/mini-game-preview-840.jpg" ? 494 : 720}
+                          />
+                          {isActive && !hasInteracted && (
+                            <span className="project-carousel__swipe-cue" aria-hidden="true">
+                              <MoveHorizontal />
+                              {String(t("projects.swipeHint"))}
                             </span>
-                          ))}
+                          )}
+                        </a>
+
+                        <div className="project-carousel__content">
+                          <div className="project-carousel__eyebrow flex items-center gap-2 text-primary text-sm uppercase tracking-widest mb-4">
+                            {project.featured && <Star size={16} className="fill-primary" />}
+                            {project.featured
+                              ? String(t("projects.featured"))
+                              : String(t("projects.project"))}
+                          </div>
+                          <h3 className="project-carousel__title text-3xl text-foreground mb-6">
+                            {project.title}
+                          </h3>
+                          <p className="project-carousel__description text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                            {project.description}
+                          </p>
+                          <dl className="project-carousel__proof">
+                            {project.details.map((detail) => (
+                              <div key={detail.label} className="project-carousel__proof-item">
+                                <dt>{detail.label}</dt>
+                                <dd>{detail.value}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                          <div className="project-carousel__tags flex flex-wrap gap-3 mb-10">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="project-carousel__tag text-sm font-medium px-4 py-1.5 rounded-full bg-accent/50 text-accent-foreground backdrop-blur-sm"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="project-carousel__links flex flex-wrap items-center gap-x-8 gap-y-4">
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="project-carousel__link text-link text-xl"
+                              tabIndex={activeIndex === index ? 0 : -1}
+                            >
+                              {project.liveLabel}
+                              <ArrowUpRight size={18} aria-hidden="true" />
+                            </a>
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="project-carousel__link text-link text-xl"
+                              tabIndex={activeIndex === index ? 0 : -1}
+                            >
+                              {String(t("projects.viewOnGithub"))}
+                              <ArrowUpRight size={18} aria-hidden="true" />
+                            </a>
+                          </div>
                         </div>
-                        <div className="project-carousel__links flex flex-wrap items-center gap-x-8 gap-y-4">
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="project-carousel__link text-link text-xl"
-                            tabIndex={activeIndex === index ? 0 : -1}
-                          >
-                            {project.liveLabel}
-                            <ArrowUpRight size={18} aria-hidden="true" />
-                          </a>
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="project-carousel__link text-link text-xl"
-                            tabIndex={activeIndex === index ? 0 : -1}
-                          >
-                            {String(t("projects.viewOnGithub"))}
-                            <ArrowUpRight size={18} aria-hidden="true" />
-                          </a>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
+                      </motion.article>
+                    );
+                  })}
 
-                <div className="project-carousel__controls">
-                  <p className="project-carousel__hint">
-                    {String(t("projects.carouselHint"))}
-                  </p>
-
-                  <div className="project-carousel__navigation">
-                    <button
-                      type="button"
-                      className="project-carousel__arrow"
-                      onClick={() => showProject(activeIndex - 1)}
-                      disabled={activeIndex === 0}
-                      aria-label={String(t("projects.previous"))}
-                    >
-                      <ArrowLeft size={18} aria-hidden="true" />
-                    </button>
-
-                    <div className="project-carousel__dots" aria-hidden="true">
-                      {projects.map((project, index) => (
-                        <span
-                          key={project.title}
-                          className={`project-carousel__dot ${
-                            activeIndex === index ? "project-carousel__dot--active" : ""
-                          }`}
-                        />
-                      ))}
-                    </div>
-
-                    <span className="project-carousel__count" aria-live="polite">
-                      {activeIndex + 1} / {projects.length}
-                    </span>
-
-                    <button
-                      type="button"
-                      className="project-carousel__arrow"
-                      onClick={() => showProject(activeIndex + 1)}
-                      disabled={activeIndex === projects.length - 1}
-                      aria-label={String(t("projects.next"))}
-                    >
-                      <ArrowRight size={18} aria-hidden="true" />
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className="project-carousel__peek-target"
+                    onClick={() => showProject(activeIndex + 1)}
+                    aria-label={String(t("projects.next"))}
+                    title={String(t("projects.next"))}
+                    data-cursor-glass
+                  />
                 </div>
               </div>
             </AnimatedSection>

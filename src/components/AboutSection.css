@@ -1,0 +1,10 @@
+.about-reveal {
+  transform-origin: left center;
+  will-change: transform, opacity, filter;
+}
+
+@media (max-width: 767px) {
+  .about-reveal {
+    will-change: transform, opacity;
+  }
+}

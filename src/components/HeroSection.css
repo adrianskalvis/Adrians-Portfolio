@@ -1,0 +1,142 @@
+.sky-gradient {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--sky-light)) 0%,
+    hsl(var(--background)) 100%
+  );
+  transition: background 0.4s ease;
+}
+
+.glass-orb-liquid {
+  background: radial-gradient(
+    circle at 30% 30%,
+    hsl(var(--primary) / 0.4) 0%,
+    hsl(var(--primary) / 0.1) 40%,
+    transparent 80%
+  );
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  box-shadow:
+    inset 0 0 20px hsl(var(--primary) / 0.1),
+    0 10px 40px -10px hsl(var(--primary) / 0.2);
+  transition: all 0.5s ease;
+}
+
+.dark .glass-orb-liquid {
+  background: radial-gradient(
+    circle at 30% 30%,
+    hsl(var(--primary) / 0.3) 0%,
+    hsl(var(--primary) / 0.05) 50%,
+    transparent 100%
+  );
+  border: 1px solid hsl(var(--primary) / 0.1);
+}
+
+.view-projects-link {
+  color: hsl(var(--primary));
+  transition: all 0.3s ease;
+}
+
+.view-projects-link:hover {
+  color: hsl(var(--primary)) !important;
+}
+
+.view-projects-link .arrow {
+  color: hsl(var(--primary));
+  transition: all 0.3s ease;
+}
+
+.view-projects-link:hover .arrow {
+  color: hsl(var(--sky-dark));
+}
+
+.hero-action {
+  --hero-glass: #bbbbbc;
+  --hero-light: #ffffff;
+  --hero-dark: #000000;
+  --hero-reflex-dark: 1;
+  --hero-reflex-light: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 999px;
+  color: hsl(var(--foreground));
+  background-color: color-mix(in srgb, var(--hero-glass) 12%, transparent);
+  backdrop-filter: blur(8px) saturate(150%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 10%), transparent),
+    inset 1.8px 3px 0 -2px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 90%), transparent),
+    inset -2px -2px 0 -2px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--hero-light) calc(var(--hero-reflex-light) * 60%), transparent),
+    inset -0.3px -1px 4px 0 color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 12%), transparent),
+    inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 20%), transparent),
+    inset 0 3px 4px -2px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 20%), transparent),
+    inset 2px -6.5px 1px -4px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 10%), transparent),
+    0 1px 5px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 10%), transparent),
+    0 6px 16px color-mix(in srgb, var(--hero-dark) calc(var(--hero-reflex-dark) * 8%), transparent);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.dark .hero-action {
+  --hero-reflex-dark: 2;
+  --hero-reflex-light: 0.3;
+}
+
+.hero-action--primary {
+  color: hsl(var(--accent-foreground));
+  background-color: color-mix(in srgb, var(--hero-glass) 17%, transparent);
+}
+
+.hero-action:hover {
+  color: hsl(var(--accent-foreground));
+  background-color: color-mix(in srgb, var(--hero-glass) 22%, transparent);
+  transform: translateY(-1px);
+}
+
+.hero-action:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  .hero-action {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .glass-orb-liquid {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-section .hero-value {
+    max-width: 31rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .hero-section .hero-actions {
+    margin-top: 18px;
+  }
+
+  .hero-section .hero-action {
+    padding: 8px 13px;
+    font-size: 0.7rem;
+  }
+}

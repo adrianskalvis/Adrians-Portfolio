@@ -1,0 +1,47 @@
+.card-sky {
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: 1rem;
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.35s ease-out;
+}
+
+.card-sky:hover {
+  border-color: hsl(var(--primary) / 0.25);
+  background: hsl(var(--card) / 0.85);
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
+}
+
+.skills-scroll-cue {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+  margin: 34px 0 0 auto;
+  color: hsl(var(--primary));
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.skills-scroll-cue__icon {
+  width: 16px;
+  height: 25px;
+}
+
+.skills-scroll-cue__icon .scroll-cue__arrow {
+  width: 16px;
+  height: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-sky {
+    transition-duration: 0.01ms !important;
+  }
+}

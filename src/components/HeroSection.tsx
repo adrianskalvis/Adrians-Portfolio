@@ -3,6 +3,7 @@ import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect, useState } from "react";
 import ScrollCue from "./ScrollCue";
+import "./HeroSection.css";
 
 const Typewriter = ({
   phrases,
@@ -82,7 +83,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[100svh] md:min-h-[92svh] flex flex-col pt-24 md:pt-28 pb-7 md:pb-12 px-6 md:px-12 sky-gradient overflow-hidden"
+      className="hero-section relative min-h-[100svh] md:min-h-[92svh] flex flex-col pt-24 md:pt-28 pb-7 md:pb-12 px-6 md:px-12 sky-gradient overflow-hidden"
     >
       {/* Bubble orbs */}
       <div
