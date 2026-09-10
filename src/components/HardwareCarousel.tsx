@@ -111,7 +111,7 @@ const HardwareCarousel = () => {
 
         <button
           type="button"
-          className="hardware-carousel__arrow hardware-carousel__arrow--previous"
+          className="hardware-carousel__arrow hardware-carousel__arrow--previous glass-edge"
           onClick={() => showSlide(activeIndex - 1)}
           disabled={activeIndex === 0}
           aria-label="Previous image"
@@ -120,7 +120,7 @@ const HardwareCarousel = () => {
         </button>
         <button
           type="button"
-          className="hardware-carousel__arrow hardware-carousel__arrow--next"
+          className="hardware-carousel__arrow hardware-carousel__arrow--next glass-edge"
           onClick={() => showSlide(activeIndex + 1)}
           disabled={activeIndex === hardwareSlides.length - 1}
           aria-label="Next image"

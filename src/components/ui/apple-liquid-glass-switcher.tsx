@@ -118,7 +118,8 @@ export function ThemeSwitcher({
   };
 
   return (
-    <fieldset
+    <div className="switcher-frame glass-edge">
+      <fieldset
       className="switcher"
       data-previous={
         themeOptions.find((o) => o.value === activeValue)?.cOption
@@ -229,6 +230,7 @@ export function ThemeSwitcher({
           </filter>
         </svg>
       </div>
-    </fieldset>
+      </fieldset>
+    </div>
   );
 }

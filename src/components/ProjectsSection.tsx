@@ -150,7 +150,7 @@ const ProjectsSection = () => {
           <div className="min-w-0">
             <AnimatedSection delay={0.1}>
               <div className="project-carousel">
-                <div className="project-carousel__switcher">
+                <div className="project-carousel__switcher glass-edge">
                   <div className="project-carousel__switcher-topline">
                     <div>
                       <span className="project-carousel__switcher-label">
@@ -164,7 +164,7 @@ const ProjectsSection = () => {
                     <div className="project-carousel__navigation">
                       <button
                         type="button"
-                        className="project-carousel__arrow"
+                        className="project-carousel__arrow glass-edge"
                         onClick={() => showProject(activeIndex - 1)}
                         aria-label={String(t("projects.previous"))}
                       >
@@ -182,7 +182,7 @@ const ProjectsSection = () => {
 
                       <button
                         type="button"
-                        className="project-carousel__arrow"
+                        className="project-carousel__arrow glass-edge"
                         onClick={() => showProject(activeIndex + 1)}
                         aria-label={String(t("projects.next"))}
                       >
@@ -200,7 +200,7 @@ const ProjectsSection = () => {
                       <button
                         key={project.title}
                         type="button"
-                        className={`project-carousel__choice ${
+                        className={`project-carousel__choice glass-edge ${
                           activeIndex === index ? "project-carousel__choice--active" : ""
                         }`}
                         aria-pressed={activeIndex === index}
@@ -285,6 +285,7 @@ const ProjectsSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="project-carousel__image"
+                          data-cursor-project
                           draggable={false}
                           tabIndex={activeIndex === index ? 0 : -1}
                         >

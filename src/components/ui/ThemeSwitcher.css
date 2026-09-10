@@ -12,6 +12,18 @@
     --saturation: 150%;
 }
 
+.switcher-frame {
+    flex: 0 0 auto;
+    width: 136px;
+    height: 54px;
+    border-radius: 99em;
+}
+
+.switcher-frame > .switcher {
+    position: relative;
+    z-index: 1;
+}
+
 /* DARK */
 .dark .switcher,
 .switcher:has(input[value="dark"]:checked) {
@@ -185,6 +197,11 @@
 }
 
 @media (max-width: 520px) {
+    .switcher-frame {
+        width: 102px;
+        height: 44px;
+    }
+
     .switcher {
         gap: 2px;
         width: 102px;

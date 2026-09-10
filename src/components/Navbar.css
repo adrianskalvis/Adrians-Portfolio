@@ -48,16 +48,6 @@
     --menu-reflex-light: 0.3;
 }
 
-.container__nav__menu::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 2px;
-    border-radius: inherit;
-    background: linear-gradient(145deg, rgb(255 255 255 / 0.2), transparent 55%);
-    pointer-events: none;
-}
-
 .container__nav__menu:hover {
     transform: translateY(-1px) scale(1.045);
     background-color: color-mix(in srgb, var(--menu-glass) 18%, transparent);
@@ -89,6 +79,8 @@
 }
 
 .container__nav__menu__icon {
+    position: relative;
+    z-index: 5;
     display: grid;
     width: 22px;
     height: 22px;
@@ -161,6 +153,8 @@
 }
 
 .menu-language-option {
+    position: relative;
+    z-index: 5;
     min-height: 42px;
     border-radius: 999px;
     color: hsl(var(--muted-foreground));
@@ -355,18 +349,44 @@
 
 /* ---- Desktop dock ---- */
 .liquid-glass-dock {
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 24px !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(20px) saturate(1.5);
-    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    --dock-glass: #bbbbbc;
+    --dock-light: #ffffff;
+    --dock-dark: #000000;
+    --dock-reflex-dark: 1;
+    --dock-reflex-light: 1;
+    position: relative;
+    isolation: isolate;
+    border: none !important;
+    border-radius: 99em !important;
+    background-color: color-mix(in srgb, var(--dock-glass) 12%, transparent) !important;
+    backdrop-filter: blur(6px) saturate(115%) !important;
+    -webkit-backdrop-filter: blur(6px) saturate(115%) !important;
     box-shadow:
-            0 20px 40px rgba(0, 0, 0, 0.2),
-            inset 0 0.5px 0 rgba(255, 255, 255, 0.1);
+            inset 0 0 0 1px color-mix(in srgb, var(--dock-light) calc(var(--dock-reflex-light) * 10%), transparent),
+            inset 1.8px 3px 0 -2px color-mix(in srgb, var(--dock-light) calc(var(--dock-reflex-light) * 90%), transparent),
+            inset -2px -2px 0 -2px color-mix(in srgb, var(--dock-light) calc(var(--dock-reflex-light) * 80%), transparent),
+            inset -3px -8px 1px -6px color-mix(in srgb, var(--dock-light) calc(var(--dock-reflex-light) * 60%), transparent),
+            inset -0.3px -1px 4px 0 color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 12%), transparent),
+            inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 20%), transparent),
+            inset 0 3px 4px -2px color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 20%), transparent),
+            inset 2px -6.5px 1px -4px color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 10%), transparent),
+            0 1px 5px 0 color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 10%), transparent),
+            0 6px 16px 0 color-mix(in srgb, var(--dock-dark) calc(var(--dock-reflex-dark) * 8%), transparent) !important;
+    transition:
+            background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+            box-shadow 400ms cubic-bezier(1, 0, 0.4, 1);
 }
 
 .dark .liquid-glass-dock {
-    background: rgba(0, 0, 0, 0.2) !important;
+    --dock-reflex-dark: 2;
+    --dock-reflex-light: 0.3;
+    background:
+            linear-gradient(
+                    -75deg,
+                    rgb(255 255 255 / 0.025),
+                    rgb(255 255 255 / 0.075),
+                    rgb(255 255 255 / 0.025)
+            ) !important;
 }
 
 .dock-icon-circle {
@@ -391,6 +411,7 @@
 
 .dock-icon-item {
     position: relative;
+    z-index: 5;
 }
 
 .dock-icon-item:hover .dock-icon-circle {

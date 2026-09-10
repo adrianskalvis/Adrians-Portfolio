@@ -41,20 +41,9 @@
     --project-reflex-light: 0.3;
 }
 
-.project-carousel__switcher::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    inset: 2px;
-    background: linear-gradient(145deg, rgb(255 255 255 / 0.18), transparent 52%);
-    opacity: 0.72;
-    pointer-events: none;
-}
-
 .project-carousel__switcher-topline {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,7 +73,7 @@
 
 .project-carousel__choices {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
@@ -188,6 +177,8 @@
 }
 
 .project-carousel__arrow svg {
+    position: relative;
+    z-index: 5;
     width: 20px;
     height: 20px;
 }

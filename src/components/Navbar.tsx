@@ -185,7 +185,7 @@ const Navbar = () => {
                         <ThemeSwitcher value={theme} onValueChange={setTheme} />
                         <button
                             type="button"
-                            className={`container__nav__menu ${mobileOpen ? "container__nav__menu--change" : ""} text-foreground`}
+                            className={`container__nav__menu glass-edge ${mobileOpen ? "container__nav__menu--change" : ""} text-foreground`}
                             onClick={() => setMobileOpen(!mobileOpen)}
                             aria-label={mobileOpen ? "Close menu" : "Open menu"}
                             aria-expanded={mobileOpen}
@@ -229,7 +229,7 @@ const Navbar = () => {
                                             <span>{String(t("nav.language"))}</span>
                                         </div>
                                         <div
-                                            className="menu-language-switcher"
+                                            className="menu-language-switcher glass-edge"
                                             role="group"
                                             aria-label={String(t("nav.language"))}
                                             onPointerDown={(event) => {
@@ -305,7 +305,7 @@ const Navbar = () => {
                 <Dock
                     magnification={90}
                     distance={150}
-                    className="liquid-glass-dock px-6 py-4 gap-4"
+                    className="liquid-glass-dock glass-edge px-6 py-4 gap-4"
                 >
                     {navItems.map((item) => (
                         <DockItem

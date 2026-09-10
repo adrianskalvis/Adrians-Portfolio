@@ -131,7 +131,7 @@ const HeroSection = () => {
             <a
               href="#projects"
               onClick={handleSectionScroll}
-              className="hero-action hero-action--primary"
+              className="hero-action hero-action--primary glass-edge"
             >
               {t("hero.viewProjects")}
               <ArrowDownRight size={16} aria-hidden="true" />
@@ -139,7 +139,7 @@ const HeroSection = () => {
             <a
               href="#contact"
               onClick={handleSectionScroll}
-              className="hero-action"
+              className="hero-action glass-edge"
             >
               {t("hero.getInTouch")}
               <ArrowUpRight size={16} aria-hidden="true" />
