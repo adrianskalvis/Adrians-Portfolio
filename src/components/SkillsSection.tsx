@@ -28,6 +28,7 @@ const SkillsSection = () => {
         "Laravel",
         "Python",
         "C++",
+        "R",
       ],
     },
     {
@@ -74,7 +75,10 @@ const SkillsSection = () => {
                     className="text-base text-muted-foreground flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                    {skill}
+                    <span>
+                      {skill}
+                      {skill === "R" && <span className="block text-xs leading-normal mt-0.5">{t("skills.learning")}</span>}
+                    </span>
                   </li>
                 ))}
               </ul>

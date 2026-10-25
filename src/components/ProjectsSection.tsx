@@ -1,35 +1,64 @@
 import AnimatedSection from "./AnimatedSection";
-import { ArrowLeft, ArrowRight, ArrowUpRight, MoveHorizontal, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, Expand, MoveHorizontal } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion, useReducedMotion, type PanInfo } from "framer-motion";
+import { AnimatePresence, motion, useIsPresent, useReducedMotion, type PanInfo } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
+import ImageViewer, { type ViewerImage } from "./ImageViewer";
 import "./ProjectsSection.css";
 
-const projectCardVariants = {
-  active: {
-    opacity: 1,
-    x: "0%",
-    rotate: 0,
-    rotateY: 0,
-    scale: 1,
-    zIndex: 2,
-  },
-  preview: {
-    opacity: 0.48,
-    x: "9%",
-    rotate: 3.2,
-    rotateY: -4,
-    scale: 0.965,
-    zIndex: 1,
-  },
-  hidden: {
-    opacity: 0,
-    x: "14%",
-    rotate: 6,
-    rotateY: -8,
-    scale: 0.93,
-    zIndex: 0,
-  },
+const imageVariants = {
+  enter: (direction: number) => ({ x: `${direction * 100}%` }),
+  center: { x: "0%" },
+  exit: (direction: number) => ({ x: `${direction * -100}%` }),
+};
+
+interface ProjectImageProps {
+  project: { image: string; title: string; width: number; height: number; tone: string };
+  direction: number;
+  reduceMotion: boolean;
+  label: string;
+  onOpen: () => void;
+  onDragStart?: () => void;
+  onDragEnd?: (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
+  suppressClick: { current: boolean };
+  detail?: boolean;
+}
+
+// Only the images travel. The glass frame, typography layout and controls stay put.
+const ProjectImage = ({ project, direction, reduceMotion, label, onOpen, onDragStart, onDragEnd, suppressClick, detail = false }: ProjectImageProps) => {
+  const isPresent = useIsPresent();
+  return (
+    <motion.button
+      type="button"
+      className={`project-carousel__photo project-carousel__photo--${project.tone}`}
+      custom={direction}
+      variants={reduceMotion ? undefined : imageVariants}
+      initial={reduceMotion ? false : "enter"}
+      animate="center"
+      exit={reduceMotion ? { opacity: 0 } : "exit"}
+      transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+      drag={!detail && isPresent ? "x" : false}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.22}
+      dragMomentum={false}
+      dragSnapToOrigin
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      onClick={(event) => {
+        if (suppressClick.current) { event.preventDefault(); return; }
+        onOpen();
+      }}
+      tabIndex={isPresent ? 0 : -1}
+      aria-hidden={!isPresent}
+      aria-label={label}
+      aria-haspopup="dialog"
+      style={{ pointerEvents: isPresent ? "auto" : "none" }}
+      data-cursor-project
+    >
+      <img src={project.image} alt={project.title} width={project.width} height={project.height}
+        draggable={false} decoding="async" />
+    </motion.button>
+  );
 };
 
 const ProjectsSection = () => {
@@ -38,14 +67,18 @@ const ProjectsSection = () => {
   const deckRef = useRef<HTMLDivElement>(null);
   const suppressClickRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [direction, setDirection] = useState(1);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<ViewerImage | null>(null);
 
   const projects = [
     {
       title: String(t("projects.miniGame")),
       description: String(t("projects.miniGameDesc")),
-      image: "/mini-game-preview-840.jpg",
+      image: "/project-previews/mini-game-portrait.jpg",
+      width: 500,
+      height: 900,
+      tone: "game",
       liveUrl: "https://adrianskalvis.github.io/minigame/",
       githubUrl: "https://github.com/adrianskalvis/minigame",
       tags: ["JavaScript", "HTML5", "CSS3", "Sprite Art"],
@@ -73,7 +106,10 @@ const ProjectsSection = () => {
     {
       title: String(t("projects.vtdtCareer")),
       description: String(t("projects.vtdtCareerDesc")),
-      image: "/vtdt-karjera.jpg",
+      image: "/project-previews/vtdt-career-portrait.jpg",
+      width: 600,
+      height: 900,
+      tone: "career",
       liveUrl: "https://adrianskalvis.github.io/VTDT-Karjera/",
       githubUrl: "https://github.com/adrianskalvis/VTDT-Karjera",
       tags: ["JavaScript", "HTML5", "CSS3", "Decision Tree"],
@@ -98,13 +134,52 @@ const ProjectsSection = () => {
         },
       ],
     },
+    {
+      title: "KiberDrošs",
+      description: String(t("projects.kiberdrossDesc")),
+      image: "/work-samples/kiberdross.png",
+      width: 1976,
+      height: 1752,
+      tone: "cyber",
+      preview: true,
+      tags: ["Laravel", "PHP", "MySQL"],
+      featured: false,
+      status: String(t("projects.workInProgress")),
+      liveLabel: String(t("projects.viewPreview")),
+      details: [
+        { label: String(t("projects.role")), value: String(t("projects.independentDeveloper")) },
+        { label: String(t("projects.challenge")), value: String(t("projects.kiberdrossChallenge")) },
+        { label: String(t("projects.approach")), value: String(t("projects.kiberdrossApproach")) },
+        { label: String(t("projects.outcome")), value: String(t("projects.kiberdrossOutcome")) },
+      ],
+    },
+    {
+      title: String(t("projects.blog")),
+      description: String(t("projects.blogDesc")),
+      image: "/project-previews/windows95-blog.jpg",
+      width: 600,
+      height: 900,
+      tone: "blog",
+      liveUrl: "https://window95.projekts.area.lv/",
+      tags: ["Blog", "Retro UI", "CSS", "JavaScript"],
+      featured: false,
+      liveLabel: String(t("projects.viewBlog")),
+      details: [
+        { label: String(t("projects.role")), value: String(t("projects.independentDeveloper")) },
+        { label: String(t("projects.challenge")), value: String(t("projects.blogChallenge")) },
+        { label: String(t("projects.approach")), value: String(t("projects.blogApproach")) },
+        { label: String(t("projects.outcome")), value: String(t("projects.blogOutcome")) },
+      ],
+    },
   ];
 
   const showProject = useCallback(
     (index: number, focusDeck = false) => {
       const nextIndex = (index + projects.length) % projects.length;
-      setHasInteracted(true);
+      if (nextIndex === activeIndex) return;
+      setDirection(index > activeIndex ? 1 : -1);
       setActiveIndex(nextIndex);
+      setIsExpanded(false);
       const focusedElement = document.activeElement;
       if (
         focusDeck &&
@@ -115,270 +190,154 @@ const ProjectsSection = () => {
         deckRef.current?.focus({ preventScroll: true });
       }
     },
-    [projects.length],
+    [activeIndex, projects.length],
   );
 
   const finishDrag = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    setIsDragging(false);
-
     if (info.offset.x <= -55 || info.velocity.x <= -500) {
       showProject(activeIndex + 1, true);
     } else if (info.offset.x >= 55 || info.velocity.x >= 500) {
       showProject(activeIndex - 1, true);
     }
-
     window.setTimeout(() => {
       suppressClickRef.current = false;
     }, 120);
   };
 
-  const nextIndex = (activeIndex + 1) % projects.length;
   const activeProject = projects[activeIndex];
 
   return (
     <section id="projects" className="projects-section section-padding bg-background relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="section-divider !mt-0 !mb-12" />
+        <AnimatedSection>
+          <h2 className="text-4xl text-foreground mb-8 md:mb-10">{t("projects.label")}</h2>
+        </AnimatedSection>
 
-        <div className="projects-layout grid md:grid-cols-[1fr_2fr] gap-12 md:gap-20">
-          <AnimatedSection>
-            <h2 className="text-4xl text-foreground">
-              {t("projects.label")}
-            </h2>
-          </AnimatedSection>
-
-          <div className="min-w-0">
-            <AnimatedSection delay={0.1}>
-              <div className="project-carousel">
-                <div className="project-carousel__switcher glass-edge">
-                  <div className="project-carousel__switcher-topline">
-                    <div>
-                      <span className="project-carousel__switcher-label">
-                        {String(t("projects.heading"))}
-                      </span>
-                      <span className="project-carousel__hint">
-                        {String(t("projects.carouselHint"))}
-                      </span>
-                    </div>
-
-                    <div className="project-carousel__navigation">
-                      <button
-                        type="button"
-                        className="project-carousel__arrow glass-edge"
-                        onClick={() => showProject(activeIndex - 1)}
-                        aria-label={String(t("projects.previous"))}
-                      >
-                        <ArrowLeft size={18} aria-hidden="true" />
-                      </button>
-
-                      <span
-                        className="project-carousel__count"
-                        aria-live="polite"
-                        aria-atomic="true"
-                      >
-                        {activeIndex + 1} / {projects.length}
-                        <span className="sr-only">: {activeProject.title}</span>
-                      </span>
-
-                      <button
-                        type="button"
-                        className="project-carousel__arrow glass-edge"
-                        onClick={() => showProject(activeIndex + 1)}
-                        aria-label={String(t("projects.next"))}
-                      >
-                        <ArrowRight size={18} aria-hidden="true" />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div
-                    className="project-carousel__choices"
-                    role="group"
-                    aria-label={String(t("projects.carouselLabel"))}
-                  >
+        <AnimatedSection delay={0.1} className="project-stage">
+          <div className="project-carousel glass-edge">
+            <div className="project-carousel__composition">
+              <div className="project-carousel__copy">
+                <div className="project-carousel__header">
+                  <span className="project-carousel__label">{String(t("projects.heading"))}</span>
+                  <div className="project-carousel__position" role="group" aria-label={String(t("projects.carouselLabel"))}>
                     {projects.map((project, index) => (
-                      <button
-                        key={project.title}
-                        type="button"
-                        className={`project-carousel__choice glass-edge ${
-                          activeIndex === index ? "project-carousel__choice--active" : ""
-                        }`}
-                        aria-pressed={activeIndex === index}
-                        onClick={() => showProject(index)}
-                      >
-                        <span className="project-carousel__choice-number">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <span>{project.title}</span>
+                      <button key={project.image} type="button" className="project-carousel__dot"
+                        aria-label={`${t("projects.viewProject")}: ${project.title}`}
+                        aria-pressed={activeIndex === index} onClick={() => showProject(index)}>
+                        <span />
                       </button>
                     ))}
                   </div>
                 </div>
 
-                <div
-                  ref={deckRef}
-                  className="project-carousel__deck"
-                  data-cursor-glass
-                  role="region"
-                  aria-roledescription="carousel"
-                  aria-label={String(t("projects.carouselLabel"))}
-                  tabIndex={0}
-                  onKeyDown={(event) => {
-                    if (event.target !== event.currentTarget) return;
-
-                    if (event.key === "ArrowLeft") {
-                      event.preventDefault();
-                      showProject(activeIndex - 1);
-                    }
-                    if (event.key === "ArrowRight") {
-                      event.preventDefault();
-                      showProject(activeIndex + 1);
-                    }
-                  }}
-                >
+                <div className="project-carousel__text-stack">
                   {projects.map((project, index) => {
                     const isActive = activeIndex === index;
-                    const position = isActive
-                      ? "active"
-                      : index === nextIndex
-                        ? "preview"
-                        : "hidden";
-
                     return (
-                      <motion.article
-                        key={project.title}
-                        className={`project-carousel__slide project-carousel__slide--${position} ${
-                          isDragging && isActive ? "project-carousel__slide--dragging" : ""
-                        } ${isActive ? "group" : ""}`}
-                        initial={false}
-                        animate={position}
-                        variants={projectCardVariants}
-                        transition={
-                          shouldReduceMotion
-                            ? { duration: 0 }
-                            : { type: "spring", stiffness: 260, damping: 28, mass: 0.82 }
-                        }
-                        drag={isActive ? "x" : false}
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={0.24}
-                        dragMomentum={false}
-                        dragSnapToOrigin
-                        whileDrag={shouldReduceMotion ? undefined : { scale: 0.985 }}
-                        onDragStart={() => {
-                          suppressClickRef.current = true;
-                          setIsDragging(true);
-                        }}
-                        onDragEnd={finishDrag}
-                        onClickCapture={(event) => {
-                          if (suppressClickRef.current) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                          }
-                        }}
-                        aria-label={`${index + 1} / ${projects.length}: ${project.title}`}
-                        aria-hidden={!isActive}
-                        role="group"
-                        aria-roledescription="slide"
-                      >
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="project-carousel__image"
-                          data-cursor-project
-                          draggable={false}
-                          tabIndex={activeIndex === index ? 0 : -1}
-                        >
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                            draggable={false}
-                            loading="lazy"
-                            decoding="async"
-                            width={project.image === "/mini-game-preview-840.jpg" ? 840 : 1280}
-                            height={project.image === "/mini-game-preview-840.jpg" ? 494 : 720}
-                          />
-                          {isActive && !hasInteracted && (
-                            <span className="project-carousel__swipe-cue" aria-hidden="true">
-                              <MoveHorizontal />
-                              {String(t("projects.swipeHint"))}
-                            </span>
-                          )}
-                        </a>
-
-                        <div className="project-carousel__content">
-                          <div className="project-carousel__eyebrow flex items-center gap-2 text-primary text-sm uppercase tracking-widest mb-4">
-                            {project.featured && <Star size={16} className="fill-primary" />}
-                            {project.featured
-                              ? String(t("projects.featured"))
-                              : String(t("projects.project"))}
+                      <motion.article key={project.image} className="project-carousel__story"
+                        initial={false} animate={{ opacity: isActive ? 1 : 0 }}
+                        transition={{ duration: shouldReduceMotion ? 0 : 0.28, delay: isActive && !shouldReduceMotion ? 0.12 : 0 }}
+                        aria-hidden={!isActive} style={{ visibility: isActive ? "visible" : "hidden" }}>
+                        <div className="project-carousel__eyebrow">
+                          {project.status && <span className="project-carousel__status-dot" aria-hidden="true" />}
+                          {project.status ?? String(t(project.featured ? "projects.featured" : "projects.project"))}
+                        </div>
+                        <h3 className="project-carousel__title">{project.title}</h3>
+                        <div className="project-carousel__summary">
+                          <p className="project-carousel__description">{project.description}</p>
+                          <div className="project-carousel__tags">
+                            {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                           </div>
-                          <h3 className="project-carousel__title text-3xl text-foreground mb-6">
-                            {project.title}
-                          </h3>
-                          <p className="project-carousel__description text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                            {project.description}
-                          </p>
-                          <dl className="project-carousel__proof">
-                            {project.details.map((detail) => (
-                              <div key={detail.label} className="project-carousel__proof-item">
-                                <dt>{detail.label}</dt>
-                                <dd>{detail.value}</dd>
-                              </div>
-                            ))}
-                          </dl>
-                          <div className="project-carousel__tags flex flex-wrap gap-3 mb-10">
-                            {project.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="project-carousel__tag text-sm font-medium px-4 py-1.5 rounded-full bg-accent/50 text-accent-foreground backdrop-blur-sm"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="project-carousel__links flex flex-wrap items-center gap-x-8 gap-y-4">
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="project-carousel__link text-link text-xl"
-                              tabIndex={activeIndex === index ? 0 : -1}
-                            >
-                              {project.liveLabel}
-                              <ArrowUpRight size={18} aria-hidden="true" />
-                            </a>
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="project-carousel__link text-link text-xl"
-                              tabIndex={activeIndex === index ? 0 : -1}
-                            >
-                              {String(t("projects.viewOnGithub"))}
-                              <ArrowUpRight size={18} aria-hidden="true" />
-                            </a>
+                          <div className="project-carousel__links">
+                            {project.preview ? (
+                              <button type="button" className="project-carousel__link text-link"
+                                tabIndex={isActive ? 0 : -1} aria-haspopup="dialog"
+                                onClick={() => setSelectedImage({ src: project.image, alt: project.title })}>
+                                {project.liveLabel}<ArrowUpRight size={16} aria-hidden="true" />
+                              </button>
+                            ) : (
+                              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                                className="project-carousel__link text-link" tabIndex={isActive ? 0 : -1}>
+                                {project.liveLabel}<ArrowUpRight size={16} aria-hidden="true" />
+                              </a>
+                            )}
+                            {project.githubUrl && (
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                                className="project-carousel__link project-carousel__link--secondary text-link" tabIndex={isActive ? 0 : -1}>
+                                {String(t("projects.viewOnGithub"))}<ArrowUpRight size={16} aria-hidden="true" />
+                              </a>
+                            )}
                           </div>
                         </div>
                       </motion.article>
                     );
                   })}
+                  <div className="project-carousel__detail-window">
+                    <AnimatePresence initial={false} custom={direction}>
+                      <ProjectImage key={activeProject.image} project={activeProject} direction={direction}
+                        reduceMotion={!!shouldReduceMotion} detail suppressClick={suppressClickRef}
+                        label={`${t("projects.viewPreview")}: ${activeProject.title}`}
+                        onOpen={() => setSelectedImage({ src: activeProject.image, alt: activeProject.title })} />
+                    </AnimatePresence>
+                    <span className="project-carousel__detail-icon" aria-hidden="true"><ArrowUpRight size={26} /></span>
+                  </div>
+                </div>
 
-                  <button
-                    type="button"
-                    className="project-carousel__peek-target"
-                    onClick={() => showProject(activeIndex + 1)}
-                    aria-label={String(t("projects.next"))}
-                    title={String(t("projects.next"))}
-                    data-cursor-glass
-                  />
+                <div className="project-carousel__footer">
+                  <span className="project-carousel__hint"><MoveHorizontal size={16} aria-hidden="true" />{String(t("projects.swipeHint"))}</span>
+                  <button type="button" className="project-carousel__details-toggle" aria-expanded={isExpanded}
+                    aria-controls="project-details" onClick={() => setIsExpanded(!isExpanded)}>
+                    {String(t(isExpanded ? "projects.lessDetails" : "projects.moreDetails"))}<ChevronDown size={16} aria-hidden="true" />
+                  </button>
                 </div>
               </div>
-            </AnimatedSection>
+
+              <div ref={deckRef} className="project-carousel__media" role="region" aria-roledescription="carousel"
+                aria-label={String(t("projects.carouselLabel"))} tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    event.preventDefault();
+                    showProject(activeIndex + (event.key === "ArrowRight" ? 1 : -1), true);
+                  }
+                }}>
+                <div className="project-carousel__image-track">
+                  <AnimatePresence initial={false} custom={direction}>
+                    <ProjectImage key={activeProject.image} project={activeProject} direction={direction}
+                      reduceMotion={!!shouldReduceMotion} suppressClick={suppressClickRef}
+                      label={`${t("projects.viewPreview")}: ${activeProject.title}`}
+                      onOpen={() => setSelectedImage({ src: activeProject.image, alt: activeProject.title })}
+                      onDragStart={() => { suppressClickRef.current = true; }} onDragEnd={finishDrag} />
+                  </AnimatePresence>
+                </div>
+                <span className="project-carousel__number" aria-hidden="true">{String(activeIndex + 1).padStart(2, "0")}</span>
+                <span className="sr-only" aria-live="polite" aria-atomic="true">{activeIndex + 1} / {projects.length}: {activeProject.title}</span>
+                <span className="project-carousel__enlarge" aria-hidden="true"><Expand size={24} /></span>
+                <div className="project-carousel__navigation">
+                  <button type="button" className="project-carousel__arrow glass-edge"
+                    onClick={() => showProject(activeIndex - 1)} aria-label={String(t("projects.previous"))}>
+                    <ArrowLeft size={23} aria-hidden="true" />
+                  </button>
+                  <button type="button" className="project-carousel__arrow glass-edge"
+                    onClick={() => showProject(activeIndex + 1)} aria-label={String(t("projects.next"))}>
+                    <ArrowRight size={23} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <motion.div id="project-details" className="project-carousel__details" aria-hidden={!isExpanded}
+              initial={false} animate={{ height: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}>
+              <dl className="project-carousel__proof">
+                {activeProject.details.map((detail) => (
+                  <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.value}</dd></div>
+                ))}
+              </dl>
+            </motion.div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
+      <ImageViewer image={selectedImage} onClose={() => setSelectedImage(null)} />
     </section>
   );
 };

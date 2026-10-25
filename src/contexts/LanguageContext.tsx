@@ -21,7 +21,7 @@ const translations: Translations = {
   "nav.location": { en: "Latvia", lv: "Latvija", ru: "Латвия" },
 
   // Hero
-  "hero.madeIn": { en: "From Latvia", lv: "No Latvijas", ru: "Из Латвии" },
+  "hero.madeIn": { en: "Made in Latvia", lv: "Radīts Latvijā", ru: "Сделано в Латвии" },
   "hero.greeting": { en: "I'm Adrian,", lv: "Es esmu Adrians,", ru: "Я Адриан," },
   "hero.typewriter": {
     en: ["Programming Technician", "Web Developer", "Junior Full-Stack Developer"],
@@ -45,9 +45,9 @@ const translations: Translations = {
     ru: "Увлечён созданием качественного программного обеспечения",
   },
   "about.description": {
-    en: "I'm Adrian, a developer from Latvia with 3 years of programming experience. I'm currently pursuing a Programming Technician qualification at Vidzeme Technology and Design Vocational School (VTDT).\n\nI rarely run out of ideas. What I enjoy most is choosing one, opening my editor and making it real. Frontend is my favourite part, especially CSS, animation and the small visual details that give a page its character. I like working quickly, and I want the websites I build to feel quick too.\n\nI've been interested in robotics from a young age, and that curiosity still shapes how I explore technology today. Away from programming, I enjoy creative work through CAD and PCB design, electronics, CNC machining and 3D printing, alongside video editing and graphic design. These interests give me different ways to think about design, detail and problem-solving.",
-    lv: "Esmu Adrians, izstrādātājs no Latvijas ar 3 gadu programmēšanas pieredzi. Pašlaik Vidzemes Tehnoloģiju un dizaina tehnikumā (VTDT) apgūstu programmēšanas tehniķa kvalifikāciju.\n\nMan ideju gandrīz nekad netrūkst. Visvairāk man patīk izvēlēties kādu no tām, atvērt koda redaktoru un pārvērst to par kaut ko īstu. Mana mīļākā daļa ir lapas redzamās puses veidošana, īpaši CSS, animācijas un mazās vizuālās detaļas, kas lapai piešķir raksturu. Man patīk strādāt ātri, un vēlos, lai arī manas veidotās tīmekļa vietnes darbotos ātri.\n\nJau kopš bērnības mani ir interesējusi robotika, un šī zinātkāre joprojām nosaka to, kā izzinu tehnoloģijas. Ārpus programmēšanas man patīk radoši darbi, tostarp CAD un PCB projektēšana, elektronika, CNC frēzēšana un 3D drukāšana, kā arī video montāža un grafiskais dizains. Šīs intereses palīdz man uz dizainu, detaļām un problēmu risināšanu paskatīties no cita skatpunkta.",
-    ru: "Я Адриан, разработчик из Латвии с трёхлетним опытом программирования. Сейчас я получаю квалификацию техника-программиста в Видземской школе технологий и дизайна (VTDT).\n\nИдеи у меня почти никогда не заканчиваются. Больше всего мне нравится выбрать одну из них, открыть редактор кода и сделать её реальной. Моя любимая часть — фронтенд, особенно CSS, анимации и небольшие визуальные детали, которые придают странице характер. Мне нравится работать быстро, и я хочу, чтобы созданные мной сайты тоже работали быстро.\n\nРобототехника интересует меня с детства, и это любопытство до сих пор влияет на то, как я изучаю технологии. В свободное от программирования время я занимаюсь творческими проектами: CAD- и PCB-проектированием, электроникой, обработкой на ЧПУ и 3D-печатью, а также видеомонтажом и графическим дизайном. Эти увлечения помогают мне по-разному смотреть на дизайн, детали и решение задач.",
+    en: "I'm Adrian, a developer from Latvia with 3 years of programming experience. I'm currently pursuing a Programming Technician qualification at Vidzeme Technology and Design Vocational School (VTDT).\n\nI rarely run out of ideas. What I enjoy most is choosing one, opening my editor and making it real. Frontend is my favourite part, especially CSS, animation and the small visual details that give a page its character. I like working quickly, and I want the websites I build to feel quick too.\n\nI've been interested in robotics and technology in general from a young age, and that curiosity still shapes what I explore today. Away from programming, I enjoy creative work through CAD and PCB design, electronics, CNC machining and 3D printing, alongside video editing and graphic design. These interests give me different ways to think about design, detail and problem-solving.",
+    lv: "Esmu Adrians, izstrādātājs no Latvijas ar 3 gadu programmēšanas pieredzi. Pašlaik Vidzemes Tehnoloģiju un dizaina tehnikumā (VTDT) apgūstu programmēšanas tehniķa kvalifikāciju.\n\nMan ideju gandrīz nekad netrūkst. Visvairāk man patīk izvēlēties kādu no tām, atvērt koda redaktoru un pārvērst to par kaut ko īstu. Mana mīļākā daļa ir lapas redzamās puses veidošana, īpaši CSS, animācijas un mazās vizuālās detaļas, kas lapai piešķir raksturu. Man patīk strādāt ātri, un vēlos, lai arī manas veidotās tīmekļa vietnes darbotos ātri.\n\nJau kopš bērnības mani interesē robotika un tehnoloģijas kopumā, un šī zinātkāre joprojām nosaka to, ko vēlos izzināt. Ārpus programmēšanas man patīk radoši darbi, tostarp CAD un PCB projektēšana, elektronika, CNC frēzēšana un 3D drukāšana, kā arī video montāža un grafiskais dizains. Šīs intereses palīdz man uz dizainu, detaļām un problēmu risināšanu paskatīties no cita skatpunkta.",
+    ru: "Я Адриан, разработчик из Латвии с трёхлетним опытом программирования. Сейчас я получаю квалификацию техника-программиста в Видземской школе технологий и дизайна (VTDT).\n\nИдеи у меня почти никогда не заканчиваются. Больше всего мне нравится выбрать одну из них, открыть редактор кода и сделать её реальной. Моя любимая часть — фронтенд, особенно CSS, анимации и небольшие визуальные детали, которые придают странице характер. Мне нравится работать быстро, и я хочу, чтобы созданные мной сайты тоже работали быстро.\n\nРобототехника и технологии в целом интересуют меня с детства, и это любопытство до сих пор определяет, что я изучаю. В свободное от программирования время я занимаюсь творческими проектами: CAD- и PCB-проектированием, электроникой, обработкой на ЧПУ и 3D-печатью, а также видеомонтажом и графическим дизайном. Эти увлечения помогают мне по-разному смотреть на дизайн, детали и решение задач.",
   },
   "about.portraitAlt": {
     en: "Portrait of Adrian Kalvis",
@@ -144,6 +144,8 @@ const translations: Translations = {
     lv: "Velc",
     ru: "Листайте",
   },
+  "projects.moreDetails": { en: "Project details", lv: "Par projektu", ru: "О проекте" },
+  "projects.lessDetails": { en: "Close details", lv: "Aizvērt aprakstu", ru: "Скрыть подробности" },
   "projects.previous": { en: "Previous project", lv: "Iepriekšējais projekts", ru: "Предыдущий проект" },
   "projects.next": { en: "Next project", lv: "Nākamais projekts", ru: "Следующий проект" },
   "projects.role": { en: "Role", lv: "Loma", ru: "Роль" },
@@ -186,6 +188,34 @@ const translations: Translations = {
     ru: "В конце ученик получает программу, которая лучше всего подходит его ответам.",
   },
 
+  "projects.swipeagamiDesc": {
+    en: "Origami you learn by swiping, one fold per screen. The idea came to me on a bus while folding a gum wrapper, and I wanted a simple way for anyone to learn.",
+    lv: "Origami, ko apgūst, pārvelkot ekrānu: viens locījums vienā solī. Ideja radās autobusā, locot košļājamās gumijas papīriņu, un es gribēju vienkāršu veidu, kā mācīties ikvienam.",
+    ru: "Оригами, которое изучаешь свайпами: один сгиб на экран. Идея пришла мне в автобусе, когда я складывал обёртку от жвачки, и я хотел сделать простой способ учиться для всех.",
+  },
+  "projects.blog": { en: "Windows 95 Blog", lv: "Windows 95 emuārs", ru: "Блог Windows 95" },
+  "projects.viewBlog": { en: "Visit blog", lv: "Apmeklēt emuāru", ru: "Открыть блог" },
+  "projects.blogDesc": {
+    en: "A blog with a Windows 95-inspired interface. Retro windows, a music player and Minesweeper turn browsing posts into a small desktop experience.",
+    lv: "Emuārs ar Windows 95 iedvesmotu saskarni. Retro logi, mūzikas atskaņotājs un Minesweeper pārvērš ierakstu lasīšanu nelielā darbvirsmas pieredzē.",
+    ru: "Блог с интерфейсом в духе Windows 95. Ретроокна, музыкальный плеер и «Сапёр» превращают чтение записей в небольшой рабочий стол.",
+  },
+  "projects.blogChallenge": {
+    en: "Keep posts easy to browse within a playful retro interface.",
+    lv: "Saglabāt ērtu ierakstu pārlūkošanu rotaļīgā retro saskarnē.",
+    ru: "Сделать записи удобными для чтения в игровом ретроинтерфейсе.",
+  },
+  "projects.blogApproach": {
+    en: "Desktop-style windows and controls, with post search, categories and a music player.",
+    lv: "Darbvirsmas stila logi un vadīklas, ierakstu meklēšana, kategorijas un mūzikas atskaņotājs.",
+    ru: "Окна и элементы управления в стиле рабочего стола, поиск записей, категории и музыкальный плеер.",
+  },
+  "projects.blogOutcome": {
+    en: "A live blog that brings together writing and experiments with nostalgic web design.",
+    lv: "Publicēts emuārs, kas apvieno rakstīšanu un eksperimentus ar nostalģisku tīmekļa dizainu.",
+    ru: "Опубликованный блог, объединяющий записи и эксперименты с ностальгическим веб-дизайном.",
+  },
+
   // Skills
   "skills.label": { en: "Skills", lv: "Prasmes", ru: "Навыки" },
   "skills.heading": {
@@ -200,17 +230,66 @@ const translations: Translations = {
   "skills.databases": { en: "Databases", lv: "Datubāzes", ru: "Базы данных" },
   "skills.tools": { en: "Tools & DevOps", lv: "Rīki un DevOps", ru: "Инструменты и DevOps" },
 
-  // Contact
-  "contact.label": { en: "Contact", lv: "Kontakti", ru: "Контакты" },
-  "contact.heading": {
-    en: "Have a role or project in mind?",
-    lv: "Ir darbs vai projekts, kurā varu palīdzēt?",
-    ru: "Есть работа или проект, где я могу помочь?",
+  // Portfolio additions
+  "projects.kiberdrossDesc": {
+    en: "A cybersecurity learning platform for people in Latvia. Interactive lessons and practical scenarios help users recognize online threats and practise safer decisions.",
+    lv: "Kiberdrošības mācību platforma Latvijas iedzīvotājiem. Interaktīvas nodarbības un praktiski scenāriji palīdz atpazīt draudus internetā un mācīties pieņemt drošākus lēmumus.",
+    ru: "Обучающая платформа по кибербезопасности для жителей Латвии. Интерактивные уроки и практические сценарии помогают распознавать угрозы в интернете и учиться принимать безопасные решения.",
   },
+  "projects.workInProgress": { en: "Work in Progress", lv: "Izstrādes procesā", ru: "В разработке" },
+  "projects.viewPreview": { en: "View preview", lv: "Skatīt priekšskatījumu", ru: "Смотреть превью" },
+  "projects.kiberdrossChallenge": {
+    en: "Make everyday online safety easier to practise in Latvian.",
+    lv: "Padarīt ikdienas drošību internetā vieglāk apgūstamu latviešu valodā.",
+    ru: "Сделать обучение повседневной безопасности в интернете доступнее на латышском языке.",
+  },
+  "projects.kiberdrossApproach": {
+    en: "Laravel lessons and scenario-based training, with saved progress.",
+    lv: "Nodarbības un situāciju treniņi Laravel platformā ar progresa saglabāšanu.",
+    ru: "Уроки и ситуационные тренировки на Laravel с сохранением прогресса.",
+  },
+  "projects.kiberdrossOutcome": {
+    en: "A working learning flow that I am still building and refining.",
+    lv: "Darbojošs mācību process, ko turpinu izstrādāt un pilnveidot.",
+    ru: "Работающий учебный процесс, который я продолжаю развивать и дорабатывать.",
+  },
+  "skills.learning": { en: "Currently studying", lv: "Pašlaik apgūstu", ru: "Сейчас изучаю" },
+
+  "projects.closePreview": { en: "Close image", lv: "Aizvērt attēlu", ru: "Закрыть изображение" },
+
+  // Contact
+  "contact.label": { en: "Get in touch", lv: "Sazināties", ru: "Связаться" },
   "contact.description": {
-    en: "I'm looking for a junior developer role where I can learn from an experienced team and be useful from day one.\nI'm also open to smaller freelance projects.\n\nIf I sound like a fit for your team or project, send me a message.",
-    lv: "Meklēju jaunākā izstrādātāja darbu, kur varu mācīties no pieredzējušas komandas un būt noderīgs jau no pirmās dienas.\nEsmu atvērts arī mazākiem ārštata projektiem.\n\nJa domājat, ka es varētu iederēties Jūsu komandā vai projektā, uzrakstiet man.",
-    ru: "Я ищу позицию junior-разработчика, где смогу учиться у опытной команды и приносить пользу с первого дня.\nТакже открыт для небольших фриланс-проектов.\n\nЕсли я подхожу вашей команде или проекту, напишите мне.",
+    en: "A project, a question or just a hello. Leave a short note below and I'll get back to you.",
+    lv: "Projekts, jautājums vai vienkārši sveiciens. Atstāj īsu ziņu zemāk, un es atbildēšu.",
+    ru: "Проект, вопрос или просто привет. Оставьте короткое сообщение ниже, и я отвечу.",
+  },
+  "contact.emailLabel": { en: "Your email", lv: "Tavs e-pasts", ru: "Ваш email" },
+  "contact.emailHint": {
+    en: "Add a full email address so I can reply.",
+    lv: "Ieraksti pilnu e-pasta adresi, lai varu atbildēt.",
+    ru: "Укажите полный email, чтобы я мог ответить.",
+  },
+  "contact.messageHint": {
+    en: "Write a few words first.",
+    lv: "Vispirms uzraksti dažus vārdus.",
+    ru: "Сначала напишите пару слов.",
+  },
+  "contact.copyEmail": { en: "Copy email", lv: "Kopēt e-pastu", ru: "Скопировать email" },
+  "contact.copied": { en: "Copied", lv: "Nokopēts", ru: "Скопировано" },
+  "contact.messageLabel": { en: "Message", lv: "Ziņa", ru: "Сообщение" },
+  "contact.messagePlaceholder": {
+    en: "Include your name and a few words about what you have in mind.",
+    lv: "Pievieno savu vārdu un dažos vārdos pastāsti, ko vēlies.",
+    ru: "Укажите своё имя и коротко опишите, что вы задумали.",
+  },
+  "contact.send": { en: "Send", lv: "Sūtīt", ru: "Отправить" },
+  "contact.sending": { en: "Sending…", lv: "Sūta…", ru: "Отправка…" },
+  "contact.sent": { en: "Sent, thanks!", lv: "Nosūtīts, paldies!", ru: "Отправлено, спасибо!" },
+  "contact.error": {
+    en: "That didn't go through. You can also email me at",
+    lv: "Neizdevās nosūtīt. Vari arī rakstīt uz",
+    ru: "Не удалось отправить. Можно написать на",
   },
   "contact.sayHello": { en: "Say Hello", lv: "Sveicināties", ru: "Написать" },
 

@@ -1,0 +1,197 @@
+/* Contact and footer sit under the page and are revealed as it scrolls away. The reveal
+   only runs where the whole block fits on screen; elsewhere it scrolls normally so the
+   top of the form is never hidden. */
+.contact-reveal {
+  position: relative;
+}
+
+@media (min-width: 768px) and (min-height: 860px) {
+  .contact-reveal {
+    position: sticky;
+    bottom: 0;
+  }
+}
+
+/* Contact section copy. */
+.contact-intro {
+  max-width: 34rem;
+  font-family: var(--font-text);
+  font-size: 1.2rem;
+  line-height: 1.55;
+}
+
+/* ---------- Form: two plain fields ---------- */
+
+.contact-form {
+  max-width: 560px;
+}
+
+.contact-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid hsl(var(--foreground) / 0.08);
+  border-radius: 18px;
+  color: hsl(var(--foreground));
+  background: hsl(var(--card) / 0.7);
+  font-family: var(--font-text);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.dark .contact-form__field input,
+.dark .contact-form__field textarea {
+  background: rgb(255 255 255 / 0.04);
+}
+
+.contact-form__field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-form__field input::placeholder,
+.contact-form__field textarea::placeholder {
+  color: hsl(var(--muted-foreground) / 0.8);
+}
+
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  border-color: hsl(var(--foreground) / 0.25);
+  background: hsl(var(--card));
+}
+
+.dark .contact-form__field input:focus,
+.dark .contact-form__field textarea:focus {
+  background: rgb(255 255 255 / 0.07);
+}
+
+.contact-form__field.is-invalid input,
+.contact-form__field.is-invalid textarea {
+  border-color: hsl(14 80% 60% / 0.55);
+}
+
+.contact-form__hint {
+  display: block;
+  overflow: hidden;
+  padding: 6px 4px 0;
+  color: hsl(14 70% 48%);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.dark .contact-form__hint {
+  color: hsl(14 85% 68%);
+}
+
+.contact-form__honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-form__error {
+  margin: 0;
+  color: hsl(0 65% 50%);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contact-form__error a {
+  text-decoration: underline;
+}
+
+.contact-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---------- Glass pill buttons: Send, Copy email, GitHub ---------- */
+
+.glass-pill {
+  --pill-light: #ffffff;
+  --pill-dark: #000000;
+  --pill-reflex-light: 1;
+  --pill-reflex-dark: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 999px;
+  color: hsl(215 25% 8%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.92), rgb(246 246 246 / 0.86));
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--pill-light) calc(var(--pill-reflex-light) * 30%), transparent),
+    inset 1.8px 3px 0 -2px color-mix(in srgb, var(--pill-light) calc(var(--pill-reflex-light) * 90%), transparent),
+    inset -2px -2px 0 -2px color-mix(in srgb, var(--pill-light) calc(var(--pill-reflex-light) * 80%), transparent),
+    inset -0.3px -1px 4px 0 color-mix(in srgb, var(--pill-dark) calc(var(--pill-reflex-dark) * 10%), transparent),
+    inset -1.5px 2.5px 0 -2px color-mix(in srgb, var(--pill-dark) calc(var(--pill-reflex-dark) * 16%), transparent),
+    0 1px 2px color-mix(in srgb, var(--pill-dark) calc(var(--pill-reflex-dark) * 10%), transparent),
+    0 6px 18px color-mix(in srgb, var(--pill-dark) calc(var(--pill-reflex-dark) * 8%), transparent);
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.glass-pill:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.glass-pill:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.glass-pill:disabled {
+  opacity: 0.65;
+}
+
+.glass-pill:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+.glass-pill svg {
+  flex: none;
+}
+
+.glass-pill__check {
+  color: hsl(145 63% 58%);
+}
+
+.dark .glass-pill {
+  --pill-reflex-light: 0.35;
+  --pill-reflex-dark: 2;
+  color: hsl(210 20% 94%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.05));
+}
+
+@media (max-width: 420px) {
+  .glass-pill {
+    min-height: 48px;
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,362 @@
+/* ---------- About: one row of photos and chapters that travels sideways ---------- */
+
+.about-h {
+  --stage-top: 196px;
+  --stage-bottom: 116px;
+  --content-left: 48px;
+}
+
+@media (min-width: 768px) {
+  .about-h {
+    --content-left: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-h {
+    --content-left: calc(max(80px, (100vw - 1280px) / 2) + 48px);
+  }
+}
+
+/* Pinned mode: height is set from script. The page background itself shifts to a pale sky
+   tint (see AboutStory.tsx), so the section stays transparent and shows no edges. */
+.about-h--pinned {
+  background: transparent;
+}
+
+.about-h__stage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.about-h--pinned .about-h__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+}
+
+.about-h__head {
+  padding-top: 92px;
+}
+
+.about-h--native .about-h__head {
+  padding-top: 64px;
+}
+
+.about-h__head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.about-h__head-row h2 {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+  .about-h__bar {
+    display: none;
+  }
+}
+
+.about-h__progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: hsl(var(--muted-foreground) / 0.6);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.about-h__progress > span:not(.about-h__bar) {
+  transition: color 300ms ease;
+}
+
+.about-h__progress > span.is-active {
+  color: hsl(var(--accent-foreground));
+}
+
+.about-h__bar {
+  width: 96px;
+  height: 1px;
+  margin-left: 6px;
+  overflow: hidden;
+  background: hsl(var(--foreground) / 0.14);
+}
+
+.about-h__bar span {
+  display: block;
+  height: 100%;
+  background: hsl(var(--accent-foreground));
+  transform-origin: left center;
+}
+
+.about-h__viewport {
+  position: relative;
+  height: calc(100vh - var(--stage-top) - var(--stage-bottom));
+  height: calc(100svh - var(--stage-top) - var(--stage-bottom));
+  min-height: 380px;
+  margin-top: 36px;
+}
+
+.about-h--native .about-h__viewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.about-h__track {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  height: 100%;
+  padding: 0 14vw 0 var(--content-left);
+  will-change: transform;
+}
+
+.about-h__item {
+  position: relative;
+  flex: none;
+}
+
+.about-h__pair {
+  display: contents;
+}
+
+/* Desktop placement: top is a share of the row height, margin-left is the gap before.
+   Chapters alternate between high and low so no two neighbouring texts share a line. */
+.about-h__item--portrait { top: 0; width: min(44vh, 400px); }
+.about-h__item--start { top: 26%; width: min(30rem, 36vw); margin-left: 7vw; }
+.about-h__item--robotics { top: 4%; width: min(58vh, 540px); margin-left: 5vw; }
+.about-h__item--ideas { top: 40%; width: min(30rem, 36vw); margin-left: 5vw; }
+.about-h__item--pcb3d { top: 2%; width: min(42vh, 380px); margin-left: 5vw; }
+.about-h__item--hardware { top: 30%; width: min(30rem, 36vw); margin-left: 5vw; }
+.about-h__item--cyprus { top: 4%; width: min(34vh, 300px); margin-left: 5vw; }
+.about-h__item--now { top: 6%; width: min(31rem, 38vw); margin-left: 6vw; }
+
+@media (max-width: 767px) {
+  /* Phones have no bottom dock, so the row gets the full height under the heading. */
+  .about-h {
+    --stage-top: 168px;
+    --stage-bottom: 32px;
+  }
+
+  .about-h__head {
+    padding-top: 84px;
+  }
+
+  .about-h__viewport {
+    margin-top: 28px;
+  }
+
+  .about-h__progress {
+    gap: 10px;
+    font-size: 1rem;
+  }
+
+  .about-h__bar {
+    width: 48px;
+  }
+
+  /* Each pair is one column: photo above, chapter below, centred in the row's height. */
+  .about-h__track {
+    align-items: stretch;
+    padding-right: 10vw;
+  }
+
+  .about-h__pair {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+    width: 80vw;
+    margin-left: 12vw;
+  }
+
+  .about-h__pair:first-child {
+    margin-left: 0;
+  }
+
+  .about-h__item[class*="about-h__item--"] {
+    top: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Photos get a fixed share of the screen height so the longest chapter still fits below. */
+  .about-h .about-h__item .about-photo__frame img {
+    width: 100%;
+    height: clamp(104px, 19svh, 190px);
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
+
+  .about-h .about-h__item--portrait .about-photo__frame {
+    width: clamp(150px, 29svh, 290px);
+  }
+
+  .about-h .about-h__item--portrait .about-photo__frame img,
+  .about-h .about-h__item--robotics .about-photo__frame img {
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .about-h .about-h__item--robotics .about-photo__frame img {
+    aspect-ratio: 1520 / 500;
+  }
+
+  /* The band keeps the coast and the clouds of the upright flight photo. */
+  .about-h .about-h__item--cyprus .about-photo__frame img {
+    object-position: 50% 28%;
+  }
+
+  .about-photo__label {
+    margin-bottom: 8px;
+  }
+}
+
+/* ---------- Chapter text ---------- */
+
+.about-chapter__eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 16px;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.about-chapter__numeral {
+  color: hsl(var(--accent-foreground));
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.about-chapter__title {
+  margin: 0 0 18px;
+  color: hsl(var(--foreground));
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vh, 3.1rem);
+  font-weight: 400;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.about-chapter__body {
+  margin: 0;
+  color: hsl(var(--foreground) / 0.72);
+  font-family: var(--font-text);
+  font-size: clamp(1.02rem, 2.1vh, 1.18rem);
+  font-weight: 400;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+@media (max-width: 767px) {
+  .about-chapter__eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .about-chapter__title {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+
+  .about-chapter__body {
+    font-size: 0.97rem;
+    line-height: 1.5;
+  }
+}
+
+/* ---------- Photos: small label above, image below ---------- */
+
+.about-photo {
+  margin: 0;
+}
+
+.about-photo__label {
+  margin: 0 0 10px;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about-photo__frame {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: hidden;
+  box-shadow: 0 22px 50px rgb(30 70 110 / 0.13), 0 2px 8px rgb(0 0 0 / 0.04);
+}
+
+button.about-photo__frame {
+  cursor: pointer;
+}
+
+button.about-photo__frame:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+}
+
+.about-photo__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  transition: filter 600ms ease;
+}
+
+.about-h__item--portrait .about-photo__frame img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* The KiCad capture carries a toolbar along the top; cropping from the bottom removes it. */
+.about-h__item--pcb3d .about-photo__frame img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+
+/* The flight photo is upright and always in full colour. */
+.about-h__item--cyprus .about-photo__frame img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* Muted photos sit back in a cool duotone and come forward in full colour on hover. */
+.about-photo--muted .about-photo__frame img {
+  filter: grayscale(1) sepia(0.2) hue-rotate(170deg) saturate(0.75) brightness(1.04);
+}
+
+.about-photo--muted .about-photo__frame:hover img,
+.about-photo--muted .about-photo__frame:focus-visible img {
+  filter: none;
+}
+
+
+.dark .about-photo__frame {
+  box-shadow: 0 22px 50px rgb(0 0 0 / 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-photo__frame img {
+    transition: none;
+  }
+}
