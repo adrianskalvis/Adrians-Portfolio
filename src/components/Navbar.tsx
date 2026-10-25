@@ -26,11 +26,11 @@ const Navbar = () => {
     }
 
     const navItems: NavItem[] = [
-        { label: t("nav.home"), href: "#hero", icon: Home },
-        { label: t("nav.about"), href: "#about", icon: User },
-        { label: t("nav.projects"), href: "#projects", icon: FolderOpen },
-        { label: t("nav.skills"), href: "#skills", icon: Wrench },
-        { label: t("nav.contact"), href: "#contact", icon: Mail },
+        { label: String(t("nav.home")), href: "#hero", icon: Home },
+        { label: String(t("nav.about")), href: "#about", icon: User },
+        { label: String(t("nav.projects")), href: "#projects", icon: FolderOpen },
+        { label: String(t("nav.skills")), href: "#skills", icon: Wrench },
+        { label: String(t("nav.contact")), href: "#contact", icon: Mail },
         { label: "GitHub", href: "https://github.com/adrianskalvis", icon: Github, external: true },
     ];
 
@@ -206,6 +206,7 @@ const Navbar = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             className="mobile-menu fixed inset-0 bg-background z-0 flex flex-col pt-24 px-6 md:px-12 overflow-y-auto"
+                            data-lenis-prevent
                         >
                             <div className="mobile-menu__inner flex-grow flex flex-col justify-center max-w-7xl mx-auto w-full">
                                 <div className="mobile-menu__layout flex flex-col md:flex-row justify-between md:items-center gap-12">

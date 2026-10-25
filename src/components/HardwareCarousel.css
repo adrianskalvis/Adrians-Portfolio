@@ -79,7 +79,6 @@
 
 .hardware-carousel__arrow,
 .hardware-carousel__counter {
-  position: absolute;
   z-index: 2;
   border: 1px solid rgb(255 255 255 / 0.28);
   color: white;
@@ -89,6 +88,12 @@
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.28),
     0 8px 24px rgb(0 0 0 / 0.15);
+}
+
+/* glass-edge sets position: relative; keep carousel controls anchored to the frame. */
+.hardware-carousel > .hardware-carousel__arrow,
+.hardware-carousel > .hardware-carousel__counter {
+  position: absolute;
 }
 
 .hardware-carousel__arrow {

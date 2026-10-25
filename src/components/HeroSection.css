@@ -7,31 +7,6 @@
   transition: background 0.4s ease;
 }
 
-.glass-orb-liquid {
-  background: radial-gradient(
-    circle at 30% 30%,
-    hsl(var(--primary) / 0.4) 0%,
-    hsl(var(--primary) / 0.1) 40%,
-    transparent 80%
-  );
-  backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--primary) / 0.2);
-  box-shadow:
-    inset 0 0 20px hsl(var(--primary) / 0.1),
-    0 10px 40px -10px hsl(var(--primary) / 0.2);
-  transition: all 0.5s ease;
-}
-
-.dark .glass-orb-liquid {
-  background: radial-gradient(
-    circle at 30% 30%,
-    hsl(var(--primary) / 0.3) 0%,
-    hsl(var(--primary) / 0.05) 50%,
-    transparent 100%
-  );
-  border: 1px solid hsl(var(--primary) / 0.1);
-}
-
 .view-projects-link {
   color: hsl(var(--primary));
   transition: all 0.3s ease;
@@ -109,7 +84,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
   .animate-pulse {
     animation: none !important;
   }
@@ -120,11 +94,6 @@
 }
 
 @media (max-width: 767px) {
-  .glass-orb-liquid {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-
   .hero-section .hero-value {
     max-width: 31rem;
     font-size: 0.92rem;

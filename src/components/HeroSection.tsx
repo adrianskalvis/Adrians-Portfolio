@@ -3,6 +3,7 @@ import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect, useState } from "react";
 import ScrollCue from "./ScrollCue";
+import HeroSky from "./hero/HeroSky";
 import "./HeroSection.css";
 
 const Typewriter = ({
@@ -83,23 +84,9 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="hero-section relative min-h-[100svh] md:min-h-[92svh] flex flex-col pt-24 md:pt-28 pb-7 md:pb-12 px-6 md:px-12 sky-gradient overflow-hidden"
+      className="hero-section relative isolate min-h-[100svh] md:min-h-[92svh] flex flex-col pt-24 md:pt-28 pb-7 md:pb-12 px-6 md:px-12 sky-gradient overflow-hidden"
     >
-      {/* Bubble orbs */}
-      <div
-        className="absolute top-20 md:top-16 -right-16 md:right-[10%] w-48 h-48 md:w-72 md:h-72 rounded-full glass-orb-liquid animate-float opacity-20 md:opacity-40"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-36 md:bottom-28 -left-12 md:left-[8%] w-36 h-36 md:w-52 md:h-52 rounded-full glass-orb-liquid animate-float opacity-[0.14] md:opacity-30"
-        data-delay="2"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-[44%] md:top-1/3 left-[76%] md:left-[60%] w-24 h-24 md:w-36 md:h-36 rounded-full glass-orb-liquid animate-float opacity-20 md:opacity-50"
-        data-delay="4"
-        aria-hidden="true"
-      />
+      <HeroSky />
 
       <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center">
         <motion.div

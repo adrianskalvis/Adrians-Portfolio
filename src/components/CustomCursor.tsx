@@ -39,7 +39,7 @@ const CustomCursor = () => {
     if (!hasPrecisePointer) return;
     const el = cursorRef.current;
     if (el) {
-      el.style.transform = `translate3d(${mousePos.current.x - 38}px, ${mousePos.current.y - 38}px, 0)`;
+      el.style.transform = `translate3d(${mousePos.current.x - 50}px, ${mousePos.current.y - 50}px, 0)`;
       el.style.opacity = visible.current ? "1" : "0";
     }
     if (warmLightRef.current) {

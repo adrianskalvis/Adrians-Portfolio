@@ -10,7 +10,7 @@ const AboutSection = () => {
   const shouldReduceMotion = useReducedMotion();
   const isMobile = useIsMobile();
 
-  const descriptionParts = t("about.description").split("\n\n");
+  const descriptionParts = String(t("about.description")).split("\n\n");
 
   return (
     <section id="about" className="section-padding bg-background relative z-10">

@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --background: 210 33% 99%;
+    /* --page-bg-* are written by src/lib/page-tone.ts while tinted sections are on screen. */
+    --background: var(--page-bg-light, 210 33% 99%);
     --foreground: 215 25% 15%;
     --card: 0 0% 100%;
     --primary: 205 92% 80%;
@@ -18,12 +19,13 @@
     --sky-dark: 210 60% 40%;
     --font-display: "Instrument Serif", serif;
     --font-body: "Inter", system-ui, sans-serif;
+    --font-text: "Newsreader", Georgia, "Times New Roman", serif;
     --shadow-soft: 0 2px 20px -4px hsl(205 92% 80% / 0.1);
     --shadow-elevated: 0 8px 40px -12px hsl(205 92% 80% / 0.18);
   }
 
   .dark {
-    --background: 220 16% 10%;
+    --background: var(--page-bg-dark, 220 16% 10%);
     --foreground: 210 20% 92%;
     --card: 220 16% 13%;
     --primary: 205 92% 80%;
@@ -112,6 +114,24 @@
   .section-divider {
     @apply my-14 h-px w-full bg-[#d6d6d6];
   }
+}
+
+/* Smooth scrolling (Lenis). Native smooth scroll would fight its easing. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

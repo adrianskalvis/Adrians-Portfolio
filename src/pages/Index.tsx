@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ProjectsSection from "@/components/ProjectsSection";
+import AboutStory from "@/components/AboutStory";
+import ProjectsScatter from "@/components/ProjectsScatter";
 import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -13,11 +13,11 @@ const Index = () => (
     <Navbar />
     <main className="relative z-10 bg-background">
       <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
+      <AboutStory />
+      <ProjectsScatter />
       <SkillsSection />
     </main>
-    <div className="sticky bottom-0 z-0">
+    <div className="contact-reveal z-0">
       <ContactSection />
       <Footer />
     </div>

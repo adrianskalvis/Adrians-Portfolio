@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+
+# Sky stills from Higgsfield; scripts/sky-drift.py turns them into public/sky
+raw-sky/
