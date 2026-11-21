@@ -2,6 +2,8 @@
 """Turns the two sky stills into the drifting hero sky.
 
     python3 scripts/sky-drift.py              reads raw-sky/day.png and raw-sky/night.png
+    python3 scripts/sky-drift.py --404        the 404 sky: raw-404/404-sky-day.png, -night.png
+                                              into public/404/
     pip install opencv-python numpy pillow    once, if they are missing
 
 Writes three files per scene into public/sky/ and prints the numbers for
@@ -110,15 +112,18 @@ def night_plate(sm, tex):
     return flat[:, None, :] + glow
 
 
-def add_stars(plate, im, tex):
-    """Tiny bright points in open sky go into the plate, so clouds slide past them."""
+def add_stars(plate, im, tex, stars_above=1.0):
+    """Tiny bright points in open sky go into the plate, so clouds slide past them.
+    Only rows above `stars_above` (share of the height) are searched."""
     H, W = im.shape[:2]
     g = cv2.cvtColor(im.astype(np.uint8), cv2.COLOR_BGR2GRAY).astype(np.float32)
     top = g - cv2.morphologyEx(g, cv2.MORPH_OPEN, np.ones((9, 9), np.uint8))
     edges = cv2.dilate(cv2.resize((tex > 2.0).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST),
                        np.ones((25, 25), np.uint8))
     smooth = cv2.resize((tex < 1.0).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST)
-    n, lab, stats, _ = cv2.connectedComponentsWithStats(((top > 10) & (edges == 0)).astype(np.uint8))
+    found = (top > 10) & (edges == 0)
+    found[int(stars_above * H):] = False
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(found.astype(np.uint8))
     keep = np.zeros(n, bool)
     for i in range(1, n):
         x0, y0, bw, bh, area = stats[i]
@@ -141,9 +146,20 @@ def save_webp(bgr, path, quality=90):
     return path.stat().st_size // 1024
 
 
-def build(scene):
+# The 404 page has its own sky (raw-404/404-sky-day.png and 404-sky-night.png) with clouds
+# across the whole frame, so nothing is faded out and the crop is centred.
+SETS = {
+    "hero": dict(raw=RAW, out=OUT, src="{scene}.png", ramp=RAMP, band=BAND, portrait_band=PORTRAIT_BAND,
+                 focus_x=FOCUS_X, floor=FLOOR, stars_above=1.0),
+    "404": dict(raw=ROOT / "raw-404", out=ROOT / "public" / "404", src="404-sky-{scene}.png", ramp=(1.0, 0.0),
+                band=(-1.0, 0.0), portrait_band=(-1.0, 0.0), focus_x=0.5, floor={"day": 1.0, "night": 1.0},
+                stars_above=0.52),   # the sea of clouds starts at about 56% of the height
+}
+
+
+def build(scene, raw, out, src, ramp, band, portrait_band, focus_x, floor, stars_above):
     print(scene)
-    im = cv2.imread(str(RAW / f"{scene}.png"), cv2.IMREAD_COLOR).astype(np.float32)
+    im = cv2.imread(str(raw / src.format(scene=scene)), cv2.IMREAD_COLOR).astype(np.float32)
     H, W = im.shape[:2]
     sm = cv2.resize(im, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
     Y = luma(sm)
@@ -153,7 +169,7 @@ def build(scene):
     plate = day_plate(sm, tex) if scene == "day" else night_plate(sm, tex)
     plate = cv2.resize(plate, (W, H), interpolation=cv2.INTER_CUBIC)
     if scene == "night":
-        plate = add_stars(plate, im, tex)
+        plate = add_stars(plate, im, tex, stars_above)
 
     diff = im - plate
     diff *= np.clip((np.abs(luma(diff)) - 1.0) / 1.5, 0, 1)[..., None]   # grain-level leftovers go to zero
@@ -166,26 +182,31 @@ def build(scene):
     # which shows a full-height slice of the still around the focus point.
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
     first = np.concatenate([strip, strip[:, :W - strip.shape[1]]], axis=1)
-    floor = FLOOR[scene]
-    m = floor + (1 - floor) * np.maximum(smoothstep(*RAMP, xx / W), smoothstep(*BAND, yy / H))
+    floor = floor[scene]
+    across = smoothstep(*ramp, xx / W) if ramp[1] > ramp[0] else np.zeros_like(xx)
+    m = floor + (1 - floor) * np.maximum(across, smoothstep(*band, yy / H))
     poster = cv2.resize(np.clip(plate + m[..., None] * first + 0.5, 0, 255).astype(np.uint8), (1920, 1080),
                         interpolation=cv2.INTER_AREA)
     tw = int(round(H * 9 / 16))
-    tx = int(round(FOCUS_X * (W - tw)))
-    mt = floor + (1 - floor) * smoothstep(*PORTRAIT_BAND, yy[:, :tw] / H)
+    tx = int(round(focus_x * (W - tw)))
+    mt = floor + (1 - floor) * smoothstep(*portrait_band, yy[:, :tw] / H)
     tall = cv2.resize(np.clip(plate[:, tx:tx + tw] + mt[..., None] * first[:, tx:tx + tw] + 0.5, 0, 255).astype(np.uint8),
                       (1080, 1920), interpolation=cv2.INTER_AREA)
 
     half = cv2.resize(np.clip(plate + 0.5, 0, 255).astype(np.uint8), (W // 2, H // 2), interpolation=cv2.INTER_AREA)
-    kb = (save_webp(half, OUT / f"sky-{scene}-plate.webp"),
-          save_webp(np.clip(strip + 128.5, 0, 255).astype(np.uint8), OUT / f"sky-{scene}-clouds.webp"),
-          save_webp(poster, OUT / f"sky-{scene}-wide.webp"),
-          save_webp(tall, OUT / f"sky-{scene}-tall.webp"))
+    kb = (save_webp(half, out / f"sky-{scene}-plate.webp"),
+          save_webp(np.clip(strip + 128.5, 0, 255).astype(np.uint8), out / f"sky-{scene}-clouds.webp"),
+          save_webp(poster, out / f"sky-{scene}-wide.webp"),
+          save_webp(tall, out / f"sky-{scene}-tall.webp"))
     print(f"  plate {kb[0]} KB, clouds {kb[1]} KB, posters {kb[2]} + {kb[3]} KB")
     return {"width": W, "height": H, "strip": int(strip.shape[1])}
 
 
 if __name__ == "__main__":
-    OUT.mkdir(parents=True, exist_ok=True)
-    sizes = {scene: build(scene) for scene in sys.argv[1:] or ("day", "night")}
-    print("for sky.ts:", json.dumps(sizes))
+    args = sys.argv[1:]
+    which = "404" if "--404" in args else "hero"
+    scenes = [a for a in args if not a.startswith("--")] or ["day", "night"]
+    conf = SETS[which]
+    conf["out"].mkdir(parents=True, exist_ok=True)
+    sizes = {scene: build(scene, **conf) for scene in scenes}
+    print("for sky.ts" if which == "hero" else "for src/not-found/main.ts", json.dumps(sizes))

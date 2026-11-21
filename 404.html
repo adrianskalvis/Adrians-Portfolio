@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found · Adrian Kalvis</title>
+    <meta name="description" content="This page flew away. Head back to Adrian Kalvis's portfolio." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f8fbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14161b" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-ak.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&amp;family=Inter:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,400&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="nf">
+      <div class="nf-sky" aria-hidden="true">
+        <picture>
+          <source media="(prefers-color-scheme: dark) and (max-aspect-ratio: 4/5)" srcset="/404/sky-night-tall.webp" />
+          <source media="(prefers-color-scheme: dark)" srcset="/404/sky-night-wide.webp" />
+          <source media="(max-aspect-ratio: 4/5)" srcset="/404/sky-day-tall.webp" />
+          <img class="nf-sky__poster" src="/404/sky-day-wide.webp" alt="" decoding="async" />
+        </picture>
+        <canvas class="nf-sky__canvas"></canvas>
+        <div class="nf-sky__wash"></div>
+      </div>
+
+      <!-- Outer element carries the crane across the screen, inner one bobs it up and down. -->
+      <div class="nf-flight" aria-hidden="true">
+        <div class="nf-bob">
+          <picture>
+            <source media="(prefers-reduced-motion: reduce)" srcset="/404/crane-still.webp" />
+            <img class="nf-crane" src="/404/crane.webp" alt="" width="480" height="466" decoding="async" />
+          </picture>
+        </div>
+      </div>
+
+      <section class="nf-copy">
+        <p class="nf-code">404</p>
+        <h1 class="nf-title">This page flew away.</h1>
+        <p class="nf-text">The link you followed folded itself into a paper crane and left. Everything else is still here.</p>
+        <a class="nf-home" href="/">
+          Take me home
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h9.5M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </a>
+      </section>
+    </main>
+    <script type="module" src="/src/not-found/main.ts"></script>
+  </body>
+</html>

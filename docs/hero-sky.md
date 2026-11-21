@@ -87,3 +87,19 @@ The first try animated the stills with Kling 4.0. Its clips push in slowly, the 
 billow in place, and a clip can only loop by dissolving its end into its start: clouds that
 travel sideways would have to jump back. Sliding the clouds in the page loops with no seam,
 moves at 60 to 120 fps instead of 24, and downloads a few hundred KB instead of about 4 MB.
+
+## The 404 page
+
+`404.html` is a second page in the build, and Vercel serves it for any address that does not
+exist. It reuses the drift renderer with its own sky: a sea of clouds seen from above, in day
+and night versions, with clouds across the whole frame. A white paper crane flaps in a loop and
+glides across the screen every 26 s; for reduced motion it rests beside the words.
+
+Files in `raw-404/` (ignored by git): `404-sky-day.png` and `404-sky-night.png` (Nano Banana Pro,
+16:9, 2K), `404-crane.png` (Nano Banana Pro, 1:1, on flat green) and `404-crane.mp4` (Kling 4.0,
+5 s, 720p, the crane image as start frame). Then:
+
+```
+python3 scripts/sky-drift.py --404     # sky files into public/404/
+python3 scripts/crane-404.py           # crane.webp (keyed, looping) and crane-still.webp
+```
