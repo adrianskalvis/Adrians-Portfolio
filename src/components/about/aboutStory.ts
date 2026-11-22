@@ -19,7 +19,7 @@ export const storyChapters: StoryChapter[] = [
     eyebrow: { en: "Where it started" },
     title: { en: "My first line of code had to win a fight." },
     body: {
-      en: "It never ran on a screen. It ran inside a LEGO Mindstorms NXT 2.0, telling a small sumo robot how to find its opponent and push it out of the ring. Seeing my code move in the real world hooked me, and it still does.",
+      en: "It ran inside a LEGO Mindstorms NXT 2.0 and told a small sumo robot how to find its opponent and push it out of the ring. I barely understood what I was writing, but watching it move intrigued me, and I kept going.",
     },
   },
   {
@@ -27,7 +27,7 @@ export const storyChapters: StoryChapter[] = [
     eyebrow: { en: "Limitless ideas" },
     title: { en: "What I enjoy most is making ideas real." },
     body: {
-      en: "I rarely run out of them, and the best part is watching one turn into something that works. I'm studying to become a Programming Technician at VTDT. Frontend is my favourite ground: CSS, motion and the small details that give a page character.",
+      en: "They show up in ordinary moments. Swipegami started on a bus while I folded a gum wrapper. The mini game started as a way to show school kids that code can be fun. I build a rough version first, then spend most of my time on CSS, motion and the small details. I'm studying to become a Programming Technician at VTDT.",
     },
   },
   {
@@ -43,7 +43,7 @@ export const storyChapters: StoryChapter[] = [
     eyebrow: { en: "Cyprus, 2026" },
     title: { en: "This autumn took me to Cyprus." },
     body: {
-      en: "I spent a month interning in a lab at the Cyprus University of Technology, setting up the API for HEAL, a health project in Limassol. New country, new tools, same habit: pick an idea and make it real.",
+      en: "Through Erasmus+, I spent a month in a health lab at the Cyprus University of Technology. I had never imagined working somewhere like that. I adapted, worked on an API and R scripts, and came home with much broader horizons.",
     },
   },
 ];

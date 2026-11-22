@@ -3,46 +3,40 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollCue from "./ScrollCue";
 import "./SkillsSection.css";
 
+/** A skill name, with an optional small line under it (the products used, or "currently studying"). */
+type Skill = { name: string; note?: string };
+type SkillGroup = { key: string; category: string; skills: Skill[]; wide?: boolean };
+
+const NUMERALS = ["I", "II", "III", "IV", "V", "VI"];
+
+const names = (...list: string[]): Skill[] => list.map((name) => ({ name }));
+
+/* Groups read like the project and About chapters: a roman numeral and a small capital label
+   over a dotted blue rule, with open space instead of boxed cards. */
 const SkillsSection = () => {
   const { t } = useLanguage();
 
-  const skillGroups = [
+  const skillGroups: SkillGroup[] = [
     {
-      category: t("skills.frontend"),
-      skills: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "SCSS",
-        "Tailwind CSS",
-        "Vite",
-      ],
+      key: "frontend",
+      category: String(t("skills.frontend")),
+      skills: names("React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "SCSS", "Tailwind CSS", "Vite"),
     },
     {
-      category: t("skills.backend"),
-      skills: [
-        "PHP",
-        "Laravel",
-        "Python",
-        "C++",
-        "R",
-      ],
+      key: "backend",
+      category: String(t("skills.backend")),
+      skills: [...names("PHP", "Laravel", "Python", "C++"), { name: "R", note: String(t("skills.learning")) }],
     },
+    { key: "databases", category: String(t("skills.databases")), skills: names("MySQL", "SQLite") },
+    { key: "tools", category: String(t("skills.tools")), skills: names("Git", "Docker") },
     {
-      category: t("skills.databases"),
+      key: "ai",
+      category: String(t("skills.ai")),
+      wide: true,
       skills: [
-        "MySQL",
-        "SQLite",
-      ],
-    },
-    {
-      category: t("skills.tools"),
-      skills: [
-        "Git",
-        "Docker",
+        { name: "Claude", note: "Code · Duet · Cowork" },
+        { name: "ChatGPT", note: "Chat · Codex" },
+        ...names("Higgsfield", "Gemini", "Suno", "ElevenLabs"),
       ],
     },
   ];
@@ -53,7 +47,8 @@ const SkillsSection = () => {
       className="section-padding min-h-[100svh] max-w-6xl mx-auto relative z-10 flex flex-col justify-center"
     >
       <AnimatedSection>
-        <p className="text-sm font-medium tracking-widest uppercase text-primary mb-3">
+        <div className="section-divider !mt-0 !mb-6" />
+        <p className="text-sm font-medium tracking-widest uppercase text-accent-foreground mb-3">
           {t("skills.label")}
         </p>
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12">
@@ -61,23 +56,25 @@ const SkillsSection = () => {
         </h2>
       </AnimatedSection>
 
-      <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
+      <div className="skills-groups">
         {skillGroups.map((group, i) => (
-          <AnimatedSection key={String(group.category)} delay={i * 0.06}>
-            <div className="card-sky p-5 md:p-6 h-full">
-              <h3 className="font-body text-sm font-medium uppercase tracking-widest text-primary mb-5">
-                {group.category}
+          <AnimatedSection
+            key={group.key}
+            delay={i * 0.06}
+            className={group.wide ? "skills-groups__wide" : undefined}
+          >
+            <div className="skills-group">
+              <h3 className="skills-group__name">
+                <span className="skills-group__numeral">{NUMERALS[i]}</span>
+                <span>{group.category}</span>
               </h3>
-              <ul className="grid grid-cols-2 gap-x-5 gap-y-3">
+              <ul className={`skills-group__list${group.wide ? " skills-group__list--wide" : ""}`}>
                 {group.skills.map((skill) => (
-                  <li
-                    key={skill}
-                    className="text-base text-muted-foreground flex items-center gap-2"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                  <li key={skill.name} className="skills-item">
+                    <span className="skills-dot" aria-hidden="true" />
                     <span>
-                      {skill}
-                      {skill === "R" && <span className="block text-xs leading-normal mt-0.5">{t("skills.learning")}</span>}
+                      {skill.name}
+                      {skill.note && <span className="skills-item__note">{skill.note}</span>}
                     </span>
                   </li>
                 ))}

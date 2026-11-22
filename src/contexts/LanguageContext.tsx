@@ -29,9 +29,9 @@ const translations: Translations = {
     ru: ["Техник-программист", "Веб-разработчик", "Младший full-stack разработчик"],
   },
   "hero.value": {
-    en: "I like working fast, experimenting with CSS and turning ideas into websites that look good and load quickly.",
-    lv: "Man patīk strādāt ātri, eksperimentēt ar CSS un pārvērst idejas tīmekļa vietnēs, kas labi izskatās un ātri ielādējas.",
-    ru: "Мне нравится работать быстро, экспериментировать с CSS и превращать идеи в сайты, которые хорошо выглядят и быстро загружаются.",
+    en: "I turn ideas into things you can click, swipe and play.",
+    lv: "Es pārvēršu idejas lietās, kuras var klikšķināt, pārvilkt un spēlēt.",
+    ru: "Я превращаю идеи в то, что можно нажимать, листать и проходить.",
   },
   "hero.viewProjects": { en: "View Projects", lv: "Skatīt projektus", ru: "Смотреть проекты" },
   "hero.scrollPrompt": { en: "Scroll to explore", lv: "Ritini, lai apskatītu", ru: "Листайте дальше" },
@@ -107,6 +107,7 @@ const translations: Translations = {
 
   // Projects
   "projects.label": { en: "Projects", lv: "Projekti", ru: "Проекты" },
+  "projects.exploreTitle": { en: "Explore my work", lv: "Izpēti manus darbus", ru: "Посмотрите мои работы" },
   "projects.heading": { en: "Selected work", lv: "Izvēlētie darbi", ru: "Избранные работы" },
   "projects.featured": { en: "Featured Project", lv: "Galvenais projekts", ru: "Главный проект" },
   "projects.miniGame": { en: "Mini Game", lv: "Mini Spēle", ru: "Мини-игра" },
@@ -229,6 +230,7 @@ const translations: Translations = {
   "skills.backend": { en: "Backend & Programming", lv: "Aizmugursistēmas un programmēšana", ru: "Бэкенд и программирование" },
   "skills.databases": { en: "Databases", lv: "Datubāzes", ru: "Базы данных" },
   "skills.tools": { en: "Tools & DevOps", lv: "Rīki un DevOps", ru: "Инструменты и DevOps" },
+  "skills.ai": { en: "AI tools", lv: "MI rīki", ru: "ИИ-инструменты" },
 
   // Portfolio additions
   "projects.kiberdrossDesc": {
@@ -256,6 +258,9 @@ const translations: Translations = {
   "skills.learning": { en: "Currently studying", lv: "Pašlaik apgūstu", ru: "Сейчас изучаю" },
 
   "projects.closePreview": { en: "Close image", lv: "Aizvērt attēlu", ru: "Закрыть изображение" },
+  "projects.playVideo": { en: "Play video with sound", lv: "Atskaņot video ar skaņu", ru: "Смотреть видео со звуком" },
+  "projects.closeVideo": { en: "Close video", lv: "Aizvērt video", ru: "Закрыть видео" },
+  "projects.watchWithSound": { en: "Watch with sound", lv: "Skatīties ar skaņu", ru: "Смотреть со звуком" },
 
   // Contact
   "contact.label": { en: "Get in touch", lv: "Sazināties", ru: "Связаться" },

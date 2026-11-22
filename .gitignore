@@ -28,3 +28,6 @@ dist-ssr
 # Sky stills from Higgsfield; scripts/sky-drift.py turns them into public/sky
 raw-sky/
 raw-404/
+
+# 1080p ad originals; public/project-videos holds the 720p web encodes
+video-source/
