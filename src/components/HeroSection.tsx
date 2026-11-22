@@ -111,7 +111,7 @@ const HeroSection = () => {
               />
             </span>
           </h1>
-          <p className="hero-value max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+          <p className="hero-value max-w-2xl">
             {t("hero.value")}
           </p>
           <div className="hero-actions mt-6 flex flex-wrap gap-3">

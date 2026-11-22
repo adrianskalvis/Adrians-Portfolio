@@ -1,18 +1,107 @@
-.card-sky {
-  border: 1px solid hsl(var(--border) / 0.6);
-  border-radius: 1rem;
-  background: hsl(var(--card) / 0.7);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  box-shadow: var(--shadow-soft);
-  transition: all 0.35s ease-out;
+/* Skills: open groups in the site's editorial style (see .project-shard__name and
+   .about-chapter__eyebrow). Each group sits under a dotted blue rule instead of a boxed card. */
+
+.skills-groups {
+  display: grid;
+  gap: 44px 64px;
 }
 
-.card-sky:hover {
-  border-color: hsl(var(--primary) / 0.25);
-  background: hsl(var(--card) / 0.85);
-  box-shadow: var(--shadow-elevated);
+@media (min-width: 640px) {
+  .skills-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skills-groups__wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Round dots, 7px apart, drawn with a gradient so they stay round at any zoom. */
+.skills-group {
+  position: relative;
+  padding-top: 22px;
+}
+
+.skills-group::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-image: radial-gradient(circle, hsl(var(--accent-foreground) / 0.6) 1.1px, transparent 1.5px);
+  background-size: 7px 3px;
+  background-repeat: repeat-x;
+}
+
+.skills-group__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 18px;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.skills-group__numeral {
+  color: hsl(var(--accent-foreground));
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.skills-group__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .skills-group__list--wide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.skills-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: hsl(var(--foreground) / 0.8);
+  font-family: var(--font-text);
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Same blue as the dotted rule, so a bullet reads as one more dot from the line above. */
+.skills-dot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: hsl(var(--accent-foreground) / 0.7);
   transform: translateY(-2px);
+}
+
+.skills-item__note {
+  display: block;
+  margin-top: 2px;
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 .skills-scroll-cue {
@@ -22,7 +111,7 @@
   flex-direction: column;
   gap: 2px;
   margin: 34px 0 0 auto;
-  color: hsl(var(--primary));
+  color: hsl(var(--accent-foreground));
   font-size: 0.74rem;
   letter-spacing: 0.09em;
   line-height: 1.2;
@@ -38,10 +127,4 @@
 .skills-scroll-cue__icon .scroll-cue__arrow {
   width: 16px;
   height: 16px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card-sky {
-    transition-duration: 0.01ms !important;
-  }
 }

@@ -133,7 +133,8 @@
 .about-h__item--portrait { top: 0; width: min(44vh, 400px); }
 .about-h__item--start { top: 26%; width: min(30rem, 36vw); margin-left: 7vw; }
 .about-h__item--robotics { top: 4%; width: min(58vh, 540px); margin-left: 5vw; }
-.about-h__item--ideas { top: 40%; width: min(30rem, 36vw); margin-left: 5vw; }
+/* Chapter II is the longest, so it sits high enough to fit a 720px-tall laptop screen. */
+.about-h__item--ideas { top: 10%; width: min(30rem, 36vw); margin-left: 5vw; }
 .about-h__item--pcb3d { top: 2%; width: min(42vh, 380px); margin-left: 5vw; }
 .about-h__item--hardware { top: 30%; width: min(30rem, 36vw); margin-left: 5vw; }
 .about-h__item--cyprus { top: 4%; width: min(34vh, 300px); margin-left: 5vw; }
@@ -163,7 +164,12 @@
     width: 48px;
   }
 
-  /* Each pair is one column: photo above, chapter below, centred in the row's height. */
+  /* Each pair is one column: photo above, chapter below, starting right under the heading.
+     Centring them left a gap of about 150px above and below on a 852px-tall phone. */
+  .about-h {
+    --about-photo-max: clamp(120px, calc(100svh - 520px), 340px);
+  }
+
   .about-h__track {
     align-items: stretch;
     padding-right: 10vw;
@@ -173,10 +179,11 @@
     display: flex;
     flex: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 22px;
     width: 80vw;
-    margin-left: 12vw;
+    /* Wide enough that the previous photo's 50px shadow stays off screen while a pair rests. */
+    margin-left: 24vw;
   }
 
   .about-h__pair:first-child {
@@ -189,22 +196,17 @@
     margin-left: 0;
   }
 
-  /* Photos get a fixed share of the screen height so the longest chapter still fits below. */
+  /* Photos keep their own shape, capped in height so the longest chapter (about 270px)
+     still fits below: 332px on a 852px phone, 147px on a 667px one. */
   .about-h .about-h__item .about-photo__frame img {
     width: 100%;
-    height: clamp(104px, 19svh, 190px);
-    aspect-ratio: auto;
+    height: auto;
+    max-height: var(--about-photo-max);
     object-fit: cover;
   }
 
   .about-h .about-h__item--portrait .about-photo__frame {
-    width: clamp(150px, 29svh, 290px);
-  }
-
-  .about-h .about-h__item--portrait .about-photo__frame img,
-  .about-h .about-h__item--robotics .about-photo__frame img {
-    height: auto;
-    aspect-ratio: 1;
+    width: min(100%, var(--about-photo-max));
   }
 
   .about-h .about-h__item--robotics .about-photo__frame img {
@@ -254,13 +256,15 @@
   text-wrap: balance;
 }
 
+/* Larger and darker than before (was up to 1.18rem at 72%), closer to the 20px body text of
+   the lofi-folio reference, so the story reads at a glance. */
 .about-chapter__body {
   margin: 0;
-  color: hsl(var(--foreground) / 0.72);
+  color: hsl(var(--foreground) / 0.84);
   font-family: var(--font-text);
-  font-size: clamp(1.02rem, 2.1vh, 1.18rem);
+  font-size: clamp(1.1rem, 2.3vh, 1.3rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.5;
   text-wrap: pretty;
 }
 
@@ -270,13 +274,24 @@
   }
 
   .about-chapter__title {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     margin-bottom: 10px;
   }
 
   .about-chapter__body {
-    font-size: 0.97rem;
-    line-height: 1.5;
+    font-size: 1.06rem;
+    line-height: 1.48;
+  }
+}
+
+/* Short phones (iPhone SE, 667px): chapter II would run 13px past the stage at full size. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .about-chapter__title {
+    font-size: 1.7rem;
+  }
+
+  .about-chapter__body {
+    font-size: 1rem;
   }
 }
 

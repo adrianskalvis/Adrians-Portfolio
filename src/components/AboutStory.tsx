@@ -13,9 +13,15 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { clearTone, setTone, type Tone } from "@/lib/page-tone";
 import ImageViewer, { type ViewerImage } from "./ImageViewer";
 import { cyprusImage, hardwareImages, pick, portraitCaption, printerBoardImage, storyChapters } from "./about/aboutStory";
+import { steppedLength, steppedOffset, type SteppedPlan } from "./about/steppedRow";
 import "./AboutStory.css";
 
 const NUMERALS = ["I", "II", "III", "IV", "V", "VI"];
+
+/* Phones show one photo and chapter at a time. There the row rests on each pair for a third of
+   a screen of scrolling, then glides to the next, so a stop never lands between two chapters. */
+const PHONE_MAX_WIDTH = 767;
+const PHONE_REST_SHARE = 0.34;
 
 /* Pale sky tint for the page while the row travels (see src/lib/page-tone.ts). */
 const ABOUT_TONE: Tone = { light: [205, 70, 96], dark: [214, 26, 14] };
@@ -192,9 +198,11 @@ const AboutStory = () => {
   const viewportHeight = useMotionValue(0);
   const height = useMotionValue(0);
   const entryOffset = useMotionValue(0);
+  const phonePlan = useRef<SteppedPlan | null>(null);
 
   /* Section height = time spent pinned + one screen. Pinned travel ends when the last item
-     sits at the right content edge; the entry and exit screens add the diagonal moves. */
+     sits at the right content edge; the entry and exit screens add the diagonal moves.
+     On phones the pinned travel is the stepped plan's length instead. */
   useEffect(() => {
     const track = trackRef.current;
     if (!track || !pinned) return;
@@ -204,7 +212,14 @@ const AboutStory = () => {
       const padLeft = parseFloat(getComputedStyle(track).paddingLeft) || 0;
       const last = lastRef.current;
       const itemsEnd = last ? last.offsetLeft + last.offsetWidth : track.scrollWidth;
-      const next = Math.max(vh, itemsEnd - vw + padLeft + vh);
+      const pairs = [...track.querySelectorAll<HTMLElement>(".about-h__pair")];
+      phonePlan.current =
+        vw <= PHONE_MAX_WIDTH && pairs.length > 0
+          ? { stops: pairs.map((pair) => pair.offsetLeft - pairs[0].offsetLeft), rest: vh * PHONE_REST_SHARE }
+          : null;
+      const next = phonePlan.current
+        ? steppedLength(phonePlan.current) + vh
+        : Math.max(vh, itemsEnd - vw + padLeft + vh);
       /* How far right the row starts so the portrait's centre begins at the screen centre.
          Capped at half a screen so the entry never moves faster than the pinned scroll. */
       const portrait = portraitRef.current;
@@ -233,13 +248,19 @@ const AboutStory = () => {
 
   /* Entry eases out of rest: x = E(1 - (s/vh)^2), so the row starts still and reaches
      close to the pinned speed as the stage locks. After that it moves 1px per 1px scrolled. */
-  const rowX = useTransform([scrolled, viewportHeight, entryOffset], ([s, vh, e]: number[]) => {
+  const rowX = useTransform([scrolled, viewportHeight, entryOffset, height], ([s, vh, e]: number[]) => {
     if (!pinned || vh === 0) return 0;
     if (s < vh) {
       const t = s / vh;
       return e * (1 - t * t);
     }
-    return -(s - vh);
+    const travel = s - vh;
+    const plan = phonePlan.current;
+    if (!plan) return -travel;
+    // After the last rest the row keeps sliding 1:1 while the section scrolls away.
+    const pinnedLength = steppedLength(plan);
+    if (travel <= pinnedLength) return -steppedOffset(travel, plan);
+    return -(plan.stops[plan.stops.length - 1] + travel - pinnedLength);
   });
 
   /* The row fades in over the first 60% of the entry and out over the last 60% of the exit. */
